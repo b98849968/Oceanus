@@ -1,0 +1,154 @@
+ /* ============= footer Top informtion ============== */
+ 
+ .footer {
+     background: var(--main-background);
+     border-top: 2px solid white;
+     height: 240px;
+     padding: 15px 0;
+ }
+
+ .footerTop {
+     height: 100%;
+     font-family: Regular;
+     color: white;
+     display: flex;
+     justify-content: space-around;
+
+
+ }
+
+ .FooterComunication {
+     width: 20%;
+     height: 100%;
+ }
+
+ .FooterComunication h3 {
+     padding-right: 35px;
+ }
+
+ .FooterComunication h3::before {
+     content: '';
+     position: absolute;
+     height: 100%;
+     width: 3px;
+     right: 5px;
+     background: var(--icon-colors);
+
+ }
+
+ .FooterComunication h3 {
+     margin-bottom: 20px;
+     position: relative;
+     padding-right: 35px;
+ }
+
+ .FooterComunication div p {
+     display: flex;
+     align-items: center;
+     color: var(--derk-color);
+     cursor: pointer;
+     padding: 10px 0;
+ }
+
+ .FooterComunication div p span {
+     transition: all 0.25s ease-in-out;
+ }
+
+ .FooterComunication div p span:hover {
+     color: var(--pren-color);
+ }
+
+ .FooterComunication div p span {
+     padding-right: 10px;
+     color: var(--derk-color)
+ }
+
+ .FooterComunication div p .comunicationIcons {
+     color: var(--icon-colors);
+ }
+
+ .footerLinks {
+     width: 20%;
+     height: 100%;
+     ;
+ }
+
+ .footerLinks h3::before {
+     content: '';
+     position: absolute;
+     height: 100%;
+     width: 3px;
+     right: 5px;
+     background: var(--button-red);
+ }
+
+ .footerLinks h3 {
+     margin-bottom: 20px;
+     position: relative;
+     padding-right: 35px;
+ }
+
+ .footerLinks div ul {
+     height: 60%;
+     ;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-around;
+     align-items: flex-start;
+ }
+
+ .footerLinks div ul li {
+     padding: 10px 0;
+ }
+
+ .footerLinks div ul li a {
+     color: var(--derk-color);
+     cursor: pointer;
+     padding: 15px 0;
+     transition: all 0.25s ease-in-out;
+ }
+   
+ .footerLinks div ul li a:hover {
+     color: var(--pren-color);
+ }
+
+
+ .footerLD {
+     width: 33%;
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-around;
+     align-items: self-start;
+
+ }
+
+ .footerLD img {
+     width: 210px;
+ }
+
+ .footerLD p {
+     font-size: 17px;
+     font-family: Lights;
+     font-weight: 300;
+     word-spacing: 4px;
+     line-height: 1.6;
+ }
+
+ /* ============= footer Bottom informtion ============== */
+
+ .footerBottom {
+     color: var(--derk-color);
+    font-family: Lights;
+    background: var(--main-background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:20px 60px ;
+    margin: 10px 0;
+    height: 60px;
+    border-top: 1.5px solid var(--derk-color);
+ }
+  .footerBottom .copy{
+      color: var(--derk-color);
+  }

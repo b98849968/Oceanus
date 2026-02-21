@@ -1,0 +1,287 @@
+.communication-page {
+    /* background-color: var(--white-background); */
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+.communication-header {
+    background: var(--main-color);
+    color: var(--white-color, #ffffff);
+    padding: 80px 20px 120px;
+    text-align: center;
+}
+
+.communication-header .header-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.communication-header h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: Bolds, sans-serif;
+    font-weight: 700;
+}
+
+.communication-header p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    font-family: Regular, sans-serif;
+    opacity: 0.95;
+}
+
+.communication-container {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+    display: flex;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+    align-items: flex-start;
+}
+
+/* RTL: cards section comes first in HTML, so it aligns to the right */
+.contact-cards-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.top-action-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.action-card {
+    flex: 1;
+    background: var(--white-color, #ffffff);
+    border-radius: 20px;
+    padding: 25px 25px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 6px;
+    border-radius: 0 20px 20px 0;
+}
+
+.whatsapp-card::after {
+    background-color: #25D366;
+}
+
+.phone-card::after {
+    background-color: var(--button-red, #d01418);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
+    color: var(--derk-color, #717171);
+    font-family: Regular, sans-serif;
+    font-weight: 500;
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.whatsapp-icon {
+    background-color: #e8f9ef;
+    color: #25D366;
+}
+
+.phone-icon {
+    background-color: #fcebeb;
+    color: var(--button-red, #d01418);
+}
+
+.card-body h3 {
+    font-size: 1.4rem;
+    color: var(--main-color, #004e88);
+    margin-bottom: 5px;
+    font-family: Bolds, sans-serif;
+    font-weight: 700;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    color: var(--pren-color, #666666);
+    font-family: Lights, sans-serif;
+    margin-bottom: 25px;
+}
+
+.action-card .btn {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: Regular, sans-serif;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.05rem;
+}
+
+.whatsapp-btn {
+    background-color: #25D366;
+    /* WhatsApp Green */
+}
+
+.whatsapp-btn:hover {
+    background-color: #1ea952;
+}
+
+.phone-btn {
+    background-color: var(--button-red, #d01418);
+}
+
+.phone-btn:hover {
+    background-color: #a81014;
+}
+
+.info-card {
+    background: #fffcf8;
+    /* Light warm beige */
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.info-card-title {
+    font-size: 1.5rem;
+    color: var(--main-color, #004e88);
+    margin-bottom: 30px;
+    font-family: Bolds, sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.info-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    background-color: #f0f4f8;
+    color: var(--main-color, #004e88);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.info-text h4 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-family: Regular, sans-serif;
+    font-weight: 600;
+}
+
+.info-text p {
+    font-size: 0.95rem;
+    color: var(--derk-color, #717171);
+    font-family: Lights, sans-serif;
+    line-height: 1.7;
+}
+
+/* Map Section */
+.map-section {
+    flex: 1.3;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    background: white;
+    height: 650px;
+    border: 12px solid white;
+}
+
+.map-skeleton {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--derk-color);
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+    .communication-container {
+        flex-direction: column;
+    }
+
+    .map-section {
+        width: 100%;
+        height: 450px;
+        order: 2;
+        /* Map at the bottom on tablet/mobile */
+    }
+
+    .contact-cards-section {
+        width: 100%;
+        order: 1;
+        /* Cards above map on tablet/mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .communication-header {
+        padding: 60px 15px 100px;
+    }
+
+    .communication-header h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .top-action-cards {
+        flex-direction: column;
+    }
+
+    .communication-container {
+        margin-top: -40px;
+    }
+}

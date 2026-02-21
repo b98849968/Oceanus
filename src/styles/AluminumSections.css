@@ -1,0 +1,63 @@
+.AluminumSections {
+    background: var(--white-background);
+    padding: 20px 0;
+    border-top: 2px solid var(--icon-colors);
+}
+
+.SectionsTitle {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.SectionsTitle h3 {
+    font-family: Regular;
+    font-weight: 700;
+    font-size: 50px;
+    padding: 20px 0;
+    word-spacing: 5px;
+
+}
+
+.SectionsTitle hr {
+    width: 100px;
+    border-radius: 20px;
+    height: 6px;
+    border: none;
+    background: var(--icon-colors);
+    margin: 0 0 10px 0;
+}
+
+.SectionsTitle .SectionsP {
+    font-family: Lights;
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--derk-color);
+    word-spacing: 4px;
+    padding: 20px 0;
+}
+
+/* ============ Aluminum Sections ============= */
+
+.AluminumSectionsCards {
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-around;
+
+}
+
+.AluminumSectionsButtons {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}

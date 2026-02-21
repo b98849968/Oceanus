@@ -1,0 +1,40 @@
+.exhibitions-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    direction: rtl;
+    /* Ensures proper alignment for Arabic text */
+    margin: 16px 0;
+}
+
+.exhibition-button {
+    padding: 8px 32px;
+    border-radius: 50px;
+    /* Fully rounded "pill" shape */
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 2px solid #e7ebef;
+    /* Light gray-blue border */
+    color: #3b4968;
+    /* Navy blue text */
+    font-family: inherit;
+    outline: none;
+    white-space: nowrap;
+}
+
+.exhibition-button:hover {
+    background-color: #f8fafc;
+}
+
+.exhibition-button.active {
+    background-color: #fffcf4;
+    /* Light yellowish/orange background */
+    border-color: #f5a623;
+    /* Bright orange border */
+    color: #a65800;
+    /* Darker orange/brown text */
+}

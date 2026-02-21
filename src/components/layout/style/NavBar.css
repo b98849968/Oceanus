@@ -1,0 +1,65 @@
+.navBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: rgb(101, 101, 101); */
+    font-family: Regular;
+    font-weight: 300;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    background: var(--white-color);
+    z-index: 999999;
+    top: 0;
+    box-shadow: 1px  0  10px  0px  var(--bordr-color);
+}
+
+.logoImge {
+    width: 15%;
+    padding: 10px 0;
+}
+
+.logoImge img {
+    width: 210px;
+}
+
+.ListItem {
+    width: 40%;
+}
+
+.ListItem ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.ListItem ul li a {
+    font-size: 17px;
+    color: var(--derk-color);
+    cursor: pointer;
+}
+
+
+.ListItem ul li a:hover {
+    color: var(--main-color);
+}
+
+.navButton {
+    width: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.navButton button {
+    background: var(--button-red);
+    font-family: Regular;
+    font-weight: 400;
+}
+
+.navButton .iconDirk {
+    color: var(--derk-color);
+
+}

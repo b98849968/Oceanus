@@ -1,0 +1,187 @@
+.project-card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    /* Adjust height based on your layout needs */
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    /* Smooth transition for the whole card if needed */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Image styling */
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+/* Zoom effect on hover */
+.project-card:hover .project-image {
+    transform: scale(1.08);
+}
+
+/* Gradient Overlay - Always visible but gets darker on hover */
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(15, 23, 42, 0.05) 0%,
+            rgba(15, 23, 42, 0.1) 40%,
+            rgba(15, 23, 42, 0.6) 70%,
+            rgba(15, 23, 42, 0.9) 100%);
+    z-index: 1;
+    transition: opacity 0.4s ease, background 0.4s ease;
+}
+
+/* Darker overlay on hover */
+.project-card:hover .project-overlay {
+    background: linear-gradient(to bottom,
+            rgba(15, 23, 42, 0.2) 0%,
+            rgba(15, 23, 42, 0.4) 40%,
+            rgba(15, 23, 42, 0.8) 60%,
+            rgba(15, 23, 42, 0.95) 100%);
+}
+
+/* Content Container */
+.project-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+/* Top Badge */
+.project-badge {
+    align-self: flex-end;
+    /* Aligns to left in RTL */
+    background-color: #1a2235;
+    /* Dark blue background */
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-family: Bolds, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Info Section */
+.project-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Right in RTL */
+}
+
+.project-subtitle {
+    font-family: Bolds, sans-serif;
+    font-size: 0.95rem;
+    color: #1a2235;
+    /* Very dark blue matching design */
+    margin-bottom: 5px;
+    font-weight: 700;
+    transition: color 0.4s ease;
+}
+
+/* Subtitle turns white on hover to stand out against darker gradient */
+.project-card:hover .project-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.project-title {
+    font-family: Regular, sans-serif;
+    font-size: 2.0rem;
+    color: white;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* Hover Details Section */
+.project-details-hover {
+    width: 100%;
+    margin-top: 15px;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(20px);
+}
+
+/* Show details on hover */
+.project-card:hover .project-details-hover {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 25px;
+    /* Add space when revealed */
+    padding-bottom: 10px;
+}
+
+.project-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Keep it right aligned but flex row reverse visually */
+    gap: 15px  ;
+    padding: 10px 15px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.link-text {
+    font-family: Bolds, sans-serif;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.link-icon-wrapper {
+    background-color: #d16100;
+    /* Orange color from design */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.eye-icon {
+    color: white;
+    font-size: 1.2rem !important;
+}
+
+/* Hover effect on the link specifically */
+.project-link:hover .link-icon-wrapper {
+    transform: scale(1.1);
+    background-color: #e66a00;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .project-card {
+        height: 400px;
+    }
+
+    .project-title {
+        font-size: 1.8rem;
+    }
+
+    /* On mobile touch devices, we might want to show the hover state partially or make it toggleable,
+     but for now we stick to CSS hover which acts as a tap on mobile */
+}

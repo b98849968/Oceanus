@@ -1,0 +1,90 @@
+.notfound-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    /* Adjust based on header/footer size */
+    background-color: var(--white-background, #f8fafc);
+    direction: rtl;
+    /* For Arabic text */
+    padding: 20px;
+}
+
+.notfound-content {
+    text-align: center;
+    background: white;
+    padding: 50px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    width: 100%;
+}
+
+.notfound-code {
+    font-family: 'Blacks', 'Bolds', sans-serif;
+    font-size: 100px;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3a8a, #df7b0d);
+    /* Mixing project colors Navy & Orange */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+}
+
+.notfound-title {
+    font-family: 'Bolds', sans-serif;
+    font-size: 32px;
+    color: #121c2d;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.notfound-message {
+    font-family: 'Regular', sans-serif;
+    font-size: 18px;
+    color: #64748b;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.notfound-button {
+    display: inline-block;
+    background-color: var(--main-color, #df7b0d);
+    /* Use main orange or fallback */
+    color: white;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-family: 'Bolds', sans-serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(223, 123, 13, 0.3);
+}
+
+.notfound-button:hover {
+    background-color: #c96b0b;
+    transform: translateY(-2px);
+    color: white;
+    /* Ensure text stays white */
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .notfound-code {
+        font-size: 70px;
+    }
+
+    .notfound-title {
+        font-size: 24px;
+    }
+
+    .notfound-message {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .notfound-content {
+        padding: 30px 20px;
+    }
+}

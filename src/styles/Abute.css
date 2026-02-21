@@ -1,0 +1,145 @@
+.Abute {
+    padding: 0 30px;
+    height: 80vh;
+    width: 100%;
+    /* background: blue; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.AbuteImg::before {
+    position: absolute;
+    content: '';
+    width: 590px;
+    height: 500px;
+    right: 0;
+    background: rgba(243, 207, 142, 0.401);
+    border-radius: 30px;
+    transform: rotate(2.5deg);
+    z-index: -100000 !important;
+    transition: all 0.3s ease;
+}
+
+.AbuteImg {
+    position: relative;
+    width: 590px;
+    height: 500px;
+    border-radius: 30px;
+    z-index: 1100;
+}
+
+.AbuteImg .AbuteImgContent {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 30px;
+    background: url(../assets/images/AbuteImg.png) center center / cover no-repeat;
+
+}
+
+.AbuteImg div:hover~.AbuteImg::before,
+.AbuteImg:hover::before {
+    transform: rotate(6.5deg);
+}
+
+.engineeringImgs {
+    width: 95%;
+    position: absolute;
+    display: flex;
+    bottom: 20px;
+    right: 15px;
+    justify-content: right;
+    align-items: center;
+    background: var(--whiteAlpha-color);
+    padding: 24px 25px;
+    border-radius: 15px;
+    border-right: 4px solid var(--button-red);
+}
+
+.AbuteIcon {
+    color: var(--main-color);
+    background: rgba(98, 168, 226, 0.219);
+    padding: 15px 10px;
+    border-radius: 30px;
+    margin-left: 25px;
+}
+
+.AbuteIcon .EngineeringIcon {
+    font-size: 30px;
+}
+
+.AbuteTextEng h4 {
+    font-family: Regular;
+    font-weight: 700;
+}
+
+.AbuteTextEng p {
+    font-family: Lights;
+    font-weight: 200;
+    font-size: 13px;
+    padding: 10px 0;
+}
+
+/* =================   Description of  Abute ============== */
+
+
+.DescriptionAbute {
+    width: 45%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: self-start;
+}
+
+.DescriptionAbute .we {
+    color: var(--button-red);
+    font-family: Regular;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.DescriptionAbute .title {
+    padding-top: 10px;
+    color: var(--main-background);
+    font-family: Bolds;
+    font-weight: 800;
+    font-size: 32px;
+}
+
+.DescriptionAbute .title span {
+    color: var(--main-color);
+}
+
+.DescriptionAbute .textAbute {
+    color: var(--derk-color);
+    font-family: Lights;
+    font-weight: 500;
+    font-size: 18px;
+    word-spacing: 4px;
+    line-height: 1.6;
+}
+
+.DescriptionAbute .textAbute p {
+    padding: 20px 0;
+}
+
+.DescriptionAbute div ul li {
+    padding: 6px 0;
+    font-family: Lights;
+    font-weight: 300;
+    color: var(--derk-color);
+    display: flex;
+    align-items: center;
+
+}
+.DescriptionAbute div ul li span:not(.checkLine){
+    padding-bottom: 5px ;
+}
+.DescriptionAbute div ul li .checkLine {
+    color: var(--icon-colors);
+    padding-left: 10px;
+}

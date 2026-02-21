@@ -1,0 +1,297 @@
+/* src/components/common/style/projectCardDisply.css */
+
+.pcd-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 36, 50, 0.85);
+    /* لون الخلفية الشفافة الغامق */
+    backdrop-filter: blur(5px);
+    /* تأثير ضبابي اختياري للخلفية */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    direction: rtl;
+    /* دعم اللغة العربية */
+}
+
+.pcd-modal-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1000px;
+    height: 85vh;
+    /* أو ارتفاع ثابت محدد 600px */
+    max-height: 650px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    /* لمنع خروج المحتوى عن الحدود المستديرة */
+}
+
+/* زر الإغلاق في أعلى اليسار */
+.pcd-close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    /* لليسار لأن الاتجاه rtl */
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    padding-bottom: 4px;
+    /* لضبط حرف  x ليكون في المنتصف تماما */
+}
+
+.pcd-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.pcd-modal-content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+/* ------ القسم الأيمن: النص والتفاصيل ------ */
+.pcd-details-section {
+    flex: 0 0 45%;
+    /* يأخذ 45٪ من المساحة */
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* التاج/الأقسام أعلى العنوان */
+.pcd-tags {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.pcd-tag-category {
+    background-color: #f1f5f9;
+    color: #3b4968;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-family: 'Bolds', sans-serif;
+    font-size: 14px;
+}
+
+.pcd-tag-sub {
+    background-color: #fffcf4;
+    color: #df7b0d;
+    border: 1px solid #fcefd6;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-family: 'Bolds', sans-serif;
+    font-size: 14px;
+}
+
+/* العناوين والوصف */
+.pcd-title {
+    font-family: 'Blacks', 'Bolds', sans-serif;
+    font-size: 36px;
+    color: #121c2d;
+    margin: 0 0 24px 0;
+    line-height: 1.3;
+}
+
+.pcd-description {
+    font-family: 'Regular', sans-serif;
+    color: #64748b;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
+    flex-grow: 1;
+    /* يدفع صندوق التواصل للأسفل إذا كان المحتوى قصيراً */
+}
+
+/* صندوق طلب واتساب أدنى النص */
+.pcd-contact-box {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.pcd-contact-box p {
+    font-family: 'Bolds', sans-serif;
+    color: #3b4968;
+    font-size: 16px;
+    margin: 0 0 16px 0;
+}
+
+.pcd-btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #25d366;
+    /* لون واتساب الرسمي */
+    color: white;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-family: 'Bolds', sans-serif;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pcd-btn-whatsapp i {
+    font-size: 22px;
+}
+
+.pcd-btn-whatsapp:hover {
+    background-color: #1ebc59;
+    transform: translateY(-2px);
+}
+
+/* ------ القسم الأيسر: الصور ------ */
+.pcd-image-section {
+    flex: 0 0 55%;
+    /* يأخذ 55٪ من المساحة */
+    position: relative;
+    background-color: #f1f5f9;
+}
+
+.pcd-main-image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: zoom-in;
+    /* إشارة للمستخدم بإمكانية التكبير/تنزيل */
+}
+
+/* زر التنزيل */
+.pcd-download-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    /* لليمين أعلى الصورة */
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #3b4968;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pcd-download-btn:hover {
+    background-color: #df7b0d;
+    /* برتقالي المشروع */
+    color: white;
+    transform: translateY(-2px);
+}
+
+.pcd-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* شريط الصور المصغرة السفلي */
+.pcd-thumbnails {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+}
+
+.pcd-thumb-container {
+    width: 80px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.pcd-thumb-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pcd-thumb-container:hover {
+    opacity: 1;
+}
+
+/* عند اختيار الصورة */
+.pcd-thumb-container.active {
+    border-color: #df7b0d;
+    /* إطار برتقالي */
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* التجاوب مع الجوال والشاشات الصغيرة */
+@media (max-width: 900px) {
+    .pcd-modal-container {
+        height: 90vh;
+        max-height: none;
+        overflow-y: auto;
+        /* السماح بالتمرير لكامل المودال على الجوال */
+    }
+
+    .pcd-modal-content {
+        flex-direction: column-reverse;
+        /* جعل الصورة بالأعلى والنص بالأسفل */
+        height: auto;
+    }
+
+    .pcd-image-section {
+        flex: none;
+        height: 40VH;
+        /* ارتفاع الصورة في الجوال */
+    }
+
+    .pcd-details-section {
+        flex: none;
+        padding: 24px 20px;
+        overflow-y: visible;
+        /* إزالة التمرير الداخلي للنص */
+    }
+
+    .pcd-title {
+        font-size: 28px;
+    }
+
+    .pcd-close-btn {
+        top: 10px;
+        left: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}

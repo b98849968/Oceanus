@@ -1,0 +1,174 @@
+/* src/styles/ExhibitionsHeader.css */
+
+.exhibitions-header-container {
+    width: 100%;
+    min-height: 80vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    direction: rtl;
+    /* لدعم اللغة العربية */
+    display: flex;
+    margin-top: 70px;
+}
+
+/* التدرج اللوني الذي يخفي الصورة كما في التصميم */
+.exh-fade-overlay {
+    width: 100%;
+    min-height: 100%;
+    /* تدرج من الأبيض الشفاف في الأعلى إلى الأبيض الكامل في الأسفل */
+    background: linear-gradient(to bottom, rgba(248, 250, 252, 0.4) 0%, rgba(248, 250, 252, 0.85) 40%, rgba(248, 250, 252, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.exh-content-wrapper {
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+/* تصميم التاج الصغير من الأعلى */
+.exh-badge {
+    background-color: #fcefd6;
+    /* برتقالي/أصفر فاتح جداً */
+   color: var(--icon-colors);
+    /* برتقالي داكن */
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-family: 'Bolds', sans-serif;
+    /* الخط من مشروعك */
+    font-size: 14px;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* العنوان الرئيسي وتفرعاته */
+.exh-main-title {
+    font-size: 60px;
+    margin: 0;
+    line-height: 1.25;
+}
+
+/* ألوان طلب المستخدم: أزرق (Navy Blue) وبرتقالي */
+.exh-title-navy {
+    font-family: 'Blacks', 'Bolds', sans-serif;
+    color: var(--main-background);
+    /* أزرق داكن (Navy Blue) حسب التصميم */
+}
+
+.exh-title-orange {
+    font-family: 'Blacks', 'Bolds', sans-serif;
+    /* color: var(--Header-color); */
+    background-image: linear-gradient(to right, #7a7342, #C5A059);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    
+}
+
+/* وصف أسفل العنوان الرئيسي */
+.exh-description {
+    font-family: 'Regular', sans-serif;
+    color: #3b4968;
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 650px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+/* صندوق الأزرار */
+.exh-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* زر "تواصل معنا" (مستقبل الـ API والأزرق) */
+.exh-btn-contact {
+    background-color: #ffffff;
+    color: #1e3a8a;
+    /* الأزرق كما طلب المستخدم */
+    border: 1px solid #e2e8f0;
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-family: 'Bolds', sans-serif;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.exh-btn-contact:hover {
+    background-color: #f8fafc;
+    border-color: #1e3a8a;
+    transform: translateY(-2px);
+}
+
+.exh-btn-contact i {
+    font-size: 16px;
+    transform: scaleX(-1);
+    /* لقلب أيقونة الهاتف ناحية اللغة العربية إذا دعت الحاجة */
+}
+
+/* زر "تصفح أعمالنا" (برتقالي) */
+.exh-btn-browse {
+    /* background-color: #df7b0d; */
+    background-color: var(--main-color);
+    /* برتقالي */
+    color: #ffffff;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-family: 'Bolds', sans-serif;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(223, 123, 13, 0.3);
+}
+
+.exh-btn-browse:hover {
+    background-color: #c96b0b;
+    transform: translateY(-2px);
+}
+
+/* شاشات الجوال */
+@media (max-width: 768px) {
+    .exh-main-title {
+        font-size: 38px;
+    }
+
+    .exh-description {
+        font-size: 17px;
+    }
+
+    .exh-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .exh-btn-contact,
+    .exh-btn-browse {
+        width: 100%;
+        justify-content: center;
+    }
+}

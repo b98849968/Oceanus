@@ -16,6 +16,9 @@ import AluminumSections from "./Pages/AluminumSections";
  import NotFound from "./Pages/NotFound";
  import ProjectCardDisply from "./components/common/projectCardDisply";
  import ExhibitionsHeader from "./Pages/ExhibitionsHeader";
+ import ContactSection from "./components/layout/ContactSection";
+ import WhatsAppSection from "./components/layout/WhatsAppSection";
+ 
  
  
  
@@ -36,18 +39,17 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
          
-            {/* <NavBar /> */}
-          {/* <Header/>   */}
-          {/* <Abute/> */}
-         {/* <ExhibitionsHeader/> */}
-       <ProjectCardDisply/>
-         {/* <AluminumSections/> */}
-       
-         {/* <OurFeatures/>   */}
-          {/* <HomeDecor/> */}
-          {/* <CommunicationLocation/> */}
-          {/* <FastCommunication/>   */}
-            {/* <Footer/>   */}
+            <NavBar />
+          <Header/>  
+          <Abute/>
+         <ContactSection/>
+         <WhatsAppSection/>
+        <AluminumSections/>
+         <OurFeatures/>  
+          <HomeDecor/>
+          <CommunicationLocation/>
+          <FastCommunication/>  
+            <Footer/>  
             {/* <NotFound/> */}
       </ThemeProvider>
     </div>

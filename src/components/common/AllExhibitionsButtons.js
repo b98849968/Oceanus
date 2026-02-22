@@ -10,7 +10,7 @@ const AllExhibitionsButtons = ({ categories, onCategorySelect }) => {
     // قائمة افتراضية في حال لم يتم تمرير بيانات من الـ API
     const defaultCategories = [
         { id: 'all', name: 'جميع المعارض' },
-        { id: 'wood', name: 'الخشب' },
+        { id: 'wood', name: 'الديكور ' },
         { id: 'aluminum', name: 'الألمنيوم' },
     ];
 

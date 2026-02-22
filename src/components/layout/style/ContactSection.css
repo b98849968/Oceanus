@@ -1,0 +1,209 @@
+/* ContactSection.css */
+
+.contact-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 30, 40, 0.7);
+    /* dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(4px);
+    padding: 20px;
+}
+
+.contact-modal-content {
+    background-color: #ffffff;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 30px 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+    direction: rtl;
+    /* RTL for Arabic */
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contact-close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.contact-close-btn svg {
+    font-size: 28px;
+}
+
+.contact-close-btn:hover {
+    color: #1e293b;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-header-icon {
+    background-color: #fef3c7;
+    /* light yellow bg */
+    color: #d97706;
+    /* orange-brown icon color */
+    width: 75px;
+    height: 75px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.contact-header-icon svg {
+    font-size: 38px;
+}
+
+.contact-title {
+    color: #0f172a;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    font-family: 'Rubiks', sans-serif;
+}
+
+.contact-subtitle {
+    color: #64748b;
+    font-size: 15px;
+    margin: 0;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.contact-card {
+    display: flex;
+    justify-content: flex-end;
+    /* Align contents to the right */
+    align-items: center;
+    background-color: #f8fafc;
+    border-radius: 16px;
+    padding: 20px 25px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.contact-card:hover {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+.contact-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center the text inside the info block as in the image */
+    text-align: center;
+    flex: 1;
+    /* Allow it to take up available space so it centers naturally within its area */
+}
+
+/* Adjust if we want the info totally centered in the card while icon is on the right */
+.contact-card {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-card-icon {
+    position: absolute;
+    right: 20px;
+    /* Force icon to the right side */
+    background-color: #ffffff;
+    color: #d97706;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-card-icon svg {
+    font-size: 24px;
+}
+
+.contact-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 50px;
+    /* Space for the absolute icon so text doesn't overlap */
+}
+
+.contact-category {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.contact-number {
+    color: #0f172a;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    direction: ltr;
+    /* English numbers left-to-right */
+    display: inline-block;
+}
+
+.contact-footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.loading-text {
+    text-align: center;
+    color: #64748b;
+    font-size: 16px;
+    padding: 20px 0;
+}

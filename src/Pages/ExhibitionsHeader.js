@@ -6,8 +6,11 @@ import "../styles/Familys.css";
 // قمت بوضع خلفية افتراضية كمثال، يمكنك تغييرها بكل بساطة.
 // ==============  import icoms   ====================//
 import CallIcon from '@mui/icons-material/Call';
- import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
- import bgImg from "../assets/images/ExhibitionsHeader.jpg";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import bgImg from "../assets/images/ExhibitionsHeader.jpg";
+import { useContact } from "../context/ContactContext";
+import { fetchAPI, ENDPOINTS } from "../API";
+
 export default function ExhibitionsHeader({ contactApiEndpoint }) {
     // تعريف State زر التواصل
     const [contactData, setContactData] = useState({
@@ -15,31 +18,36 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
         label: "تواصل معنا"
     });
 
+    const { openContact } = useContact();
+
     // جلب بيانات الاتصال من API إذا وُجد
     useEffect(() => {
-        if (contactApiEndpoint) {
-            fetch(contactApiEndpoint)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.phone) {
-                        setContactData({
-                            phone: data.phone,
-                            label: data.label || "تواصل معنا"
-                        });
-                    }
-                })
-                .catch(err => console.error("Error fetching contact data:", err));
-        }
-    }, [contactApiEndpoint]);
+        fetchAPI(ENDPOINTS.getSettings)
+            .then(response => {
+                const settings = response.data || response;
+                // Try phone, or first phone from array if available
+                const firstPhone = settings.phones && settings.phones[0];
+                const parsedPhone = firstPhone
+                    ? (typeof firstPhone === 'object' ? (firstPhone.number || firstPhone.phone) : firstPhone)
+                    : null;
+
+                const phoneSetting = settings.phone || parsedPhone || contactData.phone;
+                setContactData({
+                    phone: phoneSetting,
+                    label: settings.label || "تواصل معنا"
+                });
+            })
+            .catch(err => console.error("Error fetching contact data:", err));
+    }, []);
 
     return (
         <section
             className="exhibitions-header-container"
-        style={{ backgroundImage: `url(${bgImg})` }}
+            style={{ backgroundImage: `url(${bgImg})` }}
         >
             <div className="exh-fade-overlay">
                 <div className="exh-content-wrapper">
-        
+
                     {/* التاج العلوي */}
                     <div className="exh-badge">
                         إتقان في كل تفصيلة <span>✦</span> خبرة تتجاوز التوقعات
@@ -60,13 +68,21 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
 
                     {/* أزرار الإجراء */}
                     <div className="exh-actions">
-                        <a href={`tel:${contactData.phone}`} className="exh-btn-contact">
+                        <button onClick={openContact} className="exh-btn-contact" style={{ border: 'none', cursor: 'pointer' }}>
                             {contactData.label}
                             {/* أيقونة الهاتف (تعتمد على مشروعك إذا تستخدم FontAwesome) */}
                             <CallIcon />
-                        </a>
+                        </button>
 
-                        <button className="exh-btn-browse">
+                        <button
+                            className="exh-btn-browse"
+                            onClick={() => {
+                                const el = document.getElementById("exhibitions-gallery");
+                                if (el) {
+                                    el.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
+                        >
                             تصفح أعمالنا
                             {/* أيقونة السهم للأسفل */}
                             {/* <i className="fa fa-arrow-down"></i> */}

@@ -1,0 +1,57 @@
+/* 
+ * إضافات إضافية يمكن أن تساعد في جعل النصوص والمربعات متوافقة
+ * في حالة كانت بعض العناصر لا تستخدم المتغيرات بشكل مباشر
+ */
+
+body.dark-mode p {
+    color: var(--pren-color);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: var(--derk-color);
+}
+
+/* src/styles/darkMode.css */
+
+body.dark-mode {
+    --main-color: #3baeff;
+    /* لون أزرق فاتح مريح للعين في الوضع المظلم */
+    --Header-color: linear-gradient(to right, rgba(15 23 42 / 0.95), rgb(0 45 85 / 0.95));
+    --main-background: #0f172a;
+    /* خلفية داكنة رئيسية */
+    --derk-color: #e2e8f0;
+    /* لون نصوص أساسي فاتح */
+    --whiteAlpha-color: #ffffff1a;
+    /* شفافية للبطاقات وغيرها */
+    --white-color: #1e293b;
+    /* الألوان التي كانت بيضاء أصبحت داكنة للبطاقات الخلفية */
+    --white-background: #1e293b;
+    /* خلفية الأقسام الفاتحة تصبح داكنة */
+    --pren-color: #cbd5e1;
+    /* لون نصوص ثانوي وفاتح قليلاً */
+    --button-red: #ef4444;
+    /* لون أحمر زاهي */
+    --button-blue: #3baeff40;
+    /* خلفية زرقاء شفافة للأزرار */
+    --bordr-color: #334155;
+    /* لون حواف داكن */
+    --icon-colors: #fbbf24;
+    /* لون أيقونات ذهبي/أصفر مريح */
+    
+    background-color: var(--main-background);
+    color: var(--derk-color);
+    --title-color: #0e1527 !important;
+    --Prgraf-color: #0e1527 !important;
+}
+
+
+
+/* الأزرار أو الروابط إذا احتاجت إلى تخصيص */
+body.dark-mode a {
+    color: var(--main-color);
+}

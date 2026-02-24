@@ -16,18 +16,20 @@
     margin: 0 auto;
 }
 
-.communication-header h1 {
+.communication-header .text-white {
     font-size: 3rem;
     margin-bottom: 20px;
+    color: var(--title-color);
     font-family: Bolds, sans-serif;
     font-weight: 700;
 }
 
-.communication-header p {
+.communication-header .p-white {
     font-size: 1.15rem;
     line-height: 1.8;
     font-family: Regular, sans-serif;
     opacity: 0.95;
+    color: var(--Prgraf-color);
 }
 
 .communication-container {
@@ -56,7 +58,7 @@
 
 .action-card {
     flex: 1;
-    background: var(--white-color, #ffffff);
+    background: var(--white-background);
     border-radius: 20px;
     padding: 25px 25px 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
@@ -76,7 +78,7 @@
     border-radius: 0 20px 20px 0;
 }
 
-.whatsapp-card::after {
+.whatsapp-cards::after {
     background-color: #25D366;
 }
 
@@ -167,7 +169,7 @@
 }
 
 .info-card {
-    background: #fffcf8;
+    background: var(--white-background);
     /* Light warm beige */
     border-radius: 20px;
     padding: 35px;
@@ -198,7 +200,7 @@
 .info-icon-wrapper {
     width: 45px;
     height: 45px;
-    background-color: #f0f4f8;
+    /* background-color:  #dcdcdc9f; */
     color: var(--main-color, #004e88);
     border-radius: 50%;
     display: flex;
@@ -210,7 +212,7 @@
 
 .info-text h4 {
     font-size: 1.1rem;
-    color: #333;
+    color: var(--derk-color);
     margin-bottom: 8px;
     font-family: Regular, sans-serif;
     font-weight: 600;
@@ -229,9 +231,9 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    background: white;
+    background: var(--white-background);
     height: 650px;
-    border: 12px solid white;
+    border: 12px solid var(--white-background);
 }
 
 .map-skeleton {

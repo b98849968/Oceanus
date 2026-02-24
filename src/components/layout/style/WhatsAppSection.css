@@ -193,3 +193,94 @@
     font-size: 16px;
     padding: 20px 0;
 }
+
+/* =========== Dark Mode Overrides =========== */
+body.dark-mode .whatsapp-modal-content {
+    background-color: var(--main-background);
+    border: 1px solid var(--bordr-color);
+}
+
+body.dark-mode .whatsapp-title,
+body.dark-mode .whatsapp-number {
+    color: var(--derk-color);
+}
+
+body.dark-mode .whatsapp-subtitle,
+body.dark-mode .whatsapp-category,
+body.dark-mode .loading-text,
+body.dark-mode .whatsapp-footer {
+    color: var(--pren-color);
+}
+
+body.dark-mode .whatsapp-card {
+    background-color: var(--white-background);
+    border-color: transparent;
+}
+
+body.dark-mode .whatsapp-card:hover {
+    background-color: #064e3b;
+    /* faint dark green */
+    border-color: #25D366;
+}
+
+body.dark-mode .whatsapp-close-btn:hover {
+    color: var(--derk-color);
+}
+
+body.dark-mode .whatsapp-card-icon {
+    background-color: var(--main-background);
+}
+
+/* =============================================================== */
+/* Responsive Styles for WhatsAppSection */
+
+@media (max-width: 768px) {
+    .whatsapp-modal-content {
+        padding: 30px 20px 20px;
+        max-width: 90%;
+    }
+
+    .whatsapp-title {
+        font-size: 22px;
+    }
+
+    .whatsapp-subtitle {
+        font-size: 14px;
+    }
+
+    .whatsapp-header-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .whatsapp-header-icon svg {
+        font-size: 34px;
+    }
+
+    .whatsapp-card {
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    .whatsapp-card-icon {
+        width: 40px;
+        height: 40px;
+        right: 15px;
+    }
+
+    .whatsapp-card-icon svg {
+        font-size: 20px;
+    }
+
+    .whatsapp-number {
+        font-size: 16px;
+    }
+
+    .whatsapp-category {
+        font-size: 13px;
+    }
+
+    .whatsapp-card-info {
+        padding-right: 40px;
+    }
+}

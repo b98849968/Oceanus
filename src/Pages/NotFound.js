@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/NotFound.css';
 import '../styles/Familys.css'; // For custom fonts
-
+import { Link } from 'react-router-dom';
 export default function NotFound() {
     return (
         <div className="notfound-container">
@@ -11,9 +11,9 @@ export default function NotFound() {
                 <p className="notfound-message">
                     يبدو أن الصفحة التي تبحث عنها قد تم نقلها أو حذفها أو لم يعد لها وجود.
                 </p>
-                <a href="/" className="notfound-button">
+                <Link to="/" className="notfound-button">
                     العودة للصفحة الرئيسية
-                </a>
+                </Link>
             </div>
         </div>
     );

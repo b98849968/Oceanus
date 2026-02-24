@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style/AllExhibitionsButtons.css';
+import { fetchAPI, ENDPOINTS } from '../../API';
 
-const AllExhibitionsButtons = ({ categories, onCategorySelect }) => {
-    // للتحكم بالزر النشط حالياً
-    const [activeCategory, setActiveCategory] = useState(
-        categories && categories.length > 0 ? categories[0].id : 'all'
-    );
+const AllExhibitionsButtons = ({ onCategorySelect }) => {
+    const [activeCategory, setActiveCategory] = useState(null);
+    const [galleries, setGalleries] = useState([]);
 
-    // قائمة افتراضية في حال لم يتم تمرير بيانات من الـ API
-    const defaultCategories = [
-        { id: 'all', name: 'جميع المعارض' },
-        { id: 'wood', name: 'الديكور ' },
-        { id: 'aluminum', name: 'الألمنيوم' },
-    ];
+    useEffect(() => {
+        const loadGalleries = async () => {
+            try {
+                const response = await fetchAPI(ENDPOINTS.getBasicGalleries);
+                const data = response.data || response;
+                const fetchedGalleries = Array.isArray(data) ? data : [];
+                setGalleries(fetchedGalleries);
 
-    const dataToRender = categories || defaultCategories;
+                if (fetchedGalleries.length > 0) {
+                    setActiveCategory(fetchedGalleries[0].id);
+                    if (onCategorySelect) {
+                        onCategorySelect(fetchedGalleries[0].id);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load galleries:", err);
+            }
+        };
+        loadGalleries();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleCategoryClick = (categoryId) => {
         setActiveCategory(categoryId);
-        // إرسال الـ id للـ Parent Component في حال تم تمرير الدالة
         if (onCategorySelect) {
             onCategorySelect(categoryId);
         }
@@ -26,13 +37,13 @@ const AllExhibitionsButtons = ({ categories, onCategorySelect }) => {
 
     return (
         <div className="exhibitions-buttons-container">
-            {dataToRender.map((category) => (
+            {galleries.map((gallery) => (
                 <button
-                    key={category.id}
-                    className={`exhibition-btn ${activeCategory === category.id ? 'active' : ''}`}
-                    onClick={() => handleCategoryClick(category.id)}
+                    key={gallery.id}
+                    className={`exhibition-btn ${activeCategory === gallery.id ? 'active' : ''}`}
+                    onClick={() => handleCategoryClick(gallery.id)}
                 >
-                    {category.name}
+                    {gallery.name}
                 </button>
             ))}
         </div>

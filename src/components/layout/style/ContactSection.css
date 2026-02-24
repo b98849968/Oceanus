@@ -207,3 +207,97 @@
     font-size: 16px;
     padding: 20px 0;
 }
+
+/* =========== Dark Mode Overrides =========== */
+body.dark-mode .contact-modal-content {
+    background-color: var(--main-background);
+    border: 1px solid var(--bordr-color);
+}
+
+body.dark-mode .contact-title,
+body.dark-mode .contact-number {
+    color: var(--derk-color);
+}
+
+body.dark-mode .contact-subtitle,
+body.dark-mode .contact-category,
+body.dark-mode .loading-text,
+body.dark-mode .contact-footer {
+    color: var(--pren-color);
+}
+
+body.dark-mode .contact-card {
+    background-color: var(--white-background);
+    border-color: transparent;
+}
+
+body.dark-mode .contact-card:hover {
+    background-color: #334155;
+    border-color: var(--bordr-color);
+}
+
+body.dark-mode .contact-close-btn:hover {
+    color: var(--derk-color);
+}
+
+body.dark-mode .contact-card-icon {
+    background-color: var(--main-background);
+}
+
+.PhoneIcon {
+    color: var(--button-red);
+}
+
+/* =============================================================== */
+/* Responsive Styles for ContactSection */
+
+@media (max-width: 768px) {
+    .contact-modal-content {
+        padding: 30px 20px 20px;
+        max-width: 90%;
+    }
+
+    .contact-title {
+        font-size: 22px;
+    }
+
+    .contact-subtitle {
+        font-size: 14px;
+    }
+
+    .contact-header-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .contact-header-icon svg {
+        font-size: 30px;
+    }
+
+    .contact-card {
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    .contact-card-icon {
+        width: 40px;
+        height: 40px;
+        right: 15px;
+    }
+
+    .contact-card-icon svg {
+        font-size: 20px;
+    }
+
+    .contact-number {
+        font-size: 16px;
+    }
+
+    .contact-category {
+        font-size: 13px;
+    }
+
+    .contact-card-info {
+        padding-right: 40px;
+    }
+}

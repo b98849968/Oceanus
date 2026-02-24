@@ -1,8 +1,8 @@
  /* ============= footer Top informtion ============== */
- 
+
  .footer {
      background: var(--main-background);
-     border-top: 2px solid white;
+     border-top: 2px solid var(--bordr-color);
      height: 240px;
      padding: 15px 0;
  }
@@ -107,7 +107,7 @@
      padding: 15px 0;
      transition: all 0.25s ease-in-out;
  }
-   
+
  .footerLinks div ul li a:hover {
      color: var(--pren-color);
  }
@@ -139,16 +139,83 @@
 
  .footerBottom {
      color: var(--derk-color);
-    font-family: Lights;
-    background: var(--main-background);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding:20px 60px ;
-    margin: 10px 0;
-    height: 60px;
-    border-top: 1.5px solid var(--derk-color);
+     font-family: Lights;
+     background: var(--main-background);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 20px 60px;
+     margin: 10px 0;
+     height: 60px;
+     border-top: 1.5px solid var(--derk-color);
  }
-  .footerBottom .copy{
-      color: var(--derk-color);
-  }
+
+ .footerBottom .copy {
+     color: var(--derk-color);
+ }
+
+ /* =============================================================== */
+ /* Responsive Styles for Footer */
+
+ @media (max-width: 1024px) {
+     .footer {
+         height: auto;
+         padding: 40px 0;
+     }
+
+     .footerTop {
+         flex-wrap: wrap;
+         gap: 40px;
+         padding: 0 20px;
+         justify-content: flex-start;
+     }
+
+     .footerLD {
+         width: 100%;
+         align-items: center;
+         text-align: center;
+     }
+
+     .footerLinks,
+     .FooterComunication {
+         width: 45%;
+     }
+ }
+
+ @media (max-width: 768px) {
+     .footerTop {
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+         gap: 30px;
+     }
+
+     .footerLD,
+     .footerLinks,
+     .FooterComunication {
+         width: 100%;
+         align-items: center;
+     }
+
+     .footerLinks h3::before,
+     .FooterComunication h3::before {
+         display: none;
+     }
+
+     .footerLinks h3,
+     .FooterComunication h3 {
+         padding-right: 0;
+     }
+
+     .footerLinks div ul {
+         align-items: center;
+     }
+
+     .footerBottom {
+         flex-direction: column;
+         height: auto;
+         gap: 15px;
+         padding: 20px 15px;
+         text-align: center;
+     }
+ }

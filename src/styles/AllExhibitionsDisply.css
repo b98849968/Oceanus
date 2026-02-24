@@ -1,0 +1,100 @@
+.AllExhibitionsDisplyCard {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 10px 5px;
+    scroll-behavior: smooth;
+    /* Hide scrollbar for a cleaner look */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.AllExhibitionsDisplyCard::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+}
+
+/* Prevent the child cards from shrinking */
+.AllExhibitionsDisplyCard>div {
+    flex-shrink: 0;
+}
+
+/* Dragging state classes */
+.AllExhibitionsDisplyCard {
+    cursor: grab;
+}
+
+.AllExhibitionsDisplyCard.dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+/* Scroll Buttons */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--white-color, #ffffff);
+    color: var(--icon-colors);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+    background-color: var(--main-color);
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-btn-right {
+    right: -20px;
+}
+
+.scroll-btn-left {
+    left: -20px;
+}
+
+/* Dark Mode Scroll Buttons */
+body.dark-mode .scroll-btn {
+    background-color: var(--main-background);
+    border: 1px solid var(--bordr-color);
+}
+
+body.dark-mode .scroll-btn:hover {
+    background-color: var(--white-background);
+}
+
+/* =============================================================== */
+/* Responsive Styles for AllExhibitionsDisply */
+
+@media (max-width: 768px) {
+    .AllExhibitionsDisplyCard {
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .scroll-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .scroll-btn-right {
+        right: 0px;
+    }
+
+    .scroll-btn-left {
+        left: 0px;
+    }
+}

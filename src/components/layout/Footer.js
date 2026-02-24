@@ -1,7 +1,9 @@
 import "./style/Footer.css";
-import ImageLogo from "../../assets/images/logo/logoPect2.png";
 import "../../App.css";
 // ======== import items MUI مكتبه  =======//
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { fetchAPI, ENDPOINTS } from "../../API";
 
 // ======= import icon MUI ========== //
 import CallIcon from "@mui/icons-material/Call";
@@ -13,6 +15,65 @@ const year = d.getFullYear();
 console.log(year);
 
 export default function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [contactInfo, setContactInfo] = useState({
+    address: "",
+    phone: "",
+    email: "",
+    darkLogo: ""
+  });
+
+  useEffect(() => {
+    fetchAPI(ENDPOINTS.getSettings)
+      .then(response => {
+        const settings = response.data || response;
+        const firstPhone = settings.phones && settings.phones[0];
+        const parsedPhone = firstPhone
+          ? (typeof firstPhone === 'object' ? (firstPhone.number || firstPhone.phone) : firstPhone)
+          : "";
+
+        setContactInfo({
+          address: settings.address || settings.location || "",
+          phone: settings.phone || parsedPhone || "",
+          email: settings.email || "",
+          darkLogo: settings.dark_logo || settings.logo || ""
+        });
+      })
+      .catch(err => console.error("Error fetching footer settings:", err));
+  }, []);
+
+  // Handle cross-page hash navigation and smooth scrolling
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+
+    if (href.startsWith('/#')) {
+      const hash = href.replace('/', ''); // e.g. #about
+      if (location.pathname !== '/') {
+        // Navigate to home page then scroll after a tiny delay
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(hash.replace('#', ''));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+        window.history.pushState(null, '', hash);
+      }
+    } else {
+      // Normal navigation page
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <div className="footer">
@@ -21,7 +82,8 @@ export default function Footer() {
         <div className="footerTop">
           {/* footer logo and discribtion  */}
           <div className="footerLD">
-            <img src={ImageLogo} alt="logo" />
+            {contactInfo.darkLogo && <img src={  `http://localhost:8000${contactInfo.darkLogo}`} alt="logo" />}
+            
             <p>
               الأوقيانوس هي وجهتكم الأولى لأرقى أعمال الألمنيوم والديكورات
               الداخلية. نجمع بين الحرفية العالية والتصميم العصري لنبتكر مساحات
@@ -34,16 +96,16 @@ export default function Footer() {
             <div>
               <ul>
                 <li>
-                  <a>الرئيسية</a>
+                  <Link to="/" onClick={(e) => handleNavClick(e, "/")}>الرئيسية</Link>
                 </li>
                 <li>
-                  <a>من نحن</a>
+                  <Link to="/#about" onClick={(e) => handleNavClick(e, "/#about")}>من نحن</Link>
                 </li>
                 <li>
-                  <a>  المعارض كل </a>
+                  <Link to="/exhibitions" onClick={(e) => handleNavClick(e, "/exhibitions")}>كل المعارض</Link>
                 </li>
                 <li>
-                  <a>   تواصل و الموقع </a>
+                  <Link to="/#contact-location" onClick={(e) => handleNavClick(e, "/#contact-location")}>تواصل والموقع</Link>
                 </li>
 
               </ul>
@@ -57,16 +119,16 @@ export default function Footer() {
                 <LocationPinIcon className="comunicationIcons" />
                 <span style={{ lineHeight: "25px" }}>
                   {" "}
-                  الرياض، المملكة العربية السعودية شارع التخصصي{" "}
+                  {contactInfo.address}{" "}
                 </span>{" "}
               </p>
               <p>
                 <CallIcon className="comunicationIcons" />
-                <span dir="ltr">+967 772825734 </span>{" "}
+                <span dir="ltr">{contactInfo.phone} </span>{" "}
               </p>
               <p>
                 <EmailIcon className="comunicationIcons" />
-                <span dir="ltr">b98849968@gmail.com</span>{" "}
+                <span dir="ltr">{contactInfo.email}</span>{" "}
               </p>
             </div>
           </div>
@@ -95,6 +157,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+       
     </>
   );
 }

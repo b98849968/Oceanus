@@ -1,79 +1,163 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./style/NavBar.css";
 import "../../App.css";
-import ImageLogo from "../../assets/images/logo/logoPect.png";
 import Button from "@mui/material/Button";
 // ======== import items MUI مكتبه  =======//
 import Container from "@mui/material/Container";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContact } from "../../context/ContactContext";
+import { useTheme } from "../../context/ThemeContext";
+import { fetchAPI, ENDPOINTS } from "../../API";
 
 // ============ import icons ============ //
 import Brightness4Icon from "@mui/icons-material/Brightness4";
- 
- 
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
+
+const navLinks = [
+  {
+    Title: "الرئيسية",
+    href: "/",
+  },
+  {
+    Title: "من نحن",
+    href: "/#about",
+  },
+  {
+    Title: "خدمتنا",
+    href: "/#services",
+  },
+  {
+    Title: "  كل المعارض  ",
+    href: "/exhibitions",
+  },
+  {
+    Title: "تواصل و الموقع",
+    href: "/#contact-location",
+  }
+];
 
 export default function NavBar() {
   // ================== hooks set ============== //
-  const [activeIndex, setActiveIndex] = useState(0); 
-  const navLinks = [
-    {
-      Title:"الرئيسية",
-      href:"#",
-    },
-    {
-      Title:"من نحن",
-      href:"#",
-    },
-    {
-      Title:"خدمتنا",
-      href:"#",
-    },
-    {
-      Title:"  كل المعارض  ",
-      href:"#",
-    },
-    {
-      Title:"تواصل و الموقع",
-      href:"#", 
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [logos, setLogos] = useState({ light: '', dark: '' });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { openContact } = useContact();
+  const { isDarkMode, toggleTheme } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchAPI(ENDPOINTS.getSettings)
+      .then(response => {
+        const settings = response.data || response;
+        if (settings) {
+          setLogos({
+            light: settings.light_logo || settings.logo || '',
+            dark: settings.dark_logo || settings.logo || ''
+          });
+        }
+      })
+      .catch(err => console.error("Error fetching logo:", err));
+  }, []);
+
+  // Update active state based on current URL path and hash
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const currentHash = location.hash;
+    const fullURL = currentPath + currentHash;
+
+    const index = navLinks.findIndex(link => {
+      if (link.href === "/") {
+        return currentPath === "/" && !currentHash;
+      }
+      return fullURL === link.href || currentPath === link.href;
+    });
+
+    if (index !== -1) setActiveIndex(index);
+  }, [location]);
+
+  // Handle cross-page hash navigation and smooth scrolling
+  const handleNavClick = (e, href, index) => {
+    e.preventDefault();
+    setActiveIndex(index);
+
+    if (href.startsWith('/#')) {
+      const hash = href.replace('/', ''); // e.g. #about
+      if (location.pathname !== '/') {
+        // Navigate to home page then scroll after a tiny delay
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(hash.replace('#', ''));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+        window.history.pushState(null, '', hash);
+      }
+    } else {
+      // Normal navigation page
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-      
-  ];
-  
-    
-   
+  };
+
+
   return (
     <>
-    <Container maxWidth="ml">
-      <div className="navBody">
-        {/* logo  ingser */}
-        <div className="logoImge">
-          <img src={ImageLogo} alt="logo" />
+      <Container maxWidth="ml">
+        <div className="navBody">
+          {/* logo  ingser */}
+          <div className="logoImge">
+            <img src={isDarkMode ? `http://localhost:8000${logos.dark}` : `http://localhost:8000${logos.light}`} alt="logo" />
+          </div>
+          {/* القوائم التنقل  */}
+          <div className="ListItem">
+            <ul id="ul" className={isMobileMenuOpen ? "nav-links-mobile" : "nav-links"}>
+              {navLinks.map((link, index) => (
+                <li key={index}>
+                  <Link
+                    to={link.href}
+                    onClick={(e) => {
+                      handleNavClick(e, link.href, index);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    style={{
+                      color: activeIndex === index ? "var(--main-color)" : "var(--derk-color)",
+                      fontWeight: activeIndex === index ? "bold" : "normal",
+                      cursor: "pointer"
+                    }}
+                  >
+                    {link.Title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="navButton">
+            <Brightness4Icon
+              className="iconDirk"
+              onClick={toggleTheme}
+              style={{ cursor: "pointer", color: isDarkMode ? "#fbbf24" : "inherit" }}
+            />
+            <Button className="contact-btn" variant="contained" onClick={openContact}>تواصل معنا</Button>
+
+            <IconButton
+              className="mobile-menu-icon"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              style={{ display: "none" }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </div>
         </div>
-        {/* القوائم التنقل  */}
-        <div className="ListItem">
-          <ul id="ul">
-             {navLinks.map((link, index) => (
-                 
-                    
-              <li key={index} onClick={() => setActiveIndex(index)}>
-                <a 
-                  href="link.href" 
-                  style={{ 
-                    color: activeIndex === index ?  "var(--main-color)"  : "var(--derk-color)",
-                    
-                    fontWeight: activeIndex === index ? "var(--main-color)" : "normal"
-                  }}
-                >
-                  {link.Title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="navButton">
-          <Brightness4Icon  className="iconDirk"/>
-          <Button variant="contained">تواصل معنا</Button>
-        </div>
-      </div>
+       
       </Container>
     </>
   );

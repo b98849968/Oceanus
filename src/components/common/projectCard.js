@@ -1,73 +1,119 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style/projectCard.css';
+import ShareIcon from '@mui/icons-material/Share';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import project1 from "../../assets/images/DecorImg1.jpg";
 import ProjectCardDisplay from './projectCardDisply';
 
 const ProjectCard = ({ project }) => {
-    // حالة للتحكم في فتح/إغلاق نافذة العرض المنبثقة
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
 
-    // بيانات افتراضية في حال لم يتم تمرير بيانات (للتجربة قبل ربط الـ API)
-    const defaultProject = {
-        id: 1,
-        image: project1,
-        category: 'الألمنيوم',
-        subCategory: 'نوافذ وواجهات',
-        title: 'واجهة زجاجية دبل',
-        description: 'هذا وصف افتراضي لتجربة المودال. يتميز هذا المشروع بجودة عالية ومقاسات دقيقة تناسب جميع الاحتياجات بأسعار تنافسية.',
-        images: [project1], // صورة واحدة كمثال
-        whatsappNumber: '+96600000000'
+    const data = project ? {
+        ...project,
+        category: project.category?.name || project.category,
+        images: project.images || project.extra_images || [],
+    } : {};
+
+    const projectId = data.id || `project-${data.title}`;
+
+    useEffect(() => {
+        // قراءة حالة الإعجاب من Local Storage
+        const savedLikes = JSON.parse(localStorage.getItem('liked_projects') || '[]');
+        if (savedLikes.includes(projectId)) {
+            setIsLiked(true);
+        }
+    }, [projectId]);
+
+    const handleLikeToggle = (e) => {
+        e.stopPropagation();
+        let savedLikes = JSON.parse(localStorage.getItem('liked_projects') || '[]');
+
+        if (isLiked) {
+            savedLikes = savedLikes.filter(id => id !== projectId);
+            setIsLiked(false);
+        } else {
+            savedLikes.push(projectId);
+            setIsLiked(true);
+        }
+
+        localStorage.setItem('liked_projects', JSON.stringify(savedLikes));
     };
 
-    const data = project || defaultProject;
+    const handleShare = async (e) => {
+        e.stopPropagation();
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: data.title,
+                    text: data.description,
+                    url: window.location.href, // رابط الموقع ليكون جاهز عند المشاركة
+                });
+            } catch (error) {
+                console.log('Error sharing', error);
+            }
+        } else {
+            // بديل في حال المتصفح لا يدعم المشاركة
+            navigator.clipboard.writeText(window.location.href);
+            alert('تم نسخ الرابط الحافظة');
+        }
+    };
 
-    // دالة لفتح المودال عند النقر
     const handleOpenModal = (e) => {
-        e.preventDefault(); // لمنع الانتقال في حال كان الرابط #
+        e.stopPropagation();
+        e.preventDefault();
         setIsModalOpen(true);
     };
 
     return (
         <>
-            <div className="project-card" onClick={handleOpenModal}>
-                {/* صورة الخلفية */}
-                <img src={data.image} alt={data.title} className="project-image" />
-
-                {/* التعتيم المتدرج الذي يظهر دائماً في الأسفل */}
-                <div className="project-overlay"></div>
-
-                {/* المحتوى الداخلي للبطاقة */}
-                <div className="project-content">
-
-                    {/* التصنيف (يظهر في الأعلى يساراً بناء على الصورة - RTL: أعلى يمين الشاشة لكن في التصميم أعلى يسار) */}
+            <div className="project-card" onClick={handleOpenModal} style={{ cursor: 'pointer' }}>
+                <div className="project-card-image-container">
+                    <img src={`http://localhost:8000${data.image}`} alt={data.title} className="project-image" />
                     <div className="project-badge">
                         {data.category}
                     </div>
+                </div>
 
-                    {/* القسم السفلي من البطاقة */}
-                    <div className="project-info">
-                        <p className="project-subtitle">{data.subCategory}</p>
+                <div className="project-card-content">
+                    <div>
                         <h3 className="project-title">{data.title}</h3>
+                        {/* <p className="project-subtitle">{data.subCategory}</p> */}
+                        {data.description && <p className="project-description">{data.description}</p>}
+                    </div>
 
-                        {/* التفاصيل الإضافية التي تظهر عند الـ Hover */}
-                        <div className="project-details-hover">
-                            <button className="project-link" onClick={handleOpenModal} style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}>
-                                <div className="link-icon-wrapper">
-                                    <RemoveRedEyeIcon className="eye-icon" />
-                                </div>
-                                <span className="link-text">استعرض التفاصيل</span>
+                    <hr className="project-divider" />
+
+                    <div className="project-actions">
+                        {/* 
+                            في سياق RTL، العنصر الأول سيكون على اليمين والثاني على اليسار.
+                            لذا نضع الإعجاب والمشاهدة أولاً ليكونوا في اليمين، والمشاركة ثانياً لتكون في اليسار.
+                        */}
+                        <div className="project-action-icons">
+                            <button className={`icon-btn like-btn ${isLiked ? 'liked' : ''}`} onClick={handleLikeToggle} aria-label="إعجاب">
+                                {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                            </button>
+                            {/* زر المشاهدة (كان تحميل) وهو جاهز للـ API كونه يعتمد على data ويفتح المودال */}
+                            <button className="icon-btn view-btn" onClick={handleOpenModal} aria-label="عرض التفاصيل">
+                                <RemoveRedEyeIcon />
+                            </button>
+                        </div>
+
+                        <div className="project-action-share">
+                            <button className="icon-btn share-btn" onClick={handleShare} aria-label="مشاركة">
+                                <ShareIcon />
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* نافذة العرض المنبثقة للمشروع */}
             <ProjectCardDisplay
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                projectData={data} // تمرير بيانات المشروع الحالية
+                projectData={data}
+            // apiEndpoint={`https://api.domain.com/projects/${projectId}`} // يمكن تمرير رابط للـ API هنا مستقبلاً
             />
         </>
     );

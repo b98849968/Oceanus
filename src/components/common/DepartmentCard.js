@@ -5,9 +5,10 @@ import "./style/DepartmentCard.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
 
-export default function DepartmentsCard() {
+export default function DepartmentsCard({ gallery }) {
+  const bgImage = gallery?.image || Department;
   const divStyle = {
-    backgroundImage: `url(${Department})`,
+    backgroundImage: `url(http://localhost:8000${bgImage})`,
   };
 
   return (
@@ -18,9 +19,9 @@ export default function DepartmentsCard() {
         <div className="card-icon-box">
           <WindowOutlinedIcon className="grid-icon" />
         </div>
-        <h3>معرض الألمنيوم والزجاج</h3>
+        <h3>{gallery?.name || 'معرض  '}</h3>
         <p>
-          تشكيلة واسعة من واجهات الألمنيوم، النوافذ العازلة، والمطابخ الحديثة المقاومة للصدأ بأحدث أنظمة السحب والمفصلات.
+          {gallery?.description || 'تشكيلة واسعة من واجهات الألمنيوم، النوافذ العازلة، والمطابخ الحديثة المقاومة للصدأ بأحدث أنظمة السحب والمفصلات.'}
         </p>
         <a href="#" className="card-link">
           استعرض أعمال الألمنيوم <ArrowBackIcon className="link-icon" />

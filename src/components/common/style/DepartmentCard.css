@@ -1,10 +1,10 @@
 .DepartmentsCard {
-    margin: 15px auto;
+    margin: 15px 10px;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    width: 480px;
+    width: 600px;
     height: 392px;
     border-radius: 20px;
     background-size: cover;
@@ -64,8 +64,12 @@
     font-size: 30px !important;
 }
 
+body.dark-mode .grid-icon {
+    color: #e2e8f0;
+}
+
 .card-content h3 {
-    font-family:  Regular;
+    font-family: Regular;
     font-size: 2rem;
     color: var(--white-color, #ffffff);
     margin-bottom: 15px;
@@ -105,14 +109,61 @@
     color: rgba(255, 255, 255, 0.85);
 }
 
-@media (max-width: 450px) {
+/* =============================================================== */
+/* Responsive Styles for DepartmentCard */
+
+@media (max-width: 1024px) {
     .DepartmentsCard {
-        width: 100%;
-        max-width: 350px;
-        height: 420px;
+        width: 45%;
+        max-width: 450px;
+        height: 350px;
     }
 
     .card-content h3 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+
+    .card-content p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .DepartmentsCard {
+        width: 100%;
+        max-width: 380px;
+        height: 320px;
+        margin: 10px auto;
+    }
+
+    .card-content {
+        padding: 25px 15px;
+    }
+
+    .card-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .card-icon-box {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 15px;
+    }
+
+    .grid-icon {
+        font-size: 24px !important;
+    }
+}
+
+@media (max-width: 450px) {
+    .DepartmentsCard {
+        max-width: 300px;
+        height: 300px;
+    }
+
+    .card-content h3 {
+        font-size: 1.3rem;
     }
 }

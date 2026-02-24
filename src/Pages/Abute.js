@@ -9,7 +9,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 export default function Abute() {
   return (
     <>
-      <div className="Abute">
+      <div className="Abute" id="about">
         {/* hte code is defing imgs Abute  */}
         <div className="AbuteImg">
           <div className="AbuteImgContent">
@@ -27,7 +27,7 @@ export default function Abute() {
         {/* the describtion Abute  */}
         <div className="DescriptionAbute">
           <p className="we">من نحن</p>
-         <h2 className="title">  شريكك الموثوق في عالم <span>الألمنيوم والديكور</span>  </h2>
+          <h2 className="title">  شريكك الموثوق في عالم <span>الألمنيوم والديكور</span>  </h2>
           <div className="textAbute">
             <p>
               تأسست ورشة الأوقيانوس  برؤية واضحة تهدف إلى تقديم حلول ألمنيوم مبتكرة
@@ -41,9 +41,9 @@ export default function Abute() {
           </div>
           <div>
             <ul>
-              <li> <span className="checkLine"><CheckCircleOutlineIcon/></span> <span>دقة في المواعيد والتسليم</span></li>
-              <li> <span className="checkLine"><CheckCircleOutlineIcon/></span> <span>ضمان حقيقي على جميع الأعمال</span></li>
-              <li> <span className="checkLine"><CheckCircleOutlineIcon/></span> <span>تصاميم عصرية تناسب كافة الأذواق</span></li>
+              <li> <span className="checkLine"><CheckCircleOutlineIcon /></span> <span>دقة في المواعيد والتسليم</span></li>
+              <li> <span className="checkLine"><CheckCircleOutlineIcon /></span> <span>ضمان حقيقي على جميع الأعمال</span></li>
+              <li> <span className="checkLine"><CheckCircleOutlineIcon /></span> <span>تصاميم عصرية تناسب كافة الأذواق</span></li>
             </ul>
           </div>
         </div>

@@ -1,51 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './style/ExhibitionsButtons.css';
+import { fetchAPI, ENDPOINTS } from '../../API';
 
-/**
- * ExhibitionsButtons component
- * 
- * @param {Array} categories - Array of categories. Can be strings ['الكل', 'أبواب', ...] or objects [{id: 1, name: 'الكل'}, ...]
- * @param {string|number|object} selectedCategory - The currently selected category
- * @param {function} onSelectCategory - Function to call when a category is clicked
- */
-const ExhibitionsButtons = ({
-    categories = ["أبواب", "شبابيك", "واجهات", "مطابخ"],
-    selectedCategory,
-    onSelectCategory
-}) => {
-    // Ensure "الكل" (All) is always present as the first option
-    const displayCategories = [...categories];
-    const hasAll = displayCategories.some(cat =>
-        (typeof cat === 'object' && cat.name === 'الكل') || cat === 'الكل'
-    );
+const ExhibitionsButtons = ({ galleryId, onSelectCategory }) => {
+    const [categories, setCategories] = useState([]);
+    const [activeCategory, setActiveCategory] = useState('all');
 
-    if (!hasAll) {
-        if (displayCategories.length > 0 && typeof displayCategories[0] === 'object') {
-            // If using object format, keep consistent structure
-            displayCategories.unshift({ id: 'all', name: 'الكل' });
-        } else {
-            // If using string array format
-            displayCategories.unshift('الكل');
+    useEffect(() => {
+        const fetchCategories = async () => {
+            if (!galleryId && galleryId !== 0) {
+                setCategories([]);
+                return;
+            }
+            try {
+                // Fetch specific gallery which includes categories
+                const response = await fetchAPI(ENDPOINTS.getGalleryById(galleryId));
+                const data = response.data || response;
+                if (data && data.categories) {
+                    setCategories(data.categories);
+                } else {
+                    setCategories([]);
+                }
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+                setCategories([]);
+            }
+        };
+
+        fetchCategories();
+        setActiveCategory('all');
+    }, [galleryId]);
+
+    const handleCategoryClick = (id) => {
+        setActiveCategory(id);
+        if (onSelectCategory) {
+            onSelectCategory(id);
         }
-    }
+    };
+
+    const displayCategories = [...categories];
+    // Add "All" option at the beginning
+    displayCategories.unshift({ id: 'all', name: 'الكل' });
 
     return (
         <div className="exhibitions-buttons-container">
             {displayCategories.map((category, index) => {
-                // Handle both string arrays and object arrays
-                const itemValue = typeof category === 'object' ? category.id : category;
-                const itemName = typeof category === 'object' ? category.name : category;
-                const isSelected = selectedCategory === itemValue;
+                const itemValue = category.id;
+                const itemName = category.name;
+                const isSelected = activeCategory === itemValue;
 
                 return (
                     <button
                         key={itemValue || index}
                         className={`exhibition-button ${isSelected ? 'active' : ''}`}
-                        onClick={() => onSelectCategory(itemValue)}
+                        onClick={() => handleCategoryClick(itemValue)}
                         style={{ fontFamily: 'Bolds' }}
                     >
                         {itemName}
                     </button>
+
                 );
             })}
         </div>

@@ -7,7 +7,8 @@
 
 
 }
-.HomeDecor .HomeDecorTitle{
+
+.HomeDecor .HomeDecorTitle {
     width: 40%;
     height: 100%;
     display: flex;
@@ -15,6 +16,7 @@
     justify-content: space-around;
     align-items: start
 }
+
 .HomeDecor .HomeDecorTitleP {
     position: relative;
     height: 30px;
@@ -50,7 +52,7 @@
 }
 
 .HomeDecorTitle h1 span {
-    background-image:   linear-gradient(to right, #fef08a , #C5A059 );
+    background-image: linear-gradient(to right, #fef08a, #C5A059);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -64,37 +66,43 @@
     line-height: 25px;
     word-spacing: 5px;
 }
-.HomeDecoricon{
+
+.HomeDecoricon {
     margin: 13px 0;
     width: 300px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.HomeDecoriconAll .StarIcon{
+
+.HomeDecoriconAll .StarIcon {
     color: var(--icon-colors);
     font-size: 30px;
 }
-.HomeDecoricon .HomeDecoriconAll{
+
+.HomeDecoricon .HomeDecoriconAll {
     margin-left: 10px;
     border-radius: 20px;
-    padding:10px  6px;
+    padding: 10px 6px;
     background: #fef08a6c;
 }
-.HomeDecoricon div h3{
+
+.HomeDecoricon div h3 {
     font-family: Regular;
     font-weight: 700;
     font-size: 17px;
     margin: 5px 0;
     color: var(--main-background);
 }
-.HomeDecoricon div p{
+
+.HomeDecoricon div p {
     font-family: Lights;
     font-weight: 300;
     font-size: 14px;
     color: var(--derk-color);
 }
-.HomeDecorButton button{
+
+.HomeDecorButton button {
     position: relative;
     width: 250px;
     height: 55px;
@@ -103,59 +111,179 @@
     align-items: center;
     font-family: Lights;
     font-weight: 300;
-    font-size: 17px;
+    font-size: 19px;
     border-radius: 10px;
     background: var(--main-color);
 }
- .HomeDecorButton button .iconArrow{
+
+.HomeDecorButton button .iconArrow {
     transition: all 0.3s ease;
     position: absolute;
     top: 35%;
- }
-.HomeDecorButton button:hover .iconArrow{
-   margin-right: 10px;
+}
+
+.HomeDecorButton button:hover .iconArrow {
+    margin-right: 10px;
 }
 
 
 /*  ========== HomeDecor Img =================  */
-.HomeDecorImg{
+.HomeDecorImg {
     display: flex;
     justify-content: space-around;
     align-items: center;
     /* flex-direction: column; */
     height: 80%;
     width: 45%;
-;
+    ;
 }
-.HomeDecorImg .HomeDecorImgContent1 , .HomeDecorImgContent2{
+
+.HomeDecorImg .HomeDecorImgContent1,
+.HomeDecorImgContent2 {
     display: flex;
     justify-content: center;
     /* align-items: center; */
     flex-direction: column;
 }
- 
-.HomeDecorImg .HomeDecorImgContent1 img ,.HomeDecorImgContent2 img {
+
+.HomeDecorImg .HomeDecorImgContent1 img,
+.HomeDecorImgContent2 img {
     border-radius: 20px;
-    transition: all 0.5s ease;;
+    transition: all 0.5s ease;
+    ;
 }
-.HomeDecorImg .HomeDecorImgContent1 img:hover,.HomeDecorImgContent2 img:hover{
-       transform: scale(1.03);
+
+.HomeDecorImg .HomeDecorImgContent1 img:hover,
+.HomeDecorImgContent2 img:hover {
+    transform: scale(1.03);
 }
-.HomeDecorImgContent1 .HomeDecorImg1{
+
+.HomeDecorImgContent1 .HomeDecorImg1 {
     width: 300px !important;
     height: 200px;
 }
-.HomeDecorImgContent1 .HomeDecorImg3{
+
+.HomeDecorImgContent1 .HomeDecorImg3 {
     margin-top: 20px;
     width: 300px !important;
     height: 370px;
 }
-.HomeDecorImgContent2 .HomeDecorImg2{
+
+.HomeDecorImgContent2 .HomeDecorImg2 {
     margin-top: 20px;
     width: 300px !important;
     height: 200px;
 }
-.HomeDecorImgContent2 .HomeDecorImg4{
+
+.HomeDecorImgContent2 .HomeDecorImg4 {
     width: 300px !important;
     height: 370px;
+}
+
+/* ------------------------------------- */
+/* Dark Mode Support                     */
+/* ------------------------------------- */
+
+body.dark-mode .HomeDecorTitle h1 {
+    color: #f8fafc;
+}
+
+body.dark-mode .HomeDecorTitle .HomeDecorDescription {
+    color: #94a3b8;
+}
+
+body.dark-mode .HomeDecoricon div h3 {
+    color: #f8fafc;
+}
+
+body.dark-mode .HomeDecoricon div p {
+    color: #94a3b8;
+}
+
+body.dark-mode .HomeDecoricon .HomeDecoriconAll {
+    background: rgba(254, 240, 138, 0.1);
+}
+
+/* =============================================================== */
+/* Responsive Styles for HomeDecor */
+
+@media (max-width: 1024px) {
+    .HomeDecor {
+        height: auto;
+        padding: 60px 30px;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .HomeDecor .HomeDecorTitle {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .HomeDecorTitleP {
+        justify-content: center;
+    }
+
+    .HomeDecorTitleP p {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .HomeDecorTitleP::before {
+        top: 30px;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    .HomeDecorTitle h1 {
+        line-height: 1.4;
+    }
+
+    .HomeDecoricon {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .HomeDecorImg {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .HomeDecor {
+        padding: 40px 15px;
+    }
+
+    .HomeDecorTitle h1 {
+        font-size: 35px;
+    }
+
+    .HomeDecorTitle .HomeDecorDescription {
+        font-size: 16px;
+    }
+
+    .HomeDecorImg {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .HomeDecorImgContent1 .HomeDecorImg1,
+    .HomeDecorImgContent1 .HomeDecorImg3,
+    .HomeDecorImgContent2 .HomeDecorImg2,
+    .HomeDecorImgContent2 .HomeDecorImg4 {
+        width: 100% !important;
+        max-width: 350px;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .HomeDecoricon {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 }

@@ -5,44 +5,54 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import DomainIcon from '@mui/icons-material/Domain';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import BuildIcon from '@mui/icons-material/Build';
-
-const defaultContacts = [
-    {
-        id: 1,
-        number: '050 000 0001',
-    },
-    {
-        id: 2,
-        number: '050 000 0002',
-    },
-    {
-        id: 3,
-        number: '050 000 0003',
-    }
-];
+import { fetchAPI, ENDPOINTS } from '../../API';
 
 const ContactSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
-    const [contacts, setContacts] = useState(initialContacts || defaultContacts);
+    const [contacts, setContacts] = useState(initialContacts || []);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        // يمكن استدعاء الـ API هنا في أي وقت يتم تمرير رابط أو الاعتماد على دالة تحديث
-        if (contactsUrl) {
+        const fetchContacts = async () => {
             setLoading(true);
-            fetch(contactsUrl)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.length > 0) {
-                        setContacts(data);
-                    }
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error("Error fetching contacts:", err);
-                    setLoading(false);
-                });
+            try {
+                const response = await fetchAPI(ENDPOINTS.getSettings);
+                const settings = response.data || response;
+
+                if (settings && settings.phones && Array.isArray(settings.phones)) {
+                    // Filter out numbers that are strictly for WhatsApp only
+                    const validPhones = settings.phones.filter(phone => {
+                        if (typeof phone === 'object' && phone.type) {
+                            return phone.type !== 'واتساب فقط' && phone.type !== 'whatsapp';
+                        }
+                        return true;
+                    });
+
+                    const mappedContacts = validPhones.map((phone, index) => {
+                        return typeof phone === 'string'
+                            ? { id: index + 1, number: phone, label: 'تواصل معنا عبر الهاتف', type: 'call' }
+                            : {
+                                id: index + 1,
+                                number: phone.number || phone.phone || String(phone),
+                                label: phone.label || 'تواصل معنا عبر الهاتف',
+                                type: phone.type || 'call'
+                            };
+                    });
+
+                    setContacts(mappedContacts);
+                } else if (settings && settings.phone) {
+                    setContacts([{ id: 1, number: settings.phone }]);
+                }
+            } catch (err) {
+                console.error("Error fetching contacts from API:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (!initialContacts && contacts.length === 0) {
+            fetchContacts();
         }
-    }, [contactsUrl]);
+    }, [initialContacts]);
 
     if (!isOpen) return null;
 
@@ -68,15 +78,27 @@ const ContactSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
                         <p className="loading-text" style={{ fontFamily: 'Regular' }}>جاري التحميل...</p>
                     ) : (
                         contacts.map((contact, index) => (
-                            <a href={`tel:${contact.number.replace(/\s+/g, '')}`} key={contact.id || index} className="contact-card">
-                                <div className="contact-card-icon">
-                                    <LocalPhoneIcon />
-                                </div>
-                                <div className="contact-card-info">
-                                    <span className="contact-category" style={{ fontFamily: 'Regular' }}> تواصل معنا عبر الهاتف انقر هنا </span>
-                                    <strong className="contact-number" style={{ fontFamily: 'Bolds' }}>{contact.number}</strong>
-                                </div>
-                            </a>
+
+                            // هنا تضع الشرط، مثلاً: إذا كان النوع 'call'
+                            contact.type !== "whatsapp" && contact.type !== "واتساب فقط" && (
+                                <a
+                                    href={`tel:${contact.number.replace(/\s+/g, '')}`}
+                                    key={contact.id || index}
+                                    className="contact-card"
+                                >
+                                    <div className="contact-card-icon">
+                                        <LocalPhoneIcon className='PhoneIcon' />
+                                    </div>
+                                    <div className="contact-card-info">
+                                        <span className="contact-category" style={{ fontFamily: 'Regular' }}>
+                                            {contact.label || 'تواصل معنا عبر الهاتف انقر هنا'}
+                                        </span>
+                                        <strong className="contact-number" style={{ fontFamily: 'Bolds' }}>
+                                            {contact.number}
+                                        </strong>
+                                    </div>
+                                </a>
+                            )
                         ))
                     )}
                 </div>

@@ -26,6 +26,7 @@
     max-width: 1000px;
     height: 85vh;
     /* أو ارتفاع ثابت محدد 600px */
+    margin-top: 70px;
     max-height: 650px;
     position: relative;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -257,33 +258,40 @@
 /* التجاوب مع الجوال والشاشات الصغيرة */
 @media (max-width: 900px) {
     .pcd-modal-container {
-        height: 90vh;
-        max-height: none;
+        height: auto;
+        min-height: 80vh;
+        max-height: 90vh;
         overflow-y: auto;
         /* السماح بالتمرير لكامل المودال على الجوال */
     }
 
     .pcd-modal-content {
-        flex-direction: column-reverse;
-        /* جعل الصورة بالأعلى والنص بالأسفل */
+        flex-direction: column;
+        /* نقل الصورة للاعلى والنص للاسفل */
         height: auto;
     }
 
     .pcd-image-section {
         flex: none;
-        height: 40VH;
-        /* ارتفاع الصورة في الجوال */
+        height: 300px;
+        /* تحجيم الصورة في الجوال */
+        width: 100%;
     }
 
     .pcd-details-section {
         flex: none;
         padding: 24px 20px;
         overflow-y: visible;
-        /* إزالة التمرير الداخلي للنص */
+        width: 100%;
     }
 
     .pcd-title {
-        font-size: 28px;
+        font-size: 24px;
+        line-height: 1.4;
+    }
+
+    .pcd-description {
+        font-size: 14px;
     }
 
     .pcd-close-btn {
@@ -291,7 +299,71 @@
         left: 10px;
         width: 35px;
         height: 35px;
-        font-size: 24px;
+        font-size: 20px;
         background-color: rgba(0, 0, 0, 0.6);
+        z-index: 100;
     }
+
+    .pcd-btn-whatsapp {
+        font-size: 16px;
+        padding: 12px 20px;
+        width: 100%;
+    }
+}
+
+/* ------------------------------------- */
+/* Dark Mode Support                     */
+/* ------------------------------------- */
+body.dark-mode .pcd-modal-overlay {
+    background-color: rgba(10, 15, 30, 0.9);
+}
+
+body.dark-mode .pcd-modal-container {
+    background-color: #1a2235;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .pcd-title {
+    color: #f8fafc;
+}
+
+body.dark-mode .pcd-description {
+    color: #94a3b8;
+}
+
+body.dark-mode .pcd-contact-box {
+    border-top-color: #334155;
+}
+
+body.dark-mode .pcd-contact-box p {
+    color: #cbd5e1;
+}
+
+body.dark-mode .pcd-tag-category {
+    background-color: #212c41;
+    color: #94a3b8;
+}
+
+body.dark-mode .pcd-tag-sub {
+    background-color: rgba(223, 123, 13, 0.15);
+    color: #fdba74;
+    border-color: rgba(223, 123, 13, 0.3);
+}
+
+body.dark-mode .pcd-image-section {
+    background-color: #0f172a;
+}
+
+body.dark-mode .pcd-download-btn {
+    background-color: rgba(30, 36, 50, 0.85);
+    color: #f8fafc;
+}
+
+body.dark-mode .pcd-download-btn:hover {
+    background-color: #df7b0d;
+    color: white;
+}
+
+body.dark-mode .pcd-thumbnails {
+    background-color: rgba(15, 23, 42, 0.6);
 }

@@ -38,9 +38,7 @@
 /* تنسيق الزر النشط (Active) */
 .exhibition-btn.active {
     background-color: #fdf8e6;
-    /* لون الخلفية السكري الفاتح للزر النشط */
     color: #c46200;
-    /* لون النص البرتقالي/البني للزر النشط */
     box-shadow: 0 2px 8px rgba(196, 98, 0, 0.1);
 }
 

@@ -1,18 +1,18 @@
-
 /*  display: flex;        
     flex-wrap: wrap;      
     gap: 10px;  */
-.OurFeatures{
-    background: var( --main-color);
+.OurFeatures {
+    background: var(--main-color);
     width: 100%;
     height: 45vh;
     display: flex;
     justify-content: center;
     align-items: center;
-     flex-wrap: wrap;      
+    flex-wrap: wrap;
     gap: 35px;
 }
-.OurFeatures .OurFeaturesBox{
+
+.OurFeatures .OurFeaturesBox {
     padding: 20px;
     width: 280px;
     height: 185px;
@@ -24,27 +24,63 @@
     align-items: center;
     text-align: center;
     flex-direction: column;
-   backdrop-filter: blur(1px);
-   transition: all 0.3s ease;
-   color: var(--white-color);
+    backdrop-filter: blur(1px);
+    transition: all 0.3s ease;
+    color: var(--Prgraf-color);
+    /* keep text white regardless of theme */
 }
-.OurFeatures .OurFeaturesBox:hover{
+
+.OurFeatures .OurFeaturesBox:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
-.OurFeaturesBox .OurFeaturesIcon{
+
+.OurFeaturesBox .OurFeaturesIcon {
     margin-bottom: 15px;
     width: 50px;
     height: 50px;
     color: var(--icon-colors);
 }
-.OurFeaturesBox h3{
-    padding-bottom:10px ;
-    font-family: Regular;  
+
+.OurFeatures .OurFeaturesBox h3 {
+    padding-bottom: 10px;
+    font-family: Regular;
     font-weight: 700;
+    color: var(--Prgraf-color);
 }
- .OurFeaturesBox p{
+
+.OurFeatures .OurFeaturesBox p {
     font-family: Lights;
     font-weight: 300;
     font-size: 13px;
     line-height: 25px;
- }
+    color: var(--Prgraf-color);
+}
+
+/* =============================================================== */
+/* Responsive Styles for OurFeatures */
+
+@media (max-width: 1024px) {
+    .OurFeatures {
+        height: auto;
+        padding: 50px 20px;
+    }
+
+    .OurFeatures .OurFeaturesBox {
+        width: calc(50% - 20px);
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .OurFeatures {
+        padding: 40px 15px;
+        gap: 20px;
+    }
+
+    .OurFeatures .OurFeaturesBox {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 25px 20px;
+    }
+}

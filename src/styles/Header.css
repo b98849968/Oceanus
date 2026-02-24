@@ -1,6 +1,4 @@
-
-
-.Header{
+.Header {
     margin-top: 70px;
     position: relative;
     width: 100%;
@@ -13,6 +11,7 @@
     align-items: center;
     text-align: center;
 }
+
 .Header::before {
     content: '';
     position: absolute;
@@ -21,40 +20,45 @@
     background: var(--Header-color);
     z-index: 0;
 }
+
 /* ================ Header Safety ================== */
-.Header .HeaderSafety{
-    background: var( --bordr-color);
+.Header .HeaderSafety {
+    background: var(--bordr-color);
     border: 1.5px solid var(--icon-colors);
-    color:var(--icon-colors);
+    color: var(--icon-colors);
     font-family: Lights;
     font-weight: 300;
     padding: 7px 12px;
     border-radius: 15px;
     z-index: 100;
 }
+
 /* ================ Header  Title ================== */
 
-.HeaderTitle{
+.HeaderTitle {
     width: 80%;
     height: 40%;
     color: var(--white-color);
-    
+
     z-index: 100;
 }
-.HeaderTitle h1{
-   font-family: Blacks;
+
+.HeaderTitle h1 {
+    font-family: Blacks;
     font-size: 60px;
     font-weight: 900;
     padding: 0 0 25px 0;
 }
-.HeaderTitle h1 span{
-  background-image: linear-gradient(to right, #fef08a , #C5A059 );
+
+.HeaderTitle h1 span {
+    background-image: linear-gradient(to right, #fef08a, #C5A059);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
 }
-.HeaderTitle p{
+
+.HeaderTitle p {
     font-family: Regular;
     font-size: 20px;
     line-height: 2;
@@ -65,13 +69,14 @@
 /* ============ Header Button =============*/
 
 
-.HeaderButton{
+.HeaderButton {
     width: 30%;
     margin: 0 0 50px 0;
     display: flex;
     justify-content: space-around;
 }
-.HeaderButton button{
+
+.HeaderButton button {
     font-family: Lights;
     font-weight: 500;
     font-size: 18px;
@@ -79,10 +84,71 @@
     width: 170px;
     /* background: var(--button-red); */
 }
-.HeaderButton button.nonBac{
+
+.HeaderButton button.nonBac {
     color: var(--white-color);
     border-color: var(--white-color);
 }
-.HeaderButton button.ButBac{
+
+body.dark-mode .HeaderButton button.nonBac {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.HeaderButton button.ButBac {
     background: var(--button-red);
+}
+
+/* =============================================================== */
+/* Responsive Styles for Header */
+
+@media (max-width: 1024px) {
+    .HeaderTitle {
+        width: 90%;
+    }
+
+    .HeaderTitle h1 {
+        font-size: 50px;
+    }
+
+    .HeaderButton {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .Header {
+        height: auto;
+        padding: 50px 15px;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .HeaderTitle {
+        width: 100%;
+        height: auto;
+    }
+
+    .HeaderTitle h1 {
+        font-size: 35px;
+        padding: 0 0 15px 0;
+    }
+
+    .HeaderTitle p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .HeaderButton {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin: 0;
+    }
+
+    .HeaderButton button {
+        width: 100%;
+        max-width: 250px;
+    }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/CommunicationLocation .css';
 import '../styles/Familys.css';
+import { fetchAPI, ENDPOINTS } from '../API';
 
 
 // ========= ايقونات mui ===============//
@@ -8,7 +9,11 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useContact } from '../context/ContactContext';
+
 const CommunicationLocation = () => {
+    const { openContact, openWhatsApp } = useContact();
+
     const [contactData, setContactData] = useState({
         whatsapp: '',
         phone: '',
@@ -25,24 +30,29 @@ const CommunicationLocation = () => {
         // يمكن استبدال هذا الجزء بطلب API حقيقي (مثل axios.get أو fetch)
         const fetchContactData = async () => {
             try {
-                // const response = await fetch('https://api.example.com/contact');
-                // const data = await response.json();
+                const response = await fetchAPI(ENDPOINTS.getSettings);
+                // The API typically wraps data in 'data' object, or returns it directly
+                const settings = response.data || response;
 
-                // بيانات تجريبية مطابقة للتصميم
-                const mockData = {
-                    whatsapp: 'https://wa.me/967772825734',
-                    phone: '+967 772825734',
-                    email: 'b98849968@gmail.com',
-                    address: 'طريق الملك فهد، حي العليا\nالرياض، المملكة العربية السعودية',
+                // The API provides coordinates
+                let parsedMapUrl = '';
+                if (settings.latitude && settings.longitude) {
+                    parsedMapUrl = `https://maps.google.com/maps?q=${settings.latitude},${settings.longitude}&hl=ar&z=15&output=embed`;
+                } else if (settings.map_url || settings.map) {
+                    const mapRaw = settings.map_url || settings.map;
+                    parsedMapUrl = mapRaw.includes('<iframe') && mapRaw.includes('src="')
+                        ? (mapRaw.match(/src="([^"]+)"/)?.[1] || mapRaw)
+                        : mapRaw;
+                }
 
-                    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.6367746961445!2d46.66679541500336!3d24.704604584126485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2z2KfZhNix2YrYp9i2!5e0!3m2!1sar!2s!4v1710000000000!5m2!1sar!2s'
+                const newContactData = {
+                    email: settings.email || '',
+                    address: settings.address || settings.location || '',
+                    mapUrl: parsedMapUrl
                 };
 
-                // محاكاة تأخير الشبكة لتوضيح حالة التحميل
-                setTimeout(() => {
-                    setContactData(mockData);
-                    setLoading(false);
-                }, 800);
+                setContactData(newContactData);
+                setLoading(false);
 
             } catch (error) {
                 console.error('Error fetching contact data:', error);
@@ -54,12 +64,12 @@ const CommunicationLocation = () => {
     }, []);
 
     return (
-        <div className="communication-page">
+        <div className="communication-page" id="contact-location">
             {/* قسم العنوان (Header) */}
             <div className="communication-header">
                 <div className="header-content">
-                    <h1>تواصل معنا</h1>
-                    <p>
+                    <h1 className='text-white'>تواصل معنا</h1>
+                    <p className='p-white'>
                         نحن هنا لتحويل رؤيتك إلى واقع. زوروا معرضنا أو تواصلوا معنا لمناقشة مشروعكم القادم في عالم الألمنيوم والديكور.
                     </p>
                 </div>
@@ -73,7 +83,7 @@ const CommunicationLocation = () => {
 
                     <div className="top-action-cards">
                         {/* بطاقة واتساب */}
-                        <div className="action-card whatsapp-card">
+                        <div className="action-card whatsapp-cards">
                             <div className="card-top">
                                 <span className="card-subtitle">محادثة فورية</span>
                                 <div className="icon-circle whatsapp-icon">
@@ -83,9 +93,9 @@ const CommunicationLocation = () => {
                             <div className="card-body">
                                 <h3>واتساب</h3>
                                 <p>رد سريع للاستفسارات</p>
-                                <a href={contactData.whatsapp} target="_blank" rel="noopener noreferrer" className="btn whatsapp-btn">
+                                <button onClick={openWhatsApp} className="btn whatsapp-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'Regular', fontSize: 'inherit' }}>
                                     ابدأ المحادثة
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -100,9 +110,9 @@ const CommunicationLocation = () => {
                             <div className="card-body">
                                 <h3>اتصل بنا</h3>
                                 <p>متواجدون طوال أيام الأسبوع</p>
-                                <a href={`tel:${contactData.phone.replace(/\s+/g, '')}`} className="btn phone-btn" dir="ltr">
-                                    {loading ? '...' : contactData.phone}
-                                </a>
+                                <button onClick={openContact} className="btn phone-btn" dir="ltr" style={{ border: 'none', cursor: 'pointer', fontFamily: 'Regular', fontSize: 'inherit' }}>
+                                    اتصل بنا
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -147,7 +157,7 @@ const CommunicationLocation = () => {
                 {/* قسم الخريطة (اليسار) */}
                 <div className="map-section">
                     {loading ? (
-                        <div className="map-skeleton">جاري تحميل الخريطة...</div>
+                        <div className="map-skeleton">جاري تحميل الخريطة... </div>
                     ) : (
                         <iframe
                             title="موقع المعرض"

@@ -5,43 +5,55 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import DomainIcon from '@mui/icons-material/Domain';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ChatIcon from '@mui/icons-material/Chat';
-
-const defaultContacts = [
-    {
-        id: 1,
-        number: '967773596059',
-    },
-    {
-        id: 2,
-        number: '966500000002',
-    },
-    {
-        id: 3,
-        number: '966500000003',
-    }
-];
+import { fetchAPI, ENDPOINTS } from '../../API';
 
 const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
-    const [contacts, setContacts] = useState(initialContacts || defaultContacts);
+    const [contacts, setContacts] = useState(initialContacts || []);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (contactsUrl) {
+        const fetchContacts = async () => {
             setLoading(true);
-            fetch(contactsUrl)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.length > 0) {
-                        setContacts(data);
-                    }
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error("Error fetching whatsapp contacts:", err);
-                    setLoading(false);
-                });
+            try {
+                const response = await fetchAPI(ENDPOINTS.getSettings);
+                const settings = response.data || response;
+
+                const sourceArray = settings.whatsapp_numbers || settings.phones || [];
+
+                if (Array.isArray(sourceArray) && sourceArray.length > 0) {
+                    // Filter out numbers that are strictly for Contact/Call only
+                    const validWhatsapp = sourceArray.filter(phone => {
+                        if (typeof phone === 'object' && phone.type) {
+                            return phone.type !== 'اتصال فقط' && phone.type !== 'call';
+                        }
+                        return true;
+                    });
+
+                    const mappedContacts = validWhatsapp.map((phone, index) => {
+                        return typeof phone === 'string'
+                            ? { id: index + 1, number: phone, label: 'تواصل معنا عبر واتساب', type: 'whatsapp' }
+                            : {
+                                id: index + 1,
+                                number: phone.number || phone.phone || phone.whatsapp || String(phone),
+                                label: phone.label || 'تواصل معنا عبر واتساب',
+                                type: phone.type || 'whatsapp'
+                            };
+                    });
+                    setContacts(mappedContacts);
+                } else if (settings && (settings.whatsapp_number || settings.phone)) {
+                    setContacts([{ id: 1, number: settings.whatsapp_number || settings.phone }]);
+                }
+            } catch (err) {
+                console.error("Error fetching whatsapp contacts from API:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (!initialContacts && contacts.length === 0) {
+            fetchContacts();
         }
-    }, [contactsUrl]);
+    }, [initialContacts]);
 
     if (!isOpen) return null;    // Uncomment this if conditional rendering is inside the parent instead of here
 
@@ -74,21 +86,23 @@ const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
                         <p className="loading-text" style={{ fontFamily: 'Regular' }}>جاري التحميل...</p>
                     ) : (
                         contacts.map((contact, index) => (
-                            <a
-                                href={`https://wa.me/${contact.number.replace(/\s+/g, '').replace('+', '')}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                key={contact.id || index}
-                                className="whatsapp-card"
-                            >
-                                <div className="whatsapp-card-icon">
-                                    <ChatIcon />
-                                </div>
-                                <div className="whatsapp-card-info">
-                                    <span className="whatsapp-category" style={{ fontFamily: 'Regular' }}>تواصل معنا عبر واتساب  انقر هنا</span>
-                                    <strong className="whatsapp-number" dir="ltr" style={{ fontFamily: 'Bolds' }}>+{contact.number.replace('+', '')}</strong>
-                                </div>
-                            </a>
+                            contact.type !== 'call' && contact.type !== 'اتصال فقط' && (
+                                <a
+                                    href={`https://wa.me/${contact.number.replace(/\s+/g, '').replace('+', '')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    key={contact.id || index}
+                                    className="whatsapp-card"
+                                >
+                                    <div className="whatsapp-card-icon">
+                                        <ChatIcon />
+                                    </div>
+                                    <div className="whatsapp-card-info">
+                                        <span className="whatsapp-category" style={{ fontFamily: 'Regular' }}>{contact.label || 'تواصل معنا عبر واتساب انقر هنا'}</span>
+                                        <strong className="whatsapp-number" dir="ltr" style={{ fontFamily: 'Bolds' }}>+{contact.number.replace('+', '')}</strong>
+                                    </div>
+                                </a>
+                            )
                         ))
                     )}
                 </div>

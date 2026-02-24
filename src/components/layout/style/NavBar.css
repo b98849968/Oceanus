@@ -4,6 +4,7 @@
     align-items: center;
     /* background: rgb(101, 101, 101); */
     font-family: Regular;
+    padding: 0 25px;
     font-weight: 300;
     position: fixed;
     left: 0;
@@ -11,7 +12,8 @@
     background: var(--white-color);
     z-index: 999999;
     top: 0;
-    box-shadow: 1px  0  10px  0px  var(--bordr-color);
+    box-shadow: 1px 0 10px 0px var(--bordr-color);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logoImge {
@@ -31,7 +33,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
+
 }
 
 .ListItem ul li a {
@@ -61,5 +63,74 @@
 
 .navButton .iconDirk {
     color: var(--derk-color);
+}
 
+/* =============================================================== */
+/* Responsive Styles for NavBar */
+
+@media (max-width: 1024px) {
+    .logoImge {
+        width: 25%;
+    }
+
+    .ListItem {
+        width: 50%;
+    }
+
+    .navButton {
+        width: 25%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navBody {
+        padding: 5px 15px;
+    }
+
+    .logoImge {
+        width: auto;
+    }
+
+    .logoImge img {
+        width: 150px;
+    }
+
+    /* Hide Desktop Links */
+    .nav-links {
+        display: none !important;
+    }
+
+    /* Mobile Menu Display */
+    .nav-links-mobile {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: var(--white-color);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px 0;
+        gap: 15px;
+        align-items: center;
+        z-index: 100000;
+    }
+
+    .ListItem {
+        width: auto;
+    }
+
+    .navButton {
+        width: auto;
+        gap: 10px;
+    }
+
+    .contact-btn {
+        display: none !important;
+    }
+
+    .mobile-menu-icon {
+        display: inline-flex !important;
+        color: var(--main-color) !important;
+    }
 }

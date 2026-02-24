@@ -7,8 +7,11 @@ import Button from '@mui/material/Button';
 // =============== import icons   ==================//
 import CallIcon from '@mui/icons-material/Call';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import { useContact } from '../context/ContactContext';
 
 export default function FastCommunication() {
+  const { openContact, openWhatsApp } = useContact();
+
   return (
     <>
       <div className="FastCommunication">
@@ -19,15 +22,15 @@ export default function FastCommunication() {
           </p>
         </div>
         <div className="FastCommunicationButton">
-          
-            <Button className='Coll' variant="contained" startIcon={<CallIcon />}>
-              اتصل بنا الآن
-            </Button>
-             <Button className='WhatsApp' variant="contained" startIcon={<ChatOutlinedIcon />}>
-              واتساب
-            </Button>
-            
-       
+
+          <Button className='Coll' variant="contained" startIcon={<CallIcon />} onClick={openContact}>
+            اتصل بنا الآن
+          </Button>
+          <Button className='WhatsApp' variant="contained" startIcon={<ChatOutlinedIcon />} onClick={openWhatsApp}>
+            واتساب
+          </Button>
+
+
         </div>
       </div>
     </>

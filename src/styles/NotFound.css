@@ -69,6 +69,27 @@
     /* Ensure text stays white */
 }
 
+/* Dark Mode Support */
+body.dark-mode .notfound-container {
+    background-color: #0f172a;
+}
+
+body.dark-mode .notfound-content {
+    background-color: #1e293b;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .notfound-title {
+    color: #f8fafc;
+}
+
+body.dark-mode .notfound-message {
+    color: #94a3b8;
+}
+body.dark-mode .notfound-button{
+    color: #001626;
+}
+
 /* For mobile responsiveness */
 @media (max-width: 768px) {
     .notfound-code {

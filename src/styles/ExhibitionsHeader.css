@@ -38,7 +38,7 @@
 .exh-badge {
     background-color: #fcefd6;
     /* برتقالي/أصفر فاتح جداً */
-   color: var(--icon-colors);
+    color: var(--icon-colors);
     /* برتقالي داكن */
     padding: 10px 24px;
     border-radius: 50px;
@@ -73,7 +73,7 @@
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    
+
 }
 
 /* وصف أسفل العنوان الرئيسي */
@@ -148,6 +148,35 @@
 .exh-btn-browse:hover {
     background-color: #c96b0b;
     transform: translateY(-2px);
+}
+
+/* =========== Dark Mode Overrides =========== */
+body.dark-mode .exh-fade-overlay {
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.9) 40%, rgba(15, 23, 42, 1) 100%);
+}
+
+body.dark-mode .exh-badge {
+    background-color: #1e293b;
+    color: var(--icon-colors);
+}
+
+body.dark-mode .exh-title-navy {
+    color: var(--derk-color);
+}
+
+body.dark-mode .exh-description {
+    color: var(--pren-color);
+}
+
+body.dark-mode .exh-btn-contact {
+    background-color: #1e293b;
+    color: var(--derk-color);
+    border-color: var(--bordr-color);
+}
+
+body.dark-mode .exh-btn-contact:hover {
+    background-color: #334155;
+    border-color: var(--derk-color);
 }
 
 /* شاشات الجوال */

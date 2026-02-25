@@ -82,8 +82,8 @@ export default function Footer() {
         <div className="footerTop">
           {/* footer logo and discribtion  */}
           <div className="footerLD">
-            {contactInfo.darkLogo && <img src={  `http://localhost:8000${contactInfo.darkLogo}`} alt="logo" />}
-            
+            {contactInfo.darkLogo && <img src={`http://localhost:8000${contactInfo.darkLogo}`} alt="logo" />}
+
             <p>
               الأوقيانوس هي وجهتكم الأولى لأرقى أعمال الألمنيوم والديكورات
               الداخلية. نجمع بين الحرفية العالية والتصميم العصري لنبتكر مساحات
@@ -91,47 +91,50 @@ export default function Footer() {
             </p>
           </div>
           {/* footer the links  */}
-          <div className="footerLinks">
-            <h3>الروابط السريعة</h3>
-            <div>
-              <ul>
-                <li>
-                  <Link to="/" onClick={(e) => handleNavClick(e, "/")}>الرئيسية</Link>
-                </li>
-                <li>
-                  <Link to="/#about" onClick={(e) => handleNavClick(e, "/#about")}>من نحن</Link>
-                </li>
-                <li>
-                  <Link to="/exhibitions" onClick={(e) => handleNavClick(e, "/exhibitions")}>كل المعارض</Link>
-                </li>
-                <li>
-                  <Link to="/#contact-location" onClick={(e) => handleNavClick(e, "/#contact-location")}>تواصل والموقع</Link>
-                </li>
+          <div className="AllfooterLinks">
+            <div className="footerLinks">
+              <h3>الروابط السريعة</h3>
+              <div>
+                <ul>
+                  <li>
+                    <Link to="/" onClick={(e) => handleNavClick(e, "/")}>الرئيسية</Link>
+                  </li>
+                  <li>
+                    <Link to="/#about" onClick={(e) => handleNavClick(e, "/#about")}>من نحن</Link>
+                  </li>
+                  <li>
+                    <Link to="/exhibitions" onClick={(e) => handleNavClick(e, "/exhibitions")}>كل المعارض</Link>
+                  </li>
+                  <li>
+                    <Link to="/#contact-location" onClick={(e) => handleNavClick(e, "/#contact-location")}>تواصل والموقع</Link>
+                  </li>
 
-              </ul>
+                </ul>
+              </div>
+            </div>
+            {/* footer the comunication  */}
+            <div className="FooterComunication">
+              <h3>تواصل معنا</h3>
+              <div>
+                <p>
+                  <LocationPinIcon className="comunicationIcons" />
+                  <span style={{ lineHeight: "25px" }}>
+                    {" "}
+                    {contactInfo.address}{" "}
+                  </span>{" "}
+                </p>
+                <p>
+                  <CallIcon className="comunicationIcons" />
+                  <span dir="ltr">{contactInfo.phone} </span>{" "}
+                </p>
+                <p>
+                  <EmailIcon className="comunicationIcons" />
+                  <span dir="ltr">{contactInfo.email}</span>{" "}
+                </p>
+              </div>
             </div>
           </div>
-          {/* footer the comunication  */}
-          <div className="FooterComunication">
-            <h3>تواصل معنا</h3>
-            <div>
-              <p>
-                <LocationPinIcon className="comunicationIcons" />
-                <span style={{ lineHeight: "25px" }}>
-                  {" "}
-                  {contactInfo.address}{" "}
-                </span>{" "}
-              </p>
-              <p>
-                <CallIcon className="comunicationIcons" />
-                <span dir="ltr">{contactInfo.phone} </span>{" "}
-              </p>
-              <p>
-                <EmailIcon className="comunicationIcons" />
-                <span dir="ltr">{contactInfo.email}</span>{" "}
-              </p>
-            </div>
-          </div>
+
         </div>
         {/* footer Bottom informtion  */}
         <div className="footerBottom">
@@ -157,7 +160,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-       
+
     </>
   );
 }

@@ -12,11 +12,15 @@ import { Link } from "react-router-dom";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useInView } from "react-intersection-observer";
 
 export default function HomeDecor() {
+  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { ref: imgRef, inView: imgInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
   return (
     <div className="HomeDecor">
-      <div className="HomeDecorTitle">
+      <div ref={titleRef} className={`HomeDecorTitle ${titleInView ? 'animate__fadeInRight' : 'hidden-anim'}`}>
         <div className="HomeDecorTitleP">
           <p> إتقان في كل تفصيلة ✦ خبرة تتجاوز التوقعات </p>
         </div>
@@ -64,7 +68,7 @@ export default function HomeDecor() {
         </div>
       </div>
       {/* ========== HomeDecor Img ================= */}
-      <div className="HomeDecorImg">
+      <div ref={imgRef} className={`HomeDecorImg ${imgInView ? 'animate__fadeInLeft' : 'hidden-anim'}`}>
         <div className="HomeDecorImgContent1">
           <img src={HomeDecorImg1} className="HomeDecorImg1" alt="" />
           <img src={HomeDecorImg3} className="HomeDecorImg3" alt="" />

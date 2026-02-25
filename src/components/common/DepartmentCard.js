@@ -5,14 +5,14 @@ import "./style/DepartmentCard.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
 
-export default function DepartmentsCard({ gallery }) {
+export default function DepartmentsCard({ gallery, onClick }) {
   const bgImage = gallery?.image || Department;
   const divStyle = {
     backgroundImage: `url(http://localhost:8000${bgImage})`,
   };
 
   return (
-    <div className="DepartmentsCard" style={divStyle}>
+    <div className="DepartmentsCard" style={{ ...divStyle, cursor: 'pointer' }} onClick={onClick}>
       <div className="card-overlay"></div>
 
       <div className="card-content">

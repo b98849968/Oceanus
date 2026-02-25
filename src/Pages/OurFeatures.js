@@ -6,12 +6,14 @@ import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
 import SpeedIcon from '@mui/icons-material/Speed';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
+import { useInView } from "react-intersection-observer";
 
 export default function OurFeatures() {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
   return (
     <>
-
-      <div className="OurFeatures" id="services">
+      <div ref={ref} className={`OurFeatures ${inView ? 'animate__fadeInUp' : 'hidden-anim'}`} id="services">
         <div className="OurFeaturesBox">
           <DiamondOutlinedIcon className="OurFeaturesIcon" />
           <h3>  جودة فاخرة  </h3>

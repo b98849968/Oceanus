@@ -10,9 +10,12 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useContact } from '../context/ContactContext';
+import { useInView } from "react-intersection-observer";
 
 const CommunicationLocation = () => {
     const { openContact, openWhatsApp } = useContact();
+    const { ref: headerRef, inView: headerInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+    const { ref: contentRef, inView: contentInView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
     const [contactData, setContactData] = useState({
         whatsapp: '',
@@ -66,7 +69,7 @@ const CommunicationLocation = () => {
     return (
         <div className="communication-page" id="contact-location">
             {/* قسم العنوان (Header) */}
-            <div className="communication-header">
+            <div ref={headerRef} className={`communication-header ${headerInView ? 'animate__zoomInDown' : 'hidden-anim'}`}>
                 <div className="header-content">
                     <h1 className='text-white'>تواصل معنا</h1>
                     <p className='p-white'>
@@ -76,7 +79,7 @@ const CommunicationLocation = () => {
             </div>
 
             {/* قسم المحتوى الرئيسي */}
-            <div className="communication-container">
+            <div ref={contentRef} className={`communication-container ${contentInView ? 'animate__fadeInUp' : 'hidden-anim'}`}>
 
                 {/* قسم البطاقات (اليمين) */}
                 <div className="contact-cards-section">

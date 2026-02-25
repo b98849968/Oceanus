@@ -173,7 +173,7 @@ body.dark-mode .project-divider {
 }
 
 .icon-btn svg {
-    font-size: 1.6rem !important;
+    font-size: 1.6rem;
 }
 
 .icon-btn:hover {
@@ -211,4 +211,108 @@ body.dark-mode .like-btn.liked {
     .project-title {
         font-size: 1.25rem;
     }
+}
+@media (max-width: 767px){
+    
+    .project-card {
+        position: relative;
+        width: 25%;
+        max-width: 284px;
+        min-width: 180px;
+        border-radius: 10px;
+    }
+
+    .project-badge {
+        top: 11px;
+        right: 8px;
+        padding: 2px 8px;
+        border-radius: 7px;
+        font-size: 0.5rem;
+    }
+
+    .project-card-content {
+        padding: 6px;
+    }
+
+    .icon-btn {
+        font-size: 14px;
+    }
+
+    .project-title {
+        font-size: .75rem;
+    }
+
+    .project-description {
+        font-size: 0.65rem;
+    }
+
+    .project-card-image-container {
+        height: 60%;
+    }
+
+    .icon-btn svg {
+        padding: 0;
+        width: 16.5px;
+    }
+
+    .project-divider {
+        margin: 4px 0;
+    }
+
+    .project-card {
+        height: 285px;
+    }
+}
+@media (max-width: 500px) {
+
+    .project-card {
+        position: relative;
+        width: 25%;
+        max-width: 284px;
+        min-width: 140px;
+        border-radius: 10px;
+    }
+
+    .project-badge {
+        top: 11px;
+        right: 8px;
+        padding: 2px 8px;
+        border-radius: 7px;
+        font-size: 0.5rem;
+    }
+
+    .project-card-content {
+        padding: 6px;
+    }
+
+    .icon-btn {
+        font-size: 12px;
+    }
+
+    .project-title {
+        font-size: .65rem;
+    }
+
+    .project-description {
+        font-size: 0.65rem;
+    }
+
+    .project-card-image-container {
+        height: 50%;
+    }
+
+    .icon-btn svg {
+        padding: 0;
+        width: 16.5px;
+    }
+
+    .project-divider {
+        margin: 4px 0;
+    }
+
+    .project-card {
+        height: 235px;
+    }
+
+
 }

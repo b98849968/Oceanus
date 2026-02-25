@@ -6,12 +6,17 @@ import "../assets/images/AbuteImg.png";
 // ========== icon MUI =============== //
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useInView } from "react-intersection-observer";
+
 export default function Abute() {
+  const { ref: imgRef, inView: imgInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { ref: descRef, inView: descInView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
   return (
     <>
       <div className="Abute" id="about">
         {/* hte code is defing imgs Abute  */}
-        <div className="AbuteImg">
+        <div ref={imgRef} className={`AbuteImg ${imgInView ? 'animate__fadeInRight' : 'hidden-anim'}`}>
           <div className="AbuteImgContent">
             <div className="engineeringImgs">
               <div className="AbuteIcon">
@@ -25,7 +30,7 @@ export default function Abute() {
           </div>
         </div>
         {/* the describtion Abute  */}
-        <div className="DescriptionAbute">
+        <div ref={descRef} className={`DescriptionAbute ${descInView ? 'animate__fadeInLeft' : 'hidden-anim'}`}>
           <p className="we">من نحن</p>
           <h2 className="title">  شريكك الموثوق في عالم <span>الألمنيوم والديكور</span>  </h2>
           <div className="textAbute">

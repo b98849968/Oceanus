@@ -153,57 +153,98 @@ body.dark-mode .DescriptionAbute .title {
 /* =============================================================== */
 /* Responsive Styles for Abute */
 
+/* max-width: 1180px */
+@media (max-width: 1180px) {
+    .Abute {
+        padding: 0 15px;
+    }
+
+    .AbuteImg,
+    .AbuteImg::before {
+        width: 500px;
+        height: 450px;
+    }
+
+    .DescriptionAbute {
+        width: 50%;
+    }
+
+    .DescriptionAbute .title {
+        font-size: 28px;
+    }
+
+    .DescriptionAbute .textAbute {
+        font-size: 16px;
+    }
+}
+
 /* Tablet (max-width: 1024px) */
 @media (max-width: 1024px) {
     .Abute {
         height: auto;
-        padding: 50px 30px;
-        flex-direction: column;
-        gap: 50px;
+        padding: 26px 15px;
+        /* flex-direction: column; */
+        gap: 20px;
     }
 
     .AbuteImg,
     .AbuteImg::before {
         width: 100%;
-        max-width: 500px;
-        height: 400px;
+        max-width: 436px;
+        height: 364px;
     }
 
     .DescriptionAbute {
         width: 100%;
         height: auto;
-        align-items: center;
-        text-align: center;
+
     }
 
-    .DescriptionAbute .textAbute {
-        text-align: center;
-    }
 
     .DescriptionAbute div ul {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
+        padding: 0;
     }
 
     .engineeringImgs {
         width: 90%;
-        bottom: 10px;
+        bottom: 5px;
         right: 5%;
-        padding: 15px 20px;
+        padding: 4px 14px;
+    }
+
+    .AbuteIcon {
+        padding: 10px 5px;
+        margin-left: 17px;
+    }
+
+    .DescriptionAbute .title {
+        font-size: 22px;
+    }
+
+    .DescriptionAbute .textAbute p {
+        padding: 10px 0;
+    }
+
+    .DescriptionAbute .textAbute {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .DescriptionAbute div ul li {
+        padding: 4px 0;
+        font-size: 15px;
     }
 }
 
-/* Mobile (max-width: 768px) */
-@media (max-width: 768px) {
-    .Abute {
-        padding: 40px 15px;
-    }
+/* max-width: 900px */
+@media (max-width: 900px) {
 
     .AbuteImg,
     .AbuteImg::before {
-        width: 100%;
-        height: 300px;
+        height: 350px;
     }
 
     .DescriptionAbute .title {
@@ -211,17 +252,170 @@ body.dark-mode .DescriptionAbute .title {
     }
 
     .DescriptionAbute .textAbute {
-        font-size: 16px;
+        font-size: 15px;
+    }
+}
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .Abute {
+        /* padding: 40px 15px; */
+        gap: 40px;
+        padding: 26px 15px;
+        flex-direction: column;
+        /* gap: 20px; */
+        padding: 26px 40px;
+    }
+
+    .AbuteImg,
+    .AbuteImg::before {
+        width: 100%;
+        height: 300px;
+
+    }
+
+    .DescriptionAbute .title {
+        font-size: 24px;
+        line-height: 1.5;
+    }
+
+    .DescriptionAbute .textAbute {
+        font-size: 14px;
+        line-height: 1.5;
     }
 
     .engineeringImgs {
-        padding: 10px 15px;
+        padding: 9px 11px;
+        flex-direction: row;
+        /* text-align: center; */
+        bottom: 7px;
+        width: 95%;
+        right: 2.5%;
+    }
+
+    .AbuteIcon {
+        margin-left: 15px;
+        margin-bottom: 0px;
+        padding: 10px;
+    }
+
+    .AbuteIcon .EngineeringIcon {
+        font-size: 24px;
+    }
+
+    .AbuteTextEng h4 {
+        font-size: 14px;
+    }
+
+    .AbuteTextEng p {
+        font-size: 11px;
+        padding: 5px 0;
+    }
+}
+
+/* max-width: 530px */
+@media (max-width: 530px) {
+
+    .AbuteImg,
+    .AbuteImg::before {
+        height: 250px;
+    }
+
+    .engineeringImgs {
+        display: none;
         flex-direction: column;
-        text-align: center;
+        border-right: none;
+        border-bottom: 4px solid var(--button-red);
+        bottom: -30px;
     }
 
     .AbuteIcon {
         margin-left: 0;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
+
+    .DescriptionAbute .title {
+        font-size: 20px;
+    }
+
+    .DescriptionAbute .textAbute {
+        font-size: 13px;
+        word-spacing: 2px;
+    }
+
+    .DescriptionAbute div ul li {
+        font-size: 14px;
+    }
+}
+
+/* max-width: 400px */
+@media (max-width: 400px) {
+    .Abute {
+        padding: 30px 10px;
+        gap: 50px;
+    }
+
+    .AbuteImg,
+    .AbuteImg::before {
+        height: 200px;
+    }
+
+    .DescriptionAbute .title {
+        font-size: 18px;
+    }
+
+    .DescriptionAbute .we {
+        font-size: 16px;
+    }
+
+    .DescriptionAbute .textAbute {
+        font-size: 12px;
+    }
+
+    .DescriptionAbute div ul li {
+        font-size: 13px;
+    }
+
+    .engineeringImgs {
+        padding: 8px;
+        bottom: -40px;
+    }
+}
+
+/* =============================================================== */
+/* Animations for Abute */
+.hidden-anim {
+    opacity: 0;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate__fadeInLeft {
+    animation: fadeInLeft 1s both;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translate3d(100%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate__fadeInRight {
+    animation: fadeInRight 1s both;
 }

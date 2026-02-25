@@ -21,7 +21,6 @@ import DepartmentsCard from "./components/common/DepartmentCard";
 import AllExhibitionsDisply from "./Pages/AllExhibitionsDisply";
 import { ContactProvider } from "./context/ContactContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import API from "./API";
 // ============= import MUI  مكتبه  ==========// 
 import { Routes, Route, Link } from "react-router-dom";
 
@@ -34,17 +33,17 @@ const theme = createTheme({
   },
 });
 
- 
- 
+
+
 function App() {
-  
+
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <ThemeProvider>
           <ContactProvider>
             <NavBar />
-           
+
             <Routes>
               <Route path="*" element={<NotFound />} />
               <Route path="/"
@@ -73,7 +72,6 @@ function App() {
           </ContactProvider>
         </ThemeProvider>
       </MuiThemeProvider>
-      <API/>
     </div>
   );
 }

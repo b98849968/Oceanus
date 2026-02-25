@@ -6,6 +6,7 @@ import DepartmentsCard from "../components/common/DepartmentCard";
 import ProjectCard from "../components/common/projectCard";
 import AllExhibitionsButtons from "../components/common/AllExhibitionsButtons";
 import ExhibitionsButtons from "../components/common/ExhibitionsButtons";
+import { useSearchParams } from "react-router-dom";
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -17,6 +18,17 @@ export default function AllExhibitionsDisply() {
     const [showRight, setShowRight] = useState(false);
     const [galleries, setGalleries] = useState([]);
     const [selectedGalleryId, setSelectedGalleryId] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const handleCardClick = (id) => {
+        setSearchParams({ gallery_id: id });
+        setTimeout(() => {
+            const section = document.getElementById('aluminum-sections-gallery');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    };
 
     // Fetch galleries
     useEffect(() => {
@@ -135,7 +147,7 @@ export default function AllExhibitionsDisply() {
                     >
                         {galleries.length > 0 ? (
                             galleries.map((gallery) => (
-                                <DepartmentsCard key={gallery.id} gallery={gallery} />
+                                <DepartmentsCard key={gallery.id} gallery={gallery} onClick={() => handleCardClick(gallery.id)} />
                             ))
                         ) : (
                             <>

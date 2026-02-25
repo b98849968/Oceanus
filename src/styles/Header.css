@@ -60,6 +60,7 @@
 
 .HeaderTitle p {
     font-family: Regular;
+
     font-size: 20px;
     line-height: 2;
     word-spacing: 2px;
@@ -101,27 +102,62 @@ body.dark-mode .HeaderButton button.nonBac {
 
 /* =============================================================== */
 /* Responsive Styles for Header */
+@media (max-width: 1180px) {
+    .Header {
+        margin-top: 57px;
+    }
+
+    .HeaderTitle {
+        width: 90%;
+        height: 30%;
+    }
+
+    .HeaderTitle h1 {
+        font-size: 45px;
+    }
+
+    .HeaderTitle p {
+        font-size: 17px;
+    }
+
+    .HeaderButton {
+        width: 37%;
+    }
+}
 
 @media (max-width: 1024px) {
     .HeaderTitle {
         width: 90%;
+        height: 30%;
     }
 
+
     .HeaderTitle h1 {
-        font-size: 50px;
+        font-size: 38px;
     }
 
     .HeaderButton {
         width: 50%;
     }
+
+
+}
+
+@media (max-width:900px) {
+    .Header .HeaderSafety {
+        padding: 5px 8px;
+        border-radius: 14px;
+        font-size: 13.3px;
+    }
 }
 
 @media (max-width: 768px) {
+
     .Header {
         height: auto;
-        padding: 50px 15px;
+        padding: 44px 8px;
         justify-content: center;
-        gap: 30px;
+        gap: 15px;
     }
 
     .HeaderTitle {
@@ -130,25 +166,103 @@ body.dark-mode .HeaderButton button.nonBac {
     }
 
     .HeaderTitle h1 {
-        font-size: 35px;
+        font-size: 25px;
         padding: 0 0 15px 0;
-    }
-
-    .HeaderTitle p {
-        font-size: 16px;
         line-height: 1.6;
     }
 
+    .HeaderTitle p {
+        font-size: 12px;
+
+    }
+
+    .HeaderTitle p br {
+        display: none;
+    }
+
     .HeaderButton {
-        width: 100%;
-        flex-direction: column;
+        width: 60%;
+        /* flex-direction: column; */
         align-items: center;
-        gap: 15px;
+        gap: 14px;
         margin: 0;
     }
 
     .HeaderButton button {
         width: 100%;
-        max-width: 250px;
+        max-width: 141px;
+        font-size: 14px;
+
     }
+}
+
+@media (max-width: 530px) {
+    .HeaderButton {
+        width: 83%;
+    }
+
+    .HeaderButton button {
+        height: 40px;
+    }
+}
+
+@media (max-width: 400px) {
+    .HeaderTitle h1 {
+        font-size: 20px;
+    }
+
+    .HeaderTitle p {
+        font-size: 10.5px;
+
+    }
+
+    .Header .HeaderSafety {
+        font-size: 11.5px;
+    }
+
+    .HeaderButton button {
+        height: 34px;
+        font-size: 12px;
+        max-width: 119px;
+    }
+}
+
+/* =============================================================== */
+/* Animations for Header */
+.hidden-anim {
+    opacity: 0;
+}
+
+@keyframes zoomInDown {
+    from {
+        opacity: 0;
+        transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);
+        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+}
+
+.animate__zoomInDown {
+    animation: zoomInDown 1s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate__fadeInUp {
+    animation: fadeInUp 1s both;
 }

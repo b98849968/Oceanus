@@ -51,7 +51,7 @@ export default function AluminumSections() {
 
   return (
     <>
-      <div className="AluminumSections" id="exhibitions-gallery">
+      <div className="AluminumSections" id="aluminum-sections-gallery">
         {/* =========== title Aluminum Sections =========== */}
 
         <div className="SectionsTitle">

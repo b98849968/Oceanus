@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import './style/AllExhibitionsButtons.css';
 import { fetchAPI, ENDPOINTS } from '../../API';
 
 const AllExhibitionsButtons = ({ onCategorySelect }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const urlGalleryId = searchParams.get('gallery_id');
     const [activeCategory, setActiveCategory] = useState(null);
     const [galleries, setGalleries] = useState([]);
 
@@ -15,9 +18,10 @@ const AllExhibitionsButtons = ({ onCategorySelect }) => {
                 setGalleries(fetchedGalleries);
 
                 if (fetchedGalleries.length > 0) {
-                    setActiveCategory(fetchedGalleries[0].id);
+                    const initialId = urlGalleryId ? Number(urlGalleryId) : fetchedGalleries[0].id;
+                    setActiveCategory(initialId);
                     if (onCategorySelect) {
-                        onCategorySelect(fetchedGalleries[0].id);
+                        onCategorySelect(initialId);
                     }
                 }
             } catch (err) {
@@ -28,7 +32,19 @@ const AllExhibitionsButtons = ({ onCategorySelect }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        if (urlGalleryId && galleries.length > 0) {
+            const id = Number(urlGalleryId);
+            setActiveCategory(id);
+            if (onCategorySelect) {
+                onCategorySelect(id);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlGalleryId, galleries]);
+
     const handleCategoryClick = (categoryId) => {
+        setSearchParams({ gallery_id: categoryId });
         setActiveCategory(categoryId);
         if (onCategorySelect) {
             onCategorySelect(categoryId);

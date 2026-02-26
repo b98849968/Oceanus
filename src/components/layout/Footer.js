@@ -3,7 +3,7 @@ import "../../App.css";
 // ======== import items MUI مكتبه  =======//
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { fetchAPI, ENDPOINTS } from "../../API";
+import { fetchAPI, ENDPOINTS, BASE_URL } from "../../API";
 
 // ======= import icon MUI ========== //
 import CallIcon from "@mui/icons-material/Call";
@@ -82,7 +82,7 @@ export default function Footer() {
         <div className="footerTop">
           {/* footer logo and discribtion  */}
           <div className="footerLD">
-            {contactInfo.darkLogo && <img src={`http://localhost:8000${contactInfo.darkLogo}`} alt="logo" />}
+            {contactInfo.darkLogo && <img src={`${BASE_URL}${contactInfo.darkLogo}`} alt="logo" />}
 
             <p>
               الأوقيانوس هي وجهتكم الأولى لأرقى أعمال الألمنيوم والديكورات

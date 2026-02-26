@@ -1,8 +1,8 @@
 // src/API.js
 import React, { useState } from 'react';
-   import { useEffect } from "react";
+import { useEffect } from "react";
 // Base URL for the API
-export const BASE_URL = 'http://127.0.0.1:8000';
+export const BASE_URL = `http://${window.location.hostname}:8000`;
 
 // Define your API endpoints based on API_DOCS.md
 export const ENDPOINTS = {
@@ -97,8 +97,8 @@ export default function APITesterPage() {
         setEndpoint(path);
         setMethod('GET'); // All documented endpoints are currently GET
     };
-    
-    
+
+
     const handleTest = async () => {
         setLoading(true);
         setError(null);
@@ -112,7 +112,7 @@ export default function APITesterPage() {
                 options.body = JSON.stringify(JSON.parse(body));
             } catch (err) {
                 setError('Invalid JSON body format. Please check your JSON syntax.');
-                
+
                 setLoading(false);
 
                 return;
@@ -122,32 +122,32 @@ export default function APITesterPage() {
         try {
             const result = await fetchAPI(url, options);
             setResponse(result);
-            
-            
+
+
         } catch (err) {
             setError(err);
-            
+
         } finally {
             setLoading(false);
 
         }
     };
-    
- 
 
-useEffect(() => {
-    fetchAPI(`${BASE_URL}/api/galleries`)
-        .then(data => {
-            console.log("All Galleries:", data);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-}, []);
-fetch("http://127.0.0.1:8000/api/galleries")
-    .then(res => res.json())
-    .then(data => console.log(data.data[0].categories[0].items[0].title))
-    .catch(err => console.error(err));
+
+
+    useEffect(() => {
+        fetchAPI(`${BASE_URL}/api/galleries`)
+            .then(data => {
+                console.log("All Galleries:", data);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }, []);
+    fetch("http://127.0.0.1:8000/api/galleries")
+        .then(res => res.json())
+        .then(data => console.log(data.data[0].categories[0].items[0].title))
+        .catch(err => console.error(err));
     return (
 
         <div style={{ padding: '30px', fontFamily: 'system-ui, -apple-system, sans-serif', maxWidth: '900px', margin: '0 auto', background: '#f9f9f9', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>

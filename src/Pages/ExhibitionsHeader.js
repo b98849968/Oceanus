@@ -49,25 +49,25 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
                 <div className="exh-content-wrapper">
 
                     {/* التاج العلوي */}
-                    <div className="exh-badge">
+                    <div className="exh-badge animate__fadeInLeft">
                         إتقان في كل تفصيلة <span>✦</span> خبرة تتجاوز التوقعات
                     </div>
 
                     {/* العنوان الرئيسي */}
-                    <h1 className="exh-main-title">
+                    <h1 className="exh-main-title animate__backInRight">
                         <span className="exh-title-navy">نصنع الجمال في</span>
                         <br />
                         <span className="exh-title-orange"> الديكور  والألمنيوم</span>
                     </h1>
 
                     {/* الوصف */}
-                    <p className="exh-description">
+                    <p className="exh-description animate__backInLeft">
                         اكتشف مجموعة واسعة من الأبواب، المطابخ، والنوافذ المصممة بأعلى معايير الجودة
                         لتناسب ذوقك وتلبي احتياجات مساحتك السكنية أو التجارية.
                     </p>
 
                     {/* أزرار الإجراء */}
-                    <div className="exh-actions">
+                    <div className="exh-actions animate__fadeInLeft">
                         <button onClick={openContact} className="exh-btn-contact" style={{ border: 'none', cursor: 'pointer' }}>
                             {contactData.label}
                             {/* أيقونة الهاتف (تعتمد على مشروعك إذا تستخدم FontAwesome) */}

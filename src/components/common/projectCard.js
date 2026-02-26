@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ProjectCardDisplay from './projectCardDisply';
+import { BASE_URL } from '../../API';
 
 const ProjectCard = ({ project }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +71,7 @@ const ProjectCard = ({ project }) => {
         <>
             <div className="project-card" onClick={handleOpenModal} style={{ cursor: 'pointer' }}>
                 <div className="project-card-image-container">
-                    <img src={`http://localhost:8000${data.image}`} alt={data.title} className="project-image" />
+                    <img src={`${BASE_URL}${data.image}`} alt={data.title} className="project-image" />
                     <div className="project-badge">
                         {data.category}
                     </div>

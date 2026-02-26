@@ -4,11 +4,12 @@ import "./style/DepartmentCard.css";
 // =========== import icons mui.com ========== //
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
+import { BASE_URL } from '../../API';
 
 export default function DepartmentsCard({ gallery, onClick }) {
   const bgImage = gallery?.image || Department;
   const divStyle = {
-    backgroundImage: `url(http://localhost:8000${bgImage})`,
+    backgroundImage: `url(${BASE_URL}${bgImage})`,
   };
 
   return (
@@ -24,7 +25,7 @@ export default function DepartmentsCard({ gallery, onClick }) {
           {gallery?.description || 'تشكيلة واسعة من واجهات الألمنيوم، النوافذ العازلة، والمطابخ الحديثة المقاومة للصدأ بأحدث أنظمة السحب والمفصلات.'}
         </p>
         <a href="#" className="card-link">
-          استعرض أعمال الألمنيوم <ArrowBackIcon className="link-icon" />
+          استعرض أعمال<ArrowBackIcon className="link-icon" />
         </a>
       </div>
     </div>

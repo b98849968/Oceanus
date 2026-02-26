@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useContact } from '../../context/ContactContext';
+import { BASE_URL } from '../../API';
 
 export default function ProjectCardDisplay({
     isOpen,
@@ -85,7 +86,7 @@ export default function ProjectCardDisplay({
 
     // وظيفة تكبير الصورة (تفتح في نافذة جديدة)
     const handleDownloadZoom = (imgUrl) => {
-        const fullUrl = `http://localhost:8000${imgUrl}`;
+        const fullUrl = `${BASE_URL}${imgUrl}`;
         window.open(fullUrl, '_blank');
     };
 
@@ -94,7 +95,7 @@ export default function ProjectCardDisplay({
         if (e) e.stopPropagation();
         if (isDownloading) return;
 
-        const fullUrl = `http://localhost:8000${imgUrl}`;
+        const fullUrl = `${BASE_URL}${imgUrl}`;
         setIsDownloading(true);
 
         try {
@@ -164,7 +165,7 @@ export default function ProjectCardDisplay({
                         {/* الصورة الرئيسية */}
                         <div className="pcd-main-image-container">
                             <img
-                                src={`http://localhost:8000${mainImage}`}
+                                src={`${BASE_URL}${mainImage}`}
                                 alt={data.title}
                                 className="pcd-main-image"
                                 onClick={() => handleDownloadZoom(mainImage)}
@@ -189,7 +190,7 @@ export default function ProjectCardDisplay({
                                     className={`pcd-thumb-container ${mainImage === img ? 'active' : ''}`}
                                     onClick={() => setMainImage(img)}
                                 >
-                                    <img src={`http://localhost:8000${img}`} alt={`${data.title} - ${index}`} />
+                                    <img src={`${BASE_URL}${img}`} alt={`${data.title} - ${index}`} />
                                 </div>
                             ))}
                         </div>

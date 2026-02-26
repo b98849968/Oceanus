@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContact } from "../../context/ContactContext";
 import { useTheme } from "../../context/ThemeContext";
-import { fetchAPI, ENDPOINTS } from "../../API";
+import { fetchAPI, ENDPOINTS, BASE_URL } from "../../API";
 
 // ============ import icons ============ //
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -115,7 +115,7 @@ export default function NavBar() {
         <div className="navBody">
           {/* logo  ingser */}
           <div className="logoImge">
-            <img src={isDarkMode ? `http://localhost:8000${logos.dark}` : `http://localhost:8000${logos.light}`} alt="logo" />
+            <img src={isDarkMode ? `${BASE_URL}${logos.dark}` : `${BASE_URL}${logos.light}`} alt="logo" />
           </div>
           {/* القوائم التنقل  */}
           <div className="ListItem">
@@ -157,7 +157,7 @@ export default function NavBar() {
             </IconButton>
           </div>
         </div>
-       
+
       </Container>
     </>
   );

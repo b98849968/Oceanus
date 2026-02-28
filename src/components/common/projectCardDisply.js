@@ -91,73 +91,60 @@ export default function ProjectCardDisplay({
     };
 
     // وظيفة تنزيل الصورة فعلياً
-    // const handleDownload = async (imgUrl, e) => {
-    //     if (e) e.stopPropagation();
-    //     if (isDownloading) return;
-
-    //     const fullUrl = `${BASE_URL}${imgUrl}`;
-    //     setIsDownloading(true);
-
-    //     try {
-    //         const response = await fetch(fullUrl, {
-    //             mode: "cors",
-    //         });
-
-    //         if (!response.ok) throw new Error("فشل تحميل الصورة");
-
-    //         const blob = await response.blob();
-
-    //         const fileName = data.title?.replace(/\s+/g, "_") + ".jpg" || "image.jpg";
-
-    //         // إنشاء رابط تحميل حقيقي
-    //         const url = window.URL.createObjectURL(blob);
-    //         const a = document.createElement("a");
-    //         a.href = url;
-    //         a.download = fileName;
-    //         document.body.appendChild(a);
-    //         a.click();
-
-    //         // تنظيف
-    //         document.body.removeChild(a);
-    //         window.URL.revokeObjectURL(url);
-
-    //         setSnackbarMessage("تم تنزيل الصورة في جهازك بنجاح");
-    //         setSnackbarSeverity("success");
-    //         setSnackbarOpen(true);
-    //     } catch (error) {
-    //         console.error(error);
-    //         // فحص إذا كان الخطأ بسبب CORS
-    //         if (error.message === 'Failed to fetch') {
-    //             setSnackbarMessage("خطأ في الاتصال بالسيرفر أو سياسة CORS");
-    //         } else {
-    //             setSnackbarMessage(error.message || "حدث خطأ أثناء تحميل الصورة");
-    //         }
-    //         // setSnackbarMessage("حدث خطأ أثناء تحميل الصورة");
-    //         setSnackbarSeverity("error");
-    //         setSnackbarOpen(true);
-    //     } finally {
-    //         setIsDownloading(false);
-    //     }
-    // };
     const handleDownload = async (imgUrl, e) => {
-        // const ingsdounlod = `${BASE_URL}${imgUrl}`
         if (e) e.stopPropagation();
+        if (isDownloading) return;
+
+        // تنظيف المسار لاستخراج المسار الفعلي داخل storage
+        // مثال: /storage/images/abc.jpg -> images/abc.jpg
+        let path = imgUrl.replace(/^\/?storage\//, "");
+        if (path.startsWith('/')) {
+            path = path.substring(1);
+        }
+
+        // استخدام الراوت المخصص للتنزيل لتجاوز مشاكل CORS
+        const fullUrl = `${BASE_URL}/api/download/${path}`;
+
+        setIsDownloading(true);
+
         try {
-            const response = await fetch(imgUrl);
-            console.log(imgUrl);
+            const response = await fetch(fullUrl, {
+                mode: "cors",
+            });
+
+            if (!response.ok) throw new Error("فشل تحميل الصورة");
+
             const blob = await response.blob();
-            const blobUrl = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = blobUrl;
-            link.download = data.title ? `${data.title}.jpg` : "download.jpg";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(blobUrl);
+
+            const fileName = data.title ? data.title.replace(/\s+/g, "_") + ".jpg" : "image.jpg";
+
+            // إنشاء رابط تحميل حقيقي
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+
+            // تنظيف
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+            setSnackbarMessage("تم تنزيل الصورة في جهازك بنجاح");
+            setSnackbarSeverity("success");
+            setSnackbarOpen(true);
         } catch (error) {
-            console.error("Error downloading image:", error);
-            // خطة بديلة لو فشل الجلب (مثلاً بسبب CORS) يفتح الصورة في نافذة جديدة
-            // window.open(imgUrl, '_blank');
+            console.error(error);
+            // فحص إذا كان الخطأ بسبب CORS
+            if (error.message === 'Failed to fetch') {
+                setSnackbarMessage("خطأ في الاتصال بالسيرفر أو سياسة CORS");
+            } else {
+                setSnackbarMessage(error.message || "حدث خطأ أثناء تحميل الصورة");
+            }
+            setSnackbarSeverity("error");
+            setSnackbarOpen(true);
+        } finally {
+            setIsDownloading(false);
         }
     };
 

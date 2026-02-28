@@ -91,16 +91,60 @@ export default function ProjectCardDisplay({
     };
 
     // وظيفة تنزيل الصورة فعلياً
+    // const handleDownload = async (imgUrl, e) => {
+    //     if (e) e.stopPropagation();
+    //     if (isDownloading) return;
+
+    //     const fullUrl = `${BASE_URL}${imgUrl}`;
+    //     setIsDownloading(true);
+
+    //     try {
+    //         const response = await fetch(fullUrl, {
+    //             mode: "cors",
+    //         });
+
+    //         if (!response.ok) throw new Error("فشل تحميل الصورة");
+
+    //         const blob = await response.blob();
+
+    //         const fileName = data.title?.replace(/\s+/g, "_") + ".jpg" || "image.jpg";
+
+    //         // إنشاء رابط تحميل حقيقي
+    //         const url = window.URL.createObjectURL(blob);
+    //         const a = document.createElement("a");
+    //         a.href = url;
+    //         a.download = fileName;
+    //         document.body.appendChild(a);
+    //         a.click();
+
+    //         // تنظيف
+    //         document.body.removeChild(a);
+    //         window.URL.revokeObjectURL(url);
+
+    //         setSnackbarMessage("تم تنزيل الصورة في جهازك بنجاح");
+    //         setSnackbarSeverity("success");
+    //         setSnackbarOpen(true);
+    //     } catch (error) {
+    //         console.error(error);
+    //         // فحص إذا كان الخطأ بسبب CORS
+    //         if (error.message === 'Failed to fetch') {
+    //             setSnackbarMessage("خطأ في الاتصال بالسيرفر أو سياسة CORS");
+    //         } else {
+    //             setSnackbarMessage(error.message || "حدث خطأ أثناء تحميل الصورة");
+    //         }
+    //         // setSnackbarMessage("حدث خطأ أثناء تحميل الصورة");
+    //         setSnackbarSeverity("error");
+    //         setSnackbarOpen(true);
+    //     } finally {
+    //         setIsDownloading(false);
+    //     }
+    // };
     const handleDownload = async (imgUrl, e) => {
+        // const ingsdounlod = `${BASE_URL}${imgUrl}`
         if (e) e.stopPropagation();
-        if (isDownloading) return;
-
-        const fullUrl = `${BASE_URL}${imgUrl}`;
-        setIsDownloading(true);
-
         try {
-            const response = await fetch(fullUrl);
-            if (!response.ok) throw new Error("Network response was not ok");
+            const response = await fetch(imgUrl);
+            console.log(imgUrl);
             const blob = await response.blob();
             const blobUrl = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -110,27 +154,18 @@ export default function ProjectCardDisplay({
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(blobUrl);
-
-            setSnackbarMessage("تم تنزيل الصورة في جهازك بنجاح");
-            setSnackbarSeverity("success");
-            setSnackbarOpen(true);
         } catch (error) {
             console.error("Error downloading image:", error);
             // خطة بديلة لو فشل الجلب (مثلاً بسبب CORS) يفتح الصورة في نافذة جديدة
-            window.open(fullUrl, '_blank');
-            setSnackbarMessage("تعذر التنزيل المباشر، تم فتح الصورة في نافذة جديدة");
-            setSnackbarSeverity("warning");
-            setSnackbarOpen(true);
-        } finally {
-            setIsDownloading(false);
+            // window.open(imgUrl, '_blank');
         }
     };
 
     if (!isOpen) return null;
 
     return (
-        <div className="pcd-modal-overlay">
-            <div className="pcd-modal-container">
+        <div className="pcd-modal-overlay" onClick={onClose}>
+            <div className="pcd-modal-container" onClick={(e) => e.stopPropagation()}>
                 {/* زر الإغلاق */}
                 <button className="pcd-close-btn" onClick={onClose}>
                     <CloseIcon />

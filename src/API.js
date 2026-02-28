@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useEffect } from "react";
 // Base URL for the API
-export const BASE_URL = `http://${window.location.hostname}:8000`;
+export const BASE_URL = `http://127.0.0.1:8000`;
 
 // Define your API endpoints based on API_DOCS.md
 export const ENDPOINTS = {
@@ -144,7 +144,7 @@ export default function APITesterPage() {
                 console.error("Error:", error);
             });
     }, []);
-    fetch("http://127.0.0.1:8000/api/galleries")
+    fetch(`${BASE_URL}/api/galleries`)
         .then(res => res.json())
         .then(data => console.log(data.data[0].categories[0].items[0].title))
         .catch(err => console.error(err));

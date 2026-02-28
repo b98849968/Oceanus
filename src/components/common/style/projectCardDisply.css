@@ -313,12 +313,10 @@
 
 @media (max-width: 600px) {
     .pcd-tags {
-
         margin-bottom: 9px;
     }
 
     .pcd-title {
-
         margin: 1px 0 15px 0;
     }
 
@@ -332,6 +330,10 @@
     }
 
     .pcd-contact-box p {
+        font-size: 12px;
+    }
+
+    .pcd-btn-whatsapp i {
         font-size: 12px;
     }
 

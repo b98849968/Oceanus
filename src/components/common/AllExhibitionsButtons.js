@@ -18,10 +18,21 @@ const AllExhibitionsButtons = ({ onCategorySelect }) => {
                 setGalleries(fetchedGalleries);
 
                 if (fetchedGalleries.length > 0) {
-                    const initialId = urlGalleryId ? Number(urlGalleryId) : fetchedGalleries[0].id;
-                    setActiveCategory(initialId);
-                    if (onCategorySelect) {
-                        onCategorySelect(initialId);
+                    const projectId = searchParams.get('project');
+
+                    if (urlGalleryId) {
+                        const initialId = Number(urlGalleryId);
+                        setActiveCategory(initialId);
+                        if (onCategorySelect) {
+                            onCategorySelect(initialId);
+                        }
+                    } else if (!projectId) {
+                        // إذا لم يكن هناك مشروع محدد في الرابط، قم باختيار المعرض الأول افتراضياً
+                        const initialId = fetchedGalleries[0].id;
+                        setActiveCategory(initialId);
+                        if (onCategorySelect) {
+                            onCategorySelect(initialId);
+                        }
                     }
                 }
             } catch (err) {

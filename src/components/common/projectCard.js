@@ -25,6 +25,14 @@ const ProjectCard = ({ project }) => {
         if (savedLikes.includes(projectId)) {
             setIsLiked(true);
         }
+
+        // التحقق من الرابط لفتح المشروع تلقائياً عند الدخول من رابط مشاركة
+        const params = new URLSearchParams(window.location.search);
+        const sharedProjectId = params.get('project');
+
+        if (sharedProjectId && String(sharedProjectId) === String(projectId)) {
+            setIsModalOpen(true);
+        }
     }, [projectId]);
 
     const handleLikeToggle = (e) => {
@@ -44,20 +52,50 @@ const ProjectCard = ({ project }) => {
 
     const handleShare = async (e) => {
         e.stopPropagation();
+
+        // بناء الرابط ليتضمن معرّف المشروع
+        const shareUrl = `${window.location.origin}${window.location.pathname}?project=${projectId}`;
+
+        const fallbackCopy = () => {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = shareUrl;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('تم نسخ رابط المشروع إلى الحافظة');
+            } catch (err) {
+                console.log('Error copying using fallback', err);
+            }
+        };
+
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: data.title,
-                    text: data.description,
-                    url: window.location.href, // رابط الموقع ليكون جاهز عند المشاركة
+                    title: data.title || 'مشروع',
+                    text: data.description || 'تفاصيل المشروع',
+                    url: shareUrl,
                 });
             } catch (error) {
                 console.log('Error sharing', error);
+                if (error.name !== 'AbortError') {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(shareUrl).then(() => alert('تم نسخ رابط المشروع إلى الحافظة')).catch(() => fallbackCopy());
+                    } else {
+                        fallbackCopy();
+                    }
+                }
             }
         } else {
             // بديل في حال المتصفح لا يدعم المشاركة
-            navigator.clipboard.writeText(window.location.href);
-            alert('تم نسخ الرابط الحافظة');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).then(() => alert('تم نسخ رابط المشروع إلى الحافظة')).catch(() => fallbackCopy());
+            } else {
+                fallbackCopy();
+            }
         }
     };
 

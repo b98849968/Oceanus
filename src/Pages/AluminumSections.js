@@ -4,13 +4,16 @@ import "../App.css";
 import "../styles/AluminumSections.css";
 import DepartmentsCard from "../components/common/DepartmentCard";
 import ProjectCard from "../components/common/projectCard";
-import AllExhibitionsButtons from "../components/common/AllExhibitionsButtons";
 import ExhibitionsButtons from "../components/common/ExhibitionsButtons";
 import { fetchAPI, ENDPOINTS } from "../API";
+import { Link, useSearchParams } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function AluminumSections() {
   const [items, setItems] = useState([]);
-  const [selectedGalleryId, setSelectedGalleryId] = useState(null);
+  const [searchParams] = useSearchParams();
+  const initialGalleryId = searchParams.get('gallery_id');
+  const [selectedGalleryId, setSelectedGalleryId] = useState(initialGalleryId ? Number(initialGalleryId) : null);
   const [selectedCategoryId, setSelectedCategoryId] = useState('all');
 
   useEffect(() => {
@@ -59,10 +62,13 @@ export default function AluminumSections() {
           <h3>   سجل النماذج والأعمال  </h3>
           <hr />
           <p className="SectionsP">  تصفح أحدث مشاريعنا المنفذة وتعرف على جودة تفاصيلنا  </p>
+          <Link to="/exhibitions" className="backToExhibitionsBtn">
+            العودة إلى كل المعارض
+            <ArrowBackIcon sx={{ fontSize: 24, paddingBottom: "2px" }} />
+          </Link>
         </div>
         <div className="AluminumSectionsCards">
           <div className="AluminumSectionsButtons">
-            <AllExhibitionsButtons onCategorySelect={(id) => setSelectedGalleryId(id)} />
 
             {selectedGalleryId && (
               <ExhibitionsButtons

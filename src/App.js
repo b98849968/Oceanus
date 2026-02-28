@@ -63,6 +63,15 @@ function App() {
                   <>
                     <ExhibitionsHeader />
                     <AllExhibitionsDisply />
+                    {/* <AluminumSections /> */}
+                  </>
+                }
+              />
+              <Route path="/exhibition"
+                element={
+                  <>
+                    {/* <ExhibitionsHeader /> */}
+
                     <AluminumSections />
                   </>
                 }

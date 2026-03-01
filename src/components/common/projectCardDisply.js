@@ -79,18 +79,18 @@ export default function ProjectCardDisplay({
                     // Combine main image and extra_images
                     let allImages = [];
                     if (finalData.image) {
-                        allImages.push({ url: finalData.image, size: finalData.size || '' });
+                        allImages.push({ url: finalData.image, size: finalData.image_size || finalData.size || '' });
                     }
                     if (finalData.extra_images && Array.isArray(finalData.extra_images)) {
                         const extras = finalData.extra_images.map(imgObj => ({
                             url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
-                            size: imgObj.size || ''
+                            size: imgObj.image_size || imgObj.size || ''
                         }));
                         allImages = [...allImages, ...extras];
                     } else if (finalData.images && Array.isArray(finalData.images)) {
                         const extras = finalData.images.map(imgObj => ({
                             url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
-                            size: imgObj.size || ''
+                            size: imgObj.image_size || imgObj.size || ''
                         }));
                         allImages = [...allImages, ...extras];
                     }
@@ -105,20 +105,20 @@ export default function ProjectCardDisplay({
             // Combine main image and extra_images from props
             let allImages = [];
             if (projectData.image) {
-                allImages.push({ url: projectData.image, size: projectData.size || '' });
+                allImages.push({ url: projectData.image, size: projectData.image_size || projectData.size || '' });
             }
 
             if (projectData.extra_images && Array.isArray(projectData.extra_images)) {
                 // Handle objects { id: x, image: 'url', size: '...' } or plain strings
                 const extras = projectData.extra_images.map(imgObj => ({
                     url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
-                    size: imgObj.size || ''
+                    size: imgObj.image_size || imgObj.size || ''
                 }));
                 allImages = [...allImages, ...extras];
             } else if (projectData.images && Array.isArray(projectData.images)) {
                 const extras = projectData.images.map(imgObj => ({
                     url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
-                    size: imgObj.size || ''
+                    size: imgObj.image_size || imgObj.size || ''
                 }));
                 allImages = [...allImages, ...extras];
             }
@@ -261,6 +261,7 @@ export default function ProjectCardDisplay({
                                 loading="lazy"
                                 alt={data.title}
                                 className={`pcd-main-image ${mainImage?.size === 'طول' ? 'img-portrait' : mainImage?.size === 'عرض' ? 'img-landscape' : mainImage?.size === 'مربع' ? 'img-square' : ''}`}
+
                                 onClick={() => handleDownloadZoom(mainImage?.url)}
                                 title="انقر لتكبير الصورة"
                             />

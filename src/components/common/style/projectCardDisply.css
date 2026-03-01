@@ -217,24 +217,21 @@
 
 /* أصناف أحجام الصور الديناميكية عبر API */
 .pcd-main-image.img-portrait {
-    height: 100% !important;
     object-fit: contain !important;
-    width: auto !important;
-    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .pcd-main-image.img-landscape {
-    object-fit: cover !important;
-    height: 70% !important;
+    object-fit: contain !important;
     width: 100% !important;
+    height: 100% !important;
 }
 
 .pcd-main-image.img-square {
     object-fit: contain !important;
-    aspect-ratio: 1 / 1;
+    width: 100% !important;
     height: 100% !important;
-    width: auto;
-    max-width: 100%;
 }
 
 /* شريط الصور المصغرة السفلي */
@@ -396,12 +393,6 @@
     .pcd-thumbnails {
         gap: 8px;
     }
-
-    .pcd-main-image.img-landscape {
-
-        height: 100% !important;
-        width: 62% !important;
-    }
 }
 
 @media (max-width: 600px) {
@@ -437,12 +428,6 @@
         font-size: 13px !important;
         padding: 10px 2px;
         width: 100%;
-    }
-
-    .pcd-main-image.img-landscape {
-        object-fit: cover !important;
-        height: 70% !important;
-        width: 100% !important;
     }
 }
 

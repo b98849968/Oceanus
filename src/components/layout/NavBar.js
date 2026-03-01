@@ -143,7 +143,15 @@ export default function NavBar() {
         <div className="navBody">
           {/* logo  ingser */}
           <div className="logoImge">
-            <img src={isDarkMode ? `${BASE_URL}${logos.dark}` : `${BASE_URL}${logos.light}`} alt="لوقو ورشة الأوقيانوس" />
+            <Link
+              to="/"
+              onClick={(e) => {
+                handleNavClick(e, "/", 0);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              <img src={isDarkMode ? `${BASE_URL}${logos.dark}` : `${BASE_URL}${logos.light}`} loading="lazy" alt="لوقو ورشة الأوقيانوس" />
+            </Link>
           </div>
           {/* القوائم التنقل  */}
           <div className="ListItem">

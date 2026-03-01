@@ -22,6 +22,8 @@ import DepartmentsCard from "./components/common/DepartmentCard";
 import AllExhibitionsDisply from "./Pages/AllExhibitionsDisply";
 import { ContactProvider } from "./context/ContactContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import ErrorBoundary from "./components/common/ErrorBoundary";
+import ErrorPage from "./Pages/Error";
 // ============= import MUI  مكتبه  ==========// 
 import { Routes, Route, Link } from "react-router-dom";
 
@@ -43,41 +45,42 @@ function App() {
       <MuiThemeProvider theme={theme}>
         <ThemeProvider>
           <ContactProvider>
-            <NavBar />
+            <ErrorBoundary fallback={<ErrorPage />}>
+              <NavBar />
 
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route path="/"
-                element={
-                  <>
-                    <Header />
-                    <Abute />
-                    <OurFeatures />
-                    <HomeDecor />
-                    <CommunicationLocation />
-                    <FastCommunication />
-                  </>
-                }
-              />
-              <Route path="/exhibitions"
-                element={
-                  <>
-                    <ExhibitionsHeader />
-                    <AllExhibitionsDisply />
-                    {/* <AluminumSections /> */}
-                  </>
-                }
-              />
-              <Route path="/exhibition"
-                element={
-                  <>
-                    <SectionsHeder />
-                    <AluminumSections />
-                  </>
-                }
-              />
-            </Routes>
-            <Footer />
+              <Routes>
+                <Route path="*" element={<NotFound />} />
+                <Route path="/"
+                  element={
+                    <>
+                      <Header />
+                      <Abute />
+                      <OurFeatures />
+                      <HomeDecor />
+                      <CommunicationLocation />
+                      <FastCommunication />
+                    </>
+                  }
+                />
+                <Route path="/exhibitions"
+                  element={
+                    <>
+                      <ExhibitionsHeader />
+                      <AllExhibitionsDisply />
+                    </>
+                  }
+                />
+                <Route path="/exhibition"
+                  element={
+                    <>
+                      <SectionsHeder />
+                      <AluminumSections />
+                    </>
+                  }
+                />
+              </Routes>
+              <Footer />
+            </ErrorBoundary>
           </ContactProvider>
         </ThemeProvider>
       </MuiThemeProvider>

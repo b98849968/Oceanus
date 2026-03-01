@@ -109,7 +109,7 @@ const ProjectCard = ({ project }) => {
         <>
             <div className="project-card" onClick={handleOpenModal} style={{ cursor: 'pointer' }}>
                 <div className="project-card-image-container">
-                    <img src={`${BASE_URL}${data.image}`} alt={data.title} className="project-image" />
+                    <img src={`${BASE_URL}${data.image}`} loading="lazy" alt={data.title} className="project-image" />
                     <div className="project-badge">
                         {data.category}
                     </div>

@@ -82,7 +82,7 @@ export default function Footer() {
         <div className="footerTop">
           {/* footer logo and discribtion  */}
           <div className="footerLD">
-            {contactInfo.darkLogo && <img src={`${BASE_URL}${contactInfo.darkLogo}`} alt="لوقو ورشة الأوقيانوس" />}
+            {contactInfo.darkLogo && <img src={`${BASE_URL}${contactInfo.darkLogo}`} loading="lazy" alt="لوقو ورشة الأوقيانوس" />}
 
             <p>
               الأوقيانوس هي وجهتكم الأولى لأرقى أعمال الألمنيوم والديكورات

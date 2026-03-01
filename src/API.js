@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useEffect } from "react";
 // Base URL for the API
-export const BASE_URL = `http://127.0.0.1:8000`;
+export const BASE_URL = `http://192.168.56.1:8080`;
 
 // Define your API endpoints based on API_DOCS.md
 export const ENDPOINTS = {

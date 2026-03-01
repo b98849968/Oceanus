@@ -235,12 +235,12 @@ export default function ProjectCardDisplay({
                                     // Use the same logic as handleShare in ProjectCard
                                     const baseUrl = window.location.origin + window.location.pathname;
                                     const shareUrl = `${baseUrl}?project=${data.id || `project-${data.title}`}`;
-                                    
+
                                     // نقوم بوضع الرابط في سطر جديد تماماً، ونستخدم %0A كرمز حقيقي للسطر الجديد في الروابط المعالجة
                                     const message = `مرحباً، لقد أعجبني هذا التصميم وأرغب بالاستفسار عنه:%0A${data.title}%0A%0A${shareUrl}`;
                                     // نرسل الرسالة، ولكن يجب تعديل WhatsAppSection لكي لا يقوم بعمل encode مرة أخرى لـ %0A
                                     // بدلاً من ذلك، سنستخدم الميزة المباشرة ونقوم بـ encode للرابط فقط
-                                    
+
                                     openWhatsApp(`مرحباً، لقد أعجبني هذا التصميم وأرغب بالاستفسار عنه:\n${data.title}\n\n${shareUrl}`);
                                 }}
                                 className="pcd-btn-whatsapp"
@@ -258,6 +258,7 @@ export default function ProjectCardDisplay({
                         <div className={`pcd-main-image-container ${mainImage?.size === 'طول' ? 'img-portrait-container' : mainImage?.size === 'عرض' ? 'img-landscape-container' : mainImage?.size === 'مربع' ? 'img-square-container' : ''}`}>
                             <img
                                 src={mainImage?.url ? `${BASE_URL}${mainImage.url}` : ''}
+                                loading="lazy"
                                 alt={data.title}
                                 className={`pcd-main-image ${mainImage?.size === 'طول' ? 'img-portrait' : mainImage?.size === 'عرض' ? 'img-landscape' : mainImage?.size === 'مربع' ? 'img-square' : ''}`}
                                 onClick={() => handleDownloadZoom(mainImage?.url)}
@@ -291,7 +292,7 @@ export default function ProjectCardDisplay({
                                         className={`pcd-thumb-container ${mainImage?.url === img.url ? 'active' : ''}`}
                                         onClick={() => setMainImage(img)}
                                     >
-                                        <img src={`${BASE_URL}${img.url}`} alt={`${data.title} - ${index}`} />
+                                        <img src={`${BASE_URL}${img.url}`} loading="lazy" alt={`${data.title} - ${index}`} />
                                     </div>
                                 ))}
                             </div>

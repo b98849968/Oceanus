@@ -77,6 +77,34 @@ export default function NavBar() {
     if (index !== -1) setActiveIndex(index);
   }, [location]);
 
+  // Handle closing mobile menu on scroll or click outside
+  useEffect(() => {
+    const handleScrollOrClick = (e) => {
+      if (isMobileMenuOpen) {
+        if (e.type === 'scroll') {
+          setIsMobileMenuOpen(false);
+        } else if (e.type === 'mousedown' || e.type === 'touchstart') {
+          const isMenuClick = e.target.closest('.mobile-menu-icon') || e.target.closest('.nav-links-mobile');
+          if (!isMenuClick) {
+            setIsMobileMenuOpen(false);
+          }
+        }
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      window.addEventListener('scroll', handleScrollOrClick, { passive: true });
+      document.addEventListener('mousedown', handleScrollOrClick);
+      document.addEventListener('touchstart', handleScrollOrClick);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollOrClick);
+      document.removeEventListener('mousedown', handleScrollOrClick);
+      document.removeEventListener('touchstart', handleScrollOrClick);
+    };
+  }, [isMobileMenuOpen]);
+
   // Handle cross-page hash navigation and smooth scrolling
   const handleNavClick = (e, href, index) => {
     e.preventDefault();
@@ -115,7 +143,7 @@ export default function NavBar() {
         <div className="navBody">
           {/* logo  ingser */}
           <div className="logoImge">
-            <img src={isDarkMode ? `${BASE_URL}${logos.dark}` : `${BASE_URL}${logos.light}`} alt="logo" />
+            <img src={isDarkMode ? `${BASE_URL}${logos.dark}` : `${BASE_URL}${logos.light}`} alt="لوقو ورشة الأوقيانوس" />
           </div>
           {/* القوائم التنقل  */}
           <div className="ListItem">

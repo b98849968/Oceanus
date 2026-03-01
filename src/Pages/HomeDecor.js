@@ -70,12 +70,12 @@ export default function HomeDecor() {
       {/* ========== HomeDecor Img ================= */}
       <div ref={imgRef} className={`HomeDecorImg ${imgInView ? 'animate__fadeInLeft' : 'hidden-anim'}`}>
         <div className="HomeDecorImgContent1">
-          <img src={HomeDecorImg1} className="HomeDecorImg1" alt="" />
-          <img src={HomeDecorImg3} className="HomeDecorImg3" alt="" />
+          <img src={HomeDecorImg1} className="HomeDecorImg1" alt="صور ديكور الاوقيانوس" />
+          <img src={HomeDecorImg3} className="HomeDecorImg3" alt="صور ديكور الاوقيانوس" />
         </div>
         <div className="HomeDecorImgContent2">
-          <img src={HomeDecorImg4} className="HomeDecorImg4" alt="" />
-          <img src={HomeDecorImg2} className="HomeDecorImg2" alt="" />
+          <img src={HomeDecorImg4} className="HomeDecorImg4" alt="صور ديكور الاوقيانوس" />
+          <img src={HomeDecorImg2} className="HomeDecorImg2" alt="صور ديكور الاوقيانوس" />
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ export default function FastCommunication() {
           <Button className='Coll' variant="contained" startIcon={<CallIcon />} onClick={openContact}>
             اتصل بنا الآن
           </Button>
-          <Button className='WhatsApp' variant="contained" startIcon={<ChatOutlinedIcon />} onClick={openWhatsApp}>
+          <Button className='WhatsApp' variant="contained" startIcon={<ChatOutlinedIcon />} onClick={() => openWhatsApp()}>
             واتساب
           </Button>
 

@@ -7,7 +7,7 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ChatIcon from '@mui/icons-material/Chat';
 import { fetchAPI, ENDPOINTS } from '../../API';
 
-const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
+const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts, message }) => {
     const [contacts, setContacts] = useState(initialContacts || []);
     const [loading, setLoading] = useState(false);
 
@@ -85,25 +85,38 @@ const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
                     {loading ? (
                         <p className="loading-text" style={{ fontFamily: 'Regular' }}>جاري التحميل...</p>
                     ) : (
-                        contacts.map((contact, index) => (
-                            contact.type !== 'call' && contact.type !== 'اتصال فقط' && (
-                                <a
-                                    href={`https://wa.me/${contact.number.replace(/\s+/g, '').replace('+', '')}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    key={contact.id || index}
-                                    className="whatsapp-card"
-                                >
-                                    <div className="whatsapp-card-icon">
-                                        <ChatIcon />
-                                    </div>
-                                    <div className="whatsapp-card-info">
-                                        <span className="whatsapp-category" style={{ fontFamily: 'Regular' }}>{contact.label || 'تواصل معنا عبر واتساب انقر هنا'}</span>
-                                        <strong className="whatsapp-number" dir="ltr" style={{ fontFamily: 'Bolds' }}>+{contact.number.replace('+', '')}</strong>
-                                    </div>
-                                </a>
-                            )
-                        ))
+                        contacts.map((contact, index) => {
+                            // تنظيف وتنسيق الرقم ليقبله الواتساب مباشرة (بدون + أو مسافات أو أصفار البداية إذا وجد مفتاح الدولة)
+                            let formattedNumber = contact.number.replace(/[\s\+\-]/g, '');
+                            // إذا كان الرقم يبدأ بـ 00، نستبدلها لنحصل على مفتاح الدولة فقط (مثلاً 00966 -> 966)
+                            if (formattedNumber.startsWith('00')) {
+                                formattedNumber = formattedNumber.substring(2);
+                            }
+                            
+                            // إضافة نص الرسالة إذا وجد
+                            // لضمان أن الواتساب يقرأ الرابط بشكل صحيح، نتبعه بمسافة فارغة
+                            const messageQuery = message ? `?text=${encodeURIComponent(message + " ")}` : '';
+                            
+                            return (
+                                contact.type !== 'call' && contact.type !== 'اتصال فقط' && (
+                                    <a
+                                        href={`https://wa.me/${formattedNumber}${messageQuery}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        key={contact.id || index}
+                                        className="whatsapp-card"
+                                    >
+                                        <div className="whatsapp-card-icon">
+                                            <ChatIcon />
+                                        </div>
+                                        <div className="whatsapp-card-info">
+                                            <span className="whatsapp-category" style={{ fontFamily: 'Regular' }}>{contact.label || 'تواصل معنا عبر واتساب انقر هنا'}</span>
+                                            <strong className="whatsapp-number" dir="ltr" style={{ fontFamily: 'Bolds' }}>+{formattedNumber}</strong>
+                                        </div>
+                                    </a>
+                                )
+                            );
+                        })
                     )}
                 </div>
 

@@ -172,7 +172,18 @@ export default function ProjectCardDisplay({
                         <div className="pcd-contact-box">
                             <p>أعجبك هذا التصميم؟ تواصل معنا لتنفيذه أو تعديله لمساحتك</p>
                             <button
-                                onClick={openWhatsApp}
+                                onClick={() => {
+                                    // Use the same logic as handleShare in ProjectCard
+                                    const baseUrl = window.location.origin + window.location.pathname;
+                                    const shareUrl = `${baseUrl}?project=${data.id || `project-${data.title}`}`;
+                                    
+                                    // نقوم بوضع الرابط في سطر جديد تماماً، ونستخدم %0A كرمز حقيقي للسطر الجديد في الروابط المعالجة
+                                    const message = `مرحباً، لقد أعجبني هذا التصميم وأرغب بالاستفسار عنه:%0A${data.title}%0A%0A${shareUrl}`;
+                                    // نرسل الرسالة، ولكن يجب تعديل WhatsAppSection لكي لا يقوم بعمل encode مرة أخرى لـ %0A
+                                    // بدلاً من ذلك، سنستخدم الميزة المباشرة ونقوم بـ encode للرابط فقط
+                                    
+                                    openWhatsApp(`مرحباً، لقد أعجبني هذا التصميم وأرغب بالاستفسار عنه:\n${data.title}\n\n${shareUrl}`);
+                                }}
                                 className="pcd-btn-whatsapp"
                                 style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', width: '100%', fontFamily: 'Bolds' }}
                             >

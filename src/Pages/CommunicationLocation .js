@@ -96,7 +96,7 @@ const CommunicationLocation = () => {
                             <div className="card-body">
                                 <h3>واتساب</h3>
                                 <p>رد سريع للاستفسارات</p>
-                                <button onClick={openWhatsApp} className="btn whatsapp-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'Regular', fontSize: 'inherit' }}>
+                                <button onClick={() => openWhatsApp()} className="btn whatsapp-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'Regular', fontSize: 'inherit' }}>
                                     ابدأ المحادثة
                                 </button>
                             </div>

@@ -17,6 +17,7 @@ import CommunicationLocation from "./Pages/CommunicationLocation ";
 import NotFound from "./Pages/NotFound";
 import ProjectCardDisply from "./components/common/projectCardDisply";
 import ExhibitionsHeader from "./Pages/ExhibitionsHeader";
+import SectionsHeder from "./Pages/SectionsHeder";
 import DepartmentsCard from "./components/common/DepartmentCard";
 import AllExhibitionsDisply from "./Pages/AllExhibitionsDisply";
 import { ContactProvider } from "./context/ContactContext";
@@ -70,8 +71,7 @@ function App() {
               <Route path="/exhibition"
                 element={
                   <>
-                    {/* <ExhibitionsHeader /> */}
-
+                    <SectionsHeder />
                     <AluminumSections />
                   </>
                 }

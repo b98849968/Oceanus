@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useEffect } from "react";
 // Base URL for the API
-export const BASE_URL = `http://172.20.1.40:8000`;
+export const BASE_URL = `http://127.0.0.1:8000`;
 
 // Define your API endpoints based on API_DOCS.md
 export const ENDPOINTS = {
@@ -10,6 +10,7 @@ export const ENDPOINTS = {
     getAllGalleries: `${BASE_URL}/api/galleries`,             // GET: All galleries with nested categories/items
     getBasicGalleries: `${BASE_URL}/api/galleries/basic`,     // GET: Basic gallery info (ID, name, desc, image)
     getGalleryById: (id) => `${BASE_URL}/api/galleries/${id}`,// GET: Specific gallery details
+
 
     // 2. Categories
     getAllCategories: `${BASE_URL}/api/categories`,           // GET: All active categories
@@ -22,7 +23,7 @@ export const ENDPOINTS = {
     getSettings: `${BASE_URL}/api/settings`,                  // GET: General site settings (contact, location, logo)
     getLogoOnly: `${BASE_URL}/api/settings/logo`,             // GET: Only the logo URL
 };
-
+//  
 /**
  * A helper function to make API requests using fetch.
  * 
@@ -32,6 +33,7 @@ export const ENDPOINTS = {
  */
 export const fetchAPI = async (url, options = {}) => {
     try {
+
         const defaultHeaders = {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -64,6 +66,7 @@ export const fetchAPI = async (url, options = {}) => {
         console.error('Error fetching data from API:', error);
         throw error;
     }
+
 };
 
 // ==========================================

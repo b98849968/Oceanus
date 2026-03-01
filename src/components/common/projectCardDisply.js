@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './style/projectCardDisply.css';
 
 import CloseIcon from '@mui/icons-material/Close';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import DownloadIcon from '@mui/icons-material/Download';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -30,6 +32,35 @@ export default function ProjectCardDisplay({
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
+    const thumbnailsRef = useRef(null);
+    const [showArrows, setShowArrows] = useState(false);
+
+    // فحص ما إذا كان هناك حاجة للأسهم (عنصر التمرير أكبر من الحاوية)
+    const checkOverflow = () => {
+        if (thumbnailsRef.current) {
+            const { scrollWidth, clientWidth } = thumbnailsRef.current;
+            setShowArrows(scrollWidth > clientWidth);
+        }
+    };
+
+    // مراقبة التغيرات في حجم النافذة أو عند تغير الصور لتحديث حالة الأسهم
+    useEffect(() => {
+        checkOverflow();
+        window.addEventListener('resize', checkOverflow);
+        return () => window.removeEventListener('resize', checkOverflow);
+    }, [data.images]);
+
+    const scrollThumbnails = (direction) => {
+        if (thumbnailsRef.current) {
+            const scrollAmount = 150;
+            if (direction === 'left') {
+                thumbnailsRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                thumbnailsRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+    };
+
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -47,12 +78,21 @@ export default function ProjectCardDisplay({
 
                     // Combine main image and extra_images
                     let allImages = [];
-                    if (finalData.image) allImages.push(finalData.image);
+                    if (finalData.image) {
+                        allImages.push({ url: finalData.image, size: finalData.size || '' });
+                    }
                     if (finalData.extra_images && Array.isArray(finalData.extra_images)) {
-                        const extras = finalData.extra_images.map(imgObj => imgObj.image || imgObj);
+                        const extras = finalData.extra_images.map(imgObj => ({
+                            url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
+                            size: imgObj.size || ''
+                        }));
                         allImages = [...allImages, ...extras];
                     } else if (finalData.images && Array.isArray(finalData.images)) {
-                        allImages = [...finalData.images];
+                        const extras = finalData.images.map(imgObj => ({
+                            url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
+                            size: imgObj.size || ''
+                        }));
+                        allImages = [...allImages, ...extras];
                     }
 
                     setData({ ...finalData, images: allImages });
@@ -64,18 +104,35 @@ export default function ProjectCardDisplay({
         } else if (projectData) {
             // Combine main image and extra_images from props
             let allImages = [];
-            if (projectData.image) allImages.push(projectData.image);
-
-            if (projectData.extra_images && Array.isArray(projectData.extra_images)) {
-                // Handle objects { id: x, image: 'url' } or plain strings
-                const extras = projectData.extra_images.map(imgObj => imgObj.image || imgObj);
-                allImages = [...allImages, ...extras];
-            } else if (projectData.images && Array.isArray(projectData.images)) {
-                allImages = [...projectData.images];
+            if (projectData.image) {
+                allImages.push({ url: projectData.image, size: projectData.size || '' });
             }
 
-            // Fallback strategy to prevent duplicate main image if it was already in extra_images
-            allImages = [...new Set(allImages)];
+            if (projectData.extra_images && Array.isArray(projectData.extra_images)) {
+                // Handle objects { id: x, image: 'url', size: '...' } or plain strings
+                const extras = projectData.extra_images.map(imgObj => ({
+                    url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
+                    size: imgObj.size || ''
+                }));
+                allImages = [...allImages, ...extras];
+            } else if (projectData.images && Array.isArray(projectData.images)) {
+                const extras = projectData.images.map(imgObj => ({
+                    url: imgObj.image || (typeof imgObj === 'string' ? imgObj : ''),
+                    size: imgObj.size || ''
+                }));
+                allImages = [...allImages, ...extras];
+            }
+
+            // Fallback strategy to prevent duplicate main image
+            const uniqueImages = [];
+            const seenUrls = new Set();
+            for (const img of allImages) {
+                if (!seenUrls.has(img.url)) {
+                    seenUrls.add(img.url);
+                    uniqueImages.push(img);
+                }
+            }
+            allImages = uniqueImages;
 
             setData({ ...projectData, images: allImages });
             if (allImages.length > 0) {
@@ -86,6 +143,7 @@ export default function ProjectCardDisplay({
 
     // وظيفة تكبير الصورة (تفتح في نافذة جديدة)
     const handleDownloadZoom = (imgUrl) => {
+        if (!imgUrl) return;
         const fullUrl = `${BASE_URL}${imgUrl}`;
         window.open(fullUrl, '_blank');
     };
@@ -93,7 +151,7 @@ export default function ProjectCardDisplay({
     // وظيفة تنزيل الصورة فعلياً
     const handleDownload = async (imgUrl, e) => {
         if (e) e.stopPropagation();
-        if (isDownloading) return;
+        if (isDownloading || !imgUrl) return;
 
         // تنظيف المسار لاستخراج المسار الفعلي داخل storage
         // مثال: /storage/images/abc.jpg -> images/abc.jpg
@@ -108,6 +166,7 @@ export default function ProjectCardDisplay({
         setIsDownloading(true);
 
         try {
+
             const response = await fetch(fullUrl, {
                 mode: "cors",
             });
@@ -196,18 +255,20 @@ export default function ProjectCardDisplay({
                     {/* القسم الأيسر: الصور */}
                     <div className="pcd-image-section">
                         {/* الصورة الرئيسية */}
-                        <div className="pcd-main-image-container">
+                        <div className={`pcd-main-image-container ${mainImage?.size === 'طول' ? 'img-portrait-container' : mainImage?.size === 'عرض' ? 'img-landscape-container' : mainImage?.size === 'مربع' ? 'img-square-container' : ''}`}>
                             <img
-                                src={`${BASE_URL}${mainImage}`}
+                                src={mainImage?.url ? `${BASE_URL}${mainImage.url}` : ''}
                                 alt={data.title}
-                                className="pcd-main-image"
-                                onClick={() => handleDownloadZoom(mainImage)}
+                                className={`pcd-main-image ${mainImage?.size === 'طول' ? 'img-portrait' : mainImage?.size === 'عرض' ? 'img-landscape' : mainImage?.size === 'مربع' ? 'img-square' : ''}`}
+                                onClick={() => handleDownloadZoom(mainImage?.url)}
                                 title="انقر لتكبير الصورة"
                             />
+
+
                             {/* زر التنزيل */}
                             <button
                                 className="pcd-download-btn"
-                                onClick={(e) => handleDownload(mainImage, e)}
+                                onClick={(e) => handleDownload(mainImage?.url, e)}
                                 title="تنزيل الصورة"
                                 disabled={isDownloading}
                             >
@@ -216,16 +277,30 @@ export default function ProjectCardDisplay({
                         </div>
 
                         {/* الصور المصغرة */}
-                        <div className="pcd-thumbnails">
-                            {data.images && data.images.map((img, index) => (
-                                <div
-                                    key={index}
-                                    className={`pcd-thumb-container ${mainImage === img ? 'active' : ''}`}
-                                    onClick={() => setMainImage(img)}
-                                >
-                                    <img src={`${BASE_URL}${img}`} alt={`${data.title} - ${index}`} />
-                                </div>
-                            ))}
+                        <div className="pcd-thumbnails-wrapper">
+                            {showArrows && (
+                                <button className="pcd-scroll-btn" onClick={(e) => { e.stopPropagation(); scrollThumbnails('right'); }}>
+                                    <ArrowForwardIosIcon style={{ fontSize: '1rem', marginLeft: '3px' }} />
+                                </button>
+                            )}
+
+                            <div className="pcd-thumbnails" ref={thumbnailsRef}>
+                                {data.images && data.images.map((img, index) => (
+                                    <div
+                                        key={index}
+                                        className={`pcd-thumb-container ${mainImage?.url === img.url ? 'active' : ''}`}
+                                        onClick={() => setMainImage(img)}
+                                    >
+                                        <img src={`${BASE_URL}${img.url}`} alt={`${data.title} - ${index}`} />
+                                    </div>
+                                ))}
+                            </div>
+
+                            {showArrows && (
+                                <button className="pcd-scroll-btn" onClick={(e) => { e.stopPropagation(); scrollThumbnails('left'); }}>
+                                    <ArrowBackIosIcon style={{ fontSize: '1rem', marginRight: '3px' }} />
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

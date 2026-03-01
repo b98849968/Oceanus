@@ -176,6 +176,9 @@
     position: relative;
     cursor: zoom-in;
     /* إشارة للمستخدم بإمكانية التكبير/تنزيل */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* زر التنزيل */
@@ -212,23 +215,87 @@
     object-fit: cover;
 }
 
+/* أصناف أحجام الصور الديناميكية عبر API */
+.pcd-main-image.img-portrait {
+    height: 100% !important;
+    object-fit: contain !important;
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+.pcd-main-image.img-landscape {
+    object-fit: cover !important;
+    height: 70% !important;
+    width: 100% !important;
+}
+
+.pcd-main-image.img-square {
+    object-fit: contain !important;
+    aspect-ratio: 1 / 1;
+    height: 100% !important;
+    width: auto;
+    max-width: 100%;
+}
+
 /* شريط الصور المصغرة السفلي */
-.pcd-thumbnails {
+.pcd-thumbnails-wrapper {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 90%;
+    z-index: 10;
+}
+
+.pcd-scroll-btn {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #3b4968;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.pcd-scroll-btn:hover {
+    background-color: #df7b0d;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.pcd-thumbnails {
     display: flex;
     gap: 12px;
     padding: 8px;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     border-radius: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    /* IE/Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.pcd-thumbnails::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
 }
 
 .pcd-thumb-container {
     width: 80px;
     height: 60px;
+    flex-shrink: 0;
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
@@ -309,6 +376,32 @@
         padding: 12px 20px;
         width: 100%;
     }
+
+    .pcd-thumbnails-wrapper {
+        max-width: 95%;
+        bottom: 15px;
+        gap: 6px;
+    }
+
+    .pcd-scroll-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .pcd-thumb-container {
+        width: 60px;
+        height: 45px;
+    }
+
+    .pcd-thumbnails {
+        gap: 8px;
+    }
+
+    .pcd-main-image.img-landscape {
+
+        height: 100% !important;
+        width: 62% !important;
+    }
 }
 
 @media (max-width: 600px) {
@@ -333,13 +426,23 @@
         font-size: 12px;
     }
 
-    .pcd-btn-whatsapp i {
-        font-size: 12px;
-    }
+
 
     .pcd-modal-container {
         min-height: 60vh;
         max-height: 90vh;
+    }
+
+    .pcd-btn-whatsapp {
+        font-size: 13px !important;
+        padding: 10px 2px;
+        width: 100%;
+    }
+
+    .pcd-main-image.img-landscape {
+        object-fit: cover !important;
+        height: 70% !important;
+        width: 100% !important;
     }
 }
 
@@ -398,4 +501,14 @@ body.dark-mode .pcd-download-btn:hover {
 
 body.dark-mode .pcd-thumbnails {
     background-color: rgba(15, 23, 42, 0.6);
+}
+
+body.dark-mode .pcd-scroll-btn {
+    background-color: rgba(30, 36, 50, 0.85);
+    color: #f8fafc;
+}
+
+body.dark-mode .pcd-scroll-btn:hover {
+    background-color: #df7b0d;
+    color: white;
 }

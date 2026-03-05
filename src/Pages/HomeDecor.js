@@ -22,7 +22,7 @@ export default function HomeDecor() {
     <div className="HomeDecor">
       <div ref={titleRef} className={`HomeDecorTitle ${titleInView ? 'animate__fadeInRight' : 'hidden-anim'}`}>
         <div className="HomeDecorTitleP">
-          <p> إتقان في كل تفصيلة ✦ خبرة تتجاوز التوقعات </p>
+          <p> إتقان في كل تفصيل ✦ خبرة تتجاوز التوقعات </p>
         </div>
         <h1>
           {" "}
@@ -32,9 +32,9 @@ export default function HomeDecor() {
         </h1>
         <p className="HomeDecorDescription">
           في ورشة الأوقيانوس، لا نكتفي بتقديم خدمة واحدة، بل نوفر لك مركزاً
-          متكاملاً يجمع بين براعة النجارة، دقة تشكيل الألمنيوم، وإبداع الديكور
-          الداخلي. هنا نستعرض لك كافة أقسامنا المنفذة بأعلى معايير الجودة لتلبي
-          كافة احتياجات مساحتك السكنية والتجارية في مكان واحد
+          متكاملاً يجمع بين براعة دقة تشكيل الألمنيوم، وإبداع الديكور
+          الداخلي. هنا نستعرض لك كافة أقسامنا بأعلى معايير الجودة لتلبي
+           كافة احتياجات مساحتك السكنية والتجارية في مكان واحد .
         </p>
         <div className="HomeDecoricons">
           <div className="HomeDecoricon">

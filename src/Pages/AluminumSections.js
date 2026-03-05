@@ -61,7 +61,7 @@ export default function AluminumSections() {
           {/* <p className="Services">خدماتنا</p> */}
           <h3>   سجل النماذج والأعمال  </h3>
           <hr />
-          <p className="SectionsP">  تصفح أحدث مشاريعنا المنفذة وتعرف على جودة تفاصيلنا  </p>
+          <p className="SectionsP">  تصفح أحدث مشاريعنا   وتعرف على جودة تفاصيلنا  </p>
           <Link to="/exhibitions" className="backToExhibitionsBtn">
             العودة إلى كل المعارض
             <ArrowBackIcon sx={{ fontSize: 24, paddingBottom: "2px" }} />

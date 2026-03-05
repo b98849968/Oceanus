@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ExhibitionsHeader.css";
 import "../styles/Familys.css";
-
+import "../styles/SectionsHeder.css";
 import CallIcon from '@mui/icons-material/Call';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import bgImg from "../assets/images/ExhibitionsHeader.jpg";
@@ -57,7 +57,7 @@ export default function SectionsHeder() {
     }, [galleryId]);
 
     const title = galleryData?.name || "سجل النماذج والأعمال";
-    const description = galleryData?.description || "تصفح أحدث مشاريعنا المنفذة وتعرف على جودة تفاصيلنا";
+    const description = galleryData?.description || "تصفح أحدث مشاريعنا   وتعرف على جودة تفاصيلنا";
 
     // Determine the background image URL
     const bgUrl = galleryData?.image ? `${BASE_URL}${galleryData.image}` : bgImg;
@@ -72,12 +72,13 @@ export default function SectionsHeder() {
 
                     {/* التاج العلوي */}
                     <div className="exh-badge animate__fadeInLeft">
-                        إتقان في كل تفصيلة <span>✦</span> خبرة تتجاوز التوقعات
+                        إتقان في كل تفصيل <span>✦</span> خبرة تتجاوز التوقعات
                     </div>
 
                     {/* العنوان الرئيسي */}
                     <h1 className="exh-main-title animate__backInRight">
-                        <span className="exh-title-orange">{title}</span>
+                         <span className="exh-title-navy exh-title-orange-navy">   معرفة المزيد عن أعمالنا    </span>   
+                        <span className="exh-title-orange">معرض {title}</span>
                     </h1>
 
                     {/* الوصف */}

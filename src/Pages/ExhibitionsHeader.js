@@ -50,7 +50,7 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
 
                     {/* التاج العلوي */}
                     <div className="exh-badge animate__fadeInLeft">
-                        إتقان في كل تفصيلة <span>✦</span> خبرة تتجاوز التوقعات
+                         إتقان في كل تفصيل <span>✦</span> خبرة تتجاوز التوقعات
                     </div>
 
                     {/* العنوان الرئيسي */}

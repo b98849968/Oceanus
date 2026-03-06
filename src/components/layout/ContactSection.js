@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style/ContactSection.css';
 import CloseIcon from '@mui/icons-material/Close';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
-import DomainIcon from '@mui/icons-material/Domain';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import BuildIcon from '@mui/icons-material/Build';
 import { fetchAPI, ENDPOINTS } from '../../API';
 
 const ContactSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
@@ -43,7 +41,7 @@ const ContactSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
                     setContacts([{ id: 1, number: settings.phone }]);
                 }
             } catch (err) {
-                console.error("Error fetching contacts from API:", err);
+                
             } finally {
                 setLoading(false);
             }
@@ -52,11 +50,9 @@ const ContactSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
         if (!initialContacts && contacts.length === 0) {
             fetchContacts();
         }
-    }, [initialContacts]);
+    }, [initialContacts, contacts.length]);
 
     if (!isOpen) return null;
-
-
 
     return (
         <div className="contact-modal-overlay" onClick={onClose}>

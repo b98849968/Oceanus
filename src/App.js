@@ -15,17 +15,15 @@ import HomeDecor from "./Pages/HomeDecor";
 import FastCommunication from "./Pages/FastCommunication";
 import CommunicationLocation from "./Pages/CommunicationLocation ";
 import NotFound from "./Pages/NotFound";
-import ProjectCardDisply from "./components/common/projectCardDisply";
 import ExhibitionsHeader from "./Pages/ExhibitionsHeader";
 import SectionsHeder from "./Pages/SectionsHeder";
-import DepartmentsCard from "./components/common/DepartmentCard";
 import AllExhibitionsDisply from "./Pages/AllExhibitionsDisply";
 import { ContactProvider } from "./context/ContactContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import ErrorPage from "./Pages/Error";
 // ============= import MUI  مكتبه  ==========// 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 // import Button from "@mui/material/Button";
 

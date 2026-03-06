@@ -58,7 +58,7 @@ const CommunicationLocation = () => {
                 setLoading(false);
 
             } catch (error) {
-                console.error('Error fetching contact data:', error);
+                
                 setLoading(false);
             }
         };

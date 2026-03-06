@@ -58,7 +58,7 @@ export default function NavBar() {
           });
         }
       })
-      .catch(err => console.error("Error fetching logo:", err));
+      .catch(err => {});
   }, []);
 
   // Update active state based on current URL path and hash

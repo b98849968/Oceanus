@@ -22,7 +22,7 @@ const ExhibitionsButtons = ({ galleryId, onSelectCategory }) => {
                     setCategories([]);
                 }
             } catch (error) {
-                console.error("Error fetching categories:", error);
+                
                 setCategories([]);
             }
         };

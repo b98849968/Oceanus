@@ -3,9 +3,6 @@ import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import "../styles/AllExhibitionsDisply.css";
 import DepartmentsCard from "../components/common/DepartmentCard";
-import ProjectCard from "../components/common/projectCard";
-import AllExhibitionsButtons from "../components/common/AllExhibitionsButtons";
-import ExhibitionsButtons from "../components/common/ExhibitionsButtons";
 import { useNavigate } from "react-router-dom";
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -17,7 +14,6 @@ export default function AllExhibitionsDisply() {
     const [showLeft, setShowLeft] = useState(false);
     const [showRight, setShowRight] = useState(false);
     const [galleries, setGalleries] = useState([]);
-    const [selectedGalleryId, setSelectedGalleryId] = useState(null);
     const navigate = useNavigate();
 
     const handleCardClick = (id) => {
@@ -34,7 +30,7 @@ export default function AllExhibitionsDisply() {
                 // Assuming data is an array of galleries
                 setGalleries(Array.isArray(data) ? data : []);
             } catch (err) {
-                console.error("Failed to load galleries:", err);
+                
             }
         };
         loadGalleries();

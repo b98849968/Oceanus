@@ -68,7 +68,7 @@ const ProjectCard = ({ project }) => {
                 document.body.removeChild(textArea);
                 alert('تم نسخ رابط المشروع إلى الحافظة');
             } catch (err) {
-                console.log('Error copying using fallback', err);
+                
             }
         };
 
@@ -78,7 +78,7 @@ const ProjectCard = ({ project }) => {
                     url: shareUrl,
                 });
             } catch (error) {
-                console.log('Error sharing', error);
+                
                 if (error.name !== 'AbortError') {
                     if (navigator.clipboard && navigator.clipboard.writeText) {
                         navigator.clipboard.writeText(shareUrl).then(() => alert('تم نسخ رابط المشروع إلى الحافظة')).catch(() => fallbackCopy());

@@ -36,7 +36,7 @@ const AllExhibitionsButtons = ({ onCategorySelect }) => {
                     }
                 }
             } catch (err) {
-                console.error("Failed to load galleries:", err);
+                
             }
         };
         loadGalleries();

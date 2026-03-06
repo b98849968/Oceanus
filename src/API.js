@@ -58,12 +58,15 @@ export const fetchAPI = async (url, options = {}) => {
         }
 
         if (!response.ok) {
-            throw { status: response.status, statusText: response.statusText, data };
+            const errorObj = new Error(response.statusText);
+            errorObj.status = response.status;
+            errorObj.data = data;
+            throw errorObj;
         }
 
         return data;
     } catch (error) {
-        console.error('Error fetching data from API:', error);
+        
         throw error;
     }
 
@@ -141,16 +144,16 @@ export default function APITesterPage() {
     useEffect(() => {
         fetchAPI(`${BASE_URL}/api/galleries`)
             .then(data => {
-                console.log("All Galleries:", data);
+                
             })
             .catch(error => {
-                console.error("Error:", error);
+                
             });
     }, []);
     fetch(`${BASE_URL}/api/galleries`)
         .then(res => res.json())
-        .then(data => console.log(data.data[0].categories[0].items[0].title))
-        .catch(err => console.error(err));
+        .then(data => {})
+        .catch(err => {});
     return (
 
         <div style={{ padding: '30px', fontFamily: 'system-ui, -apple-system, sans-serif', maxWidth: '900px', margin: '0 auto', background: '#f9f9f9', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>

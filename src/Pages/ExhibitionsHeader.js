@@ -37,7 +37,8 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
                     label: settings.label || "تواصل معنا"
                 });
             })
-            .catch(err => console.error("Error fetching contact data:", err));
+            .catch(err => {});
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -50,7 +51,7 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
 
                     {/* التاج العلوي */}
                     <div className="exh-badge animate__fadeInLeft">
-                         إتقان في كل تفصيل <span>✦</span> خبرة تتجاوز التوقعات
+                        إتقان في كل تفصيل <span>✦</span> خبرة تتجاوز التوقعات
                     </div>
 
                     {/* العنوان الرئيسي */}

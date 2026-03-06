@@ -24,9 +24,9 @@ export default function DepartmentsCard({ gallery, onClick }) {
         <p>
           {gallery?.description || 'تشكيلة واسعة من واجهات الألمنيوم، النوافذ العازلة، والمطابخ الحديثة المقاومة للصدأ بأحدث أنظمة السحب والمفصلات.'}
         </p>
-        <a href="#" className="card-link">
+        <span className="card-link">
           استعرض أعمال<ArrowBackIcon className="link-icon" />
-        </a>
+        </span>
       </div>
     </div>
   );

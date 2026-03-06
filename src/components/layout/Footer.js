@@ -12,7 +12,7 @@ import LocationPinIcon from '@mui/icons-material/LocationPin';
 // ========== date time =========//
 const d = new Date();
 const year = d.getFullYear();
-console.log(year);
+
 
 export default function Footer() {
   const location = useLocation();
@@ -41,7 +41,7 @@ export default function Footer() {
           darkLogo: settings.dark_logo || settings.logo || ""
         });
       })
-      .catch(err => console.error("Error fetching footer settings:", err));
+      .catch(err => {});
   }, []);
 
   // Handle cross-page hash navigation and smooth scrolling
@@ -143,9 +143,9 @@ export default function Footer() {
               {" "}
               جميع الحقوق محفوظة {year} &copy;{" "}
               <span>
-                <a className="copy" href="#">
+                <Link className="copy" to="/">
                   الأوقيانوس
-                </a>
+                </Link>
               </span>{" "}
             </p>
           </div>

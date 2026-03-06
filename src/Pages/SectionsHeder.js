@@ -39,7 +39,8 @@ export default function SectionsHeder() {
                     label: settings.label || "تواصل معنا"
                 });
             })
-            .catch(err => console.error("Error fetching contact data:", err));
+            .catch(err => {});
+        // eslint-disable-next-line
     }, []);
 
     // Fetch gallery data
@@ -50,7 +51,7 @@ export default function SectionsHeder() {
                     const data = response.data || response;
                     setGalleryData(data);
                 })
-                .catch(err => console.error("Error fetching gallery data:", err));
+                .catch(err => {});
         } else {
             setGalleryData(null);
         }
@@ -77,7 +78,7 @@ export default function SectionsHeder() {
 
                     {/* العنوان الرئيسي */}
                     <h1 className="exh-main-title animate__backInRight">
-                         <span className="exh-title-navy exh-title-orange-navy">   معرفة المزيد عن أعمالنا    </span>   
+                        <span className="exh-title-navy exh-title-orange-navy">   معرفة المزيد عن أعمالنا    </span>
                         <span className="exh-title-orange">معرض {title}</span>
                     </h1>
 

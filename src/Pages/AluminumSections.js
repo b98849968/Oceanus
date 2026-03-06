@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 //===== import css ========//
 import "../App.css";
 import "../styles/AluminumSections.css";
-import DepartmentsCard from "../components/common/DepartmentCard";
 import ProjectCard from "../components/common/projectCard";
 import ExhibitionsButtons from "../components/common/ExhibitionsButtons";
 import { fetchAPI, ENDPOINTS } from "../API";
@@ -13,7 +12,7 @@ export default function AluminumSections() {
   const [items, setItems] = useState([]);
   const [searchParams] = useSearchParams();
   const initialGalleryId = searchParams.get('gallery_id');
-  const [selectedGalleryId, setSelectedGalleryId] = useState(initialGalleryId ? Number(initialGalleryId) : null);
+  const [selectedGalleryId] = useState(initialGalleryId ? Number(initialGalleryId) : null);
   const [selectedCategoryId, setSelectedCategoryId] = useState('all');
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function AluminumSections() {
         const data = response.data || response;
         setItems(Array.isArray(data) ? data : []);
       } catch (err) {
-        console.error("Failed to load items:", err);
+        
       }
     };
 

@@ -100,7 +100,7 @@ export default function ProjectCardDisplay({
                         setMainImage(allImages[0]);
                     }
                 })
-                .catch(err => console.error("Error fetching project data: ", err));
+                .catch(err => {});
         } else if (projectData) {
             // Combine main image and extra_images from props
             let allImages = [];
@@ -193,7 +193,7 @@ export default function ProjectCardDisplay({
             setSnackbarSeverity("success");
             setSnackbarOpen(true);
         } catch (error) {
-            console.error(error);
+            
             // فحص إذا كان الخطأ بسبب CORS
             if (error.message === 'Failed to fetch') {
                 setSnackbarMessage("خطأ في الاتصال بالسيرفر أو سياسة CORS");
@@ -232,19 +232,12 @@ export default function ProjectCardDisplay({
                             <p>أعجبك هذا التصميم؟ تواصل معنا لتنفيذه أو تعديله لمساحتك</p>
                             <button
                                 onClick={() => {
-                                    // Use the same logic as handleShare in ProjectCard
                                     const baseUrl = window.location.origin + window.location.pathname;
                                     const shareUrl = `${baseUrl}?project=${data.id || `project-${data.title}`}`;
-
-                                    // نقوم بوضع الرابط في سطر جديد تماماً، ونستخدم %0A كرمز حقيقي للسطر الجديد في الروابط المعالجة
-                                    const message = `مرحباً، لقد أعجبني هذا التصميم وأرغب بالاستفسار عنه:%0A${data.title}%0A%0A${shareUrl}`;
-                                    // نرسل الرسالة، ولكن يجب تعديل WhatsAppSection لكي لا يقوم بعمل encode مرة أخرى لـ %0A
-                                    // بدلاً من ذلك، سنستخدم الميزة المباشرة ونقوم بـ encode للرابط فقط
-
                                     openWhatsApp(`مرحباً، لقد أعجبني هذا التصميم وأرغب بالاستفسار عنه:\n${data.title}\n\n${shareUrl}`);
                                 }}
                                 className="pcd-btn-whatsapp"
-                                style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', width: '100%', fontFamily: 'Bolds' }}
+                                style={{ border: 'none', cursor: 'pointer', fontSize: 'inherit', width: '100%', fontFamily: 'Bolds' }}
                             >
                                 اطلب التسعير عبر واتساب
                                 <WhatsAppIcon />

@@ -75,8 +75,6 @@ const ProjectCard = ({ project }) => {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: data.title || 'مشروع',
-                    text: data.description || 'تفاصيل المشروع',
                     url: shareUrl,
                 });
             } catch (error) {

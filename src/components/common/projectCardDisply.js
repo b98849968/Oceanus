@@ -100,7 +100,7 @@ export default function ProjectCardDisplay({
                         setMainImage(allImages[0]);
                     }
                 })
-                .catch(err => {});
+                .catch(err => { });
         } else if (projectData) {
             // Combine main image and extra_images from props
             let allImages = [];
@@ -149,9 +149,9 @@ export default function ProjectCardDisplay({
     };
 
     // وظيفة تنزيل الصورة فعلياً
-    const handleDownload = async (imgUrl, e) => {
+    const handleDownload = (imgUrl, e) => {
         if (e) e.stopPropagation();
-        if (isDownloading || !imgUrl) return;
+        if (!imgUrl) return;
 
         // تنظيف المسار لاستخراج المسار الفعلي داخل storage
         // مثال: /storage/images/abc.jpg -> images/abc.jpg
@@ -163,48 +163,20 @@ export default function ProjectCardDisplay({
         // استخدام الراوت المخصص للتنزيل لتجاوز مشاكل CORS
         const fullUrl = `${BASE_URL}/api/download/${path}`;
 
-        setIsDownloading(true);
+        // بدلاً من استخدام fetch الذي يواجه مشكلة CORS، نقوم بالانتقال للرابط أو فتحه 
+        // لكي يتعامل المتصفح مع التنزيل مباشرة بدون تدخل الـ Javascript 
+        const a = document.createElement("a");
+        a.href = fullUrl;
+        const fileName = data.title ? data.title.replace(/\s+/g, "_") + ".jpg" : "image.jpg";
+        a.download = fileName;
+        a.target = "_blank"; // احتياطاً في حال لم يعمل التنزيل المباشر
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
 
-        try {
-
-            const response = await fetch(fullUrl, {
-                mode: "cors",
-            });
-
-            if (!response.ok) throw new Error("فشل تحميل الصورة");
-
-            const blob = await response.blob();
-
-            const fileName = data.title ? data.title.replace(/\s+/g, "_") + ".jpg" : "image.jpg";
-
-            // إنشاء رابط تحميل حقيقي
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-
-            // تنظيف
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-
-            setSnackbarMessage("تم تنزيل الصورة في جهازك بنجاح");
-            setSnackbarSeverity("success");
-            setSnackbarOpen(true);
-        } catch (error) {
-            
-            // فحص إذا كان الخطأ بسبب CORS
-            if (error.message === 'Failed to fetch') {
-                setSnackbarMessage("خطأ في الاتصال بالسيرفر أو سياسة CORS");
-            } else {
-                setSnackbarMessage(error.message || "حدث خطأ أثناء تحميل الصورة");
-            }
-            setSnackbarSeverity("error");
-            setSnackbarOpen(true);
-        } finally {
-            setIsDownloading(false);
-        }
+        setSnackbarMessage("جاري التنزيل...");
+        setSnackbarSeverity("info");
+        setSnackbarOpen(true);
     };
 
     if (!isOpen) return null;

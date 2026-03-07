@@ -232,15 +232,15 @@ export default function ProjectCardDisplay({
                             />
 
 
-                            {/* زر التنزيل */}
-                            <button
+                            {/* زر التنزيل - تم إخفاؤه بناءً على طلبك */}
+                            {/* <button
                                 className="pcd-download-btn"
                                 onClick={(e) => handleDownload(mainImage?.url, e)}
                                 title="تنزيل الصورة"
                                 disabled={isDownloading}
                             >
                                 {isDownloading ? <CircularProgress size={24} style={{ color: 'white' }} /> : <DownloadIcon />}
-                            </button>
+                            </button> */}
                         </div>
 
                         {/* الصور المصغرة */}

@@ -7,9 +7,12 @@ import ExhibitionsButtons from "../components/common/ExhibitionsButtons";
 import { fetchAPI, ENDPOINTS } from "../API";
 import { Link, useSearchParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function AluminumSections() {
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const initialGalleryId = searchParams.get('gallery_id');
   const [selectedGalleryId] = useState(initialGalleryId ? Number(initialGalleryId) : null);
@@ -17,6 +20,7 @@ export default function AluminumSections() {
 
   useEffect(() => {
     const loadItems = async () => {
+      setIsLoading(true);
       try {
         let url = ENDPOINTS.getAllItems;
         const params = new URLSearchParams();
@@ -34,11 +38,18 @@ export default function AluminumSections() {
           url += `?${queryString}`;
         }
 
-        const response = await fetchAPI(url);
+        // Add a small minimum loading delay to ensure the spinner is visibly turning
+        const [response] = await Promise.all([
+          fetchAPI(url),
+          new Promise(resolve => setTimeout(resolve, 800))
+        ]);
+
         const data = response.data || response;
         setItems(Array.isArray(data) ? data : []);
       } catch (err) {
-        
+
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -76,7 +87,11 @@ export default function AluminumSections() {
               />
             )}
             <div className="AluminumSectionsCardsAllCards">
-              {items.length > 0 ? (
+              {isLoading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', minHeight: '30vh' }}>
+                  <CircularProgress />
+                </Box>
+              ) : items.length > 0 ? (
                 items.map(item => (
                   <ProjectCard key={item.id} project={item} />
                 ))

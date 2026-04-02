@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import { fetchAPI, ENDPOINTS } from "../API";
 
 export default function AllExhibitionsDisply() {
@@ -14,6 +16,7 @@ export default function AllExhibitionsDisply() {
     const [showLeft, setShowLeft] = useState(false);
     const [showRight, setShowRight] = useState(false);
     const [galleries, setGalleries] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const handleCardClick = (id) => {
@@ -31,6 +34,8 @@ export default function AllExhibitionsDisply() {
                 setGalleries(Array.isArray(data) ? data : []);
             } catch (err) {
                 
+            } finally {
+                setLoading(false);
             }
         };
         loadGalleries();
@@ -136,7 +141,11 @@ export default function AllExhibitionsDisply() {
                         onMouseUp={handleMouseUp}
                         onMouseMove={handleMouseMove}
                     >
-                        {galleries.length > 0 ? (
+                        {loading ? (
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', minHeight: '200px' }}>
+                                <CircularProgress />
+                            </Box>
+                        ) : galleries.length > 0 ? (
                             galleries.map((gallery) => (
                                 <DepartmentsCard key={gallery.id} gallery={gallery} onClick={() => handleCardClick(gallery.id)} />
                             ))

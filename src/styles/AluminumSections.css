@@ -111,7 +111,10 @@
     .AluminumSectionsCardsAllCards,
     .AluminumSectionsCards {
         justify-content: center;
-        gap: 20px;
+        
+    }
+    .AluminumSectionsCardsAllCards {
+    padding: 0 5px;
     }
 }
 

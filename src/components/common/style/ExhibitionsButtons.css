@@ -1,6 +1,7 @@
 .exhibitions-buttons-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
     direction: rtl;
@@ -9,6 +10,9 @@
 }
 
 .exhibition-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 8px 32px;
     border-radius: 50px;
     /* Fully rounded "pill" shape */
@@ -48,5 +52,24 @@
     .exhibitions-buttons-container {
         margin: 5px 0;
         padding: 5px;
+        gap: 5px;
     }
+}
+
+/* ------------------------------------- */
+/* Dark Mode Support                     */
+/* ------------------------------------- */
+body.dark-mode .exhibition-button {
+    color: white;
+    border-color: #334155;
+}
+
+body.dark-mode .exhibition-button:hover {
+    background-color: #1a2235;
+}
+
+body.dark-mode .exhibition-button.active {
+    color: #fdba74;
+    background-color: rgba(223, 123, 13, 0.15);
+    border-color: rgba(223, 123, 13, 0.3);
 }

@@ -4,6 +4,7 @@ import './style/projectCardDisply.css';
 import CloseIcon from '@mui/icons-material/Close';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import DownloadIcon from '@mui/icons-material/Download';
+import ShareIcon from '@mui/icons-material/Share';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -178,6 +179,60 @@ export default function ProjectCardDisplay({
         setSnackbarSeverity("info");
         setSnackbarOpen(true);
     };
+    // وظيفة المشاركة للمشروع
+    const handleShare = async (e) => {
+        if (e) e.stopPropagation();
+
+        const projectId = data.id || `project-${data.title}`;
+        const shareUrl = `${window.location.origin}${window.location.pathname}?project=${projectId}`;
+
+        const fallbackCopy = () => {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = shareUrl;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                setSnackbarMessage('تم نسخ رابط المشروع إلى الحافظة');
+                setSnackbarSeverity('success');
+                setSnackbarOpen(true);
+            } catch (err) {}
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    url: shareUrl,
+                });
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(shareUrl).then(() => {
+                            setSnackbarMessage('تم نسخ رابط المشروع إلى الحافظة');
+                            setSnackbarSeverity('success');
+                            setSnackbarOpen(true);
+                        }).catch(() => fallbackCopy());
+                    } else {
+                        fallbackCopy();
+                    }
+                }
+            }
+        } else {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    setSnackbarMessage('تم نسخ رابط المشروع إلى الحافظة');
+                    setSnackbarSeverity('success');
+                    setSnackbarOpen(true);
+                }).catch(() => fallbackCopy());
+            } else {
+                fallbackCopy();
+            }
+        }
+    };
 
     if (!isOpen) return null;
 
@@ -232,15 +287,26 @@ export default function ProjectCardDisplay({
                             />
 
 
-                            {/* زر التنزيل - تم إخفاؤه بناءً على طلبك */}
-                            {/* <button
-                                className="pcd-download-btn"
-                                onClick={(e) => handleDownload(mainImage?.url, e)}
-                                title="تنزيل الصورة"
-                                disabled={isDownloading}
-                            >
-                                {isDownloading ? <CircularProgress size={24} style={{ color: 'white' }} /> : <DownloadIcon />}
-                            </button> */}
+                            {/* أزرار التنزيل والمشاركة */}
+                            <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px', zIndex: 5 }}>
+                                <button
+                                    className="pcd-download-btn"
+                                    style={{ position: 'relative', top: 'auto', right: 'auto' }}
+                                    onClick={(e) => handleDownload(mainImage?.url, e)}
+                                    title="تنزيل الصورة"
+                                    disabled={isDownloading}
+                                >
+                                    {isDownloading ? <CircularProgress size={24} style={{ color: 'inherit' }} /> : <DownloadIcon />}
+                                </button>
+                                <button
+                                    className="pcd-download-btn"
+                                    style={{ position: 'relative', top: 'auto', right: 'auto' }}
+                                    onClick={handleShare}
+                                    title="مشاركة المشروع"
+                                >
+                                    <ShareIcon />
+                                </button>
+                            </div>
                         </div>
 
                         {/* الصور المصغرة */}

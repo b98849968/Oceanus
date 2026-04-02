@@ -164,7 +164,7 @@ body.dark-mode .project-divider {
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 0 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -212,12 +212,14 @@ body.dark-mode .like-btn.liked {
         font-size: 1.25rem;
     }
 }
-@media (max-width: 767px){
-    
+
+@media (max-width: 767px) {
+
     .project-card {
         position: relative;
         width: 25%;
         max-width: 284px;
+        flex-grow: 1;
         min-width: 180px;
         border-radius: 10px;
     }
@@ -263,14 +265,16 @@ body.dark-mode .like-btn.liked {
         height: 285px;
     }
 }
-@media (max-width: 500px) {
+
+@media (max-width: 522px) {
 
     .project-card {
         position: relative;
         width: 25%;
-        max-width: 284px;
+        max-width: 200px;
+        flex-grow: 1;
         min-width: 140px;
-        border-radius: 10px;
+        border-radius: 5px;
     }
 
     .project-badge {
@@ -298,7 +302,7 @@ body.dark-mode .like-btn.liked {
     }
 
     .project-card-image-container {
-        height: 50%;
+        height: 60%;
     }
 
     .icon-btn svg {
@@ -311,7 +315,8 @@ body.dark-mode .like-btn.liked {
     }
 
     .project-card {
-        height: 235px;
+        height: 250px;
+        margin: 5px;
     }
 
 

@@ -128,7 +128,7 @@
 
 /* زر "تصفح أعمالنا" (برتقالي) */
 .exh-btn-browse {
-    /* background-color: #df7b0d; */
+    
     background-color: var(--main-color);
     /* برتقالي */
     color: #ffffff;

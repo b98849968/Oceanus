@@ -149,7 +149,7 @@ export default function Footer() {
               </span>{" "}
             </p>
           </div>
-          <div>
+          {/* <div>
             <p>
               تصميم و تطوير بواسطة :{" "}
               <span style={{ color: "white" }}>
@@ -157,7 +157,7 @@ export default function Footer() {
                 عبدالله باحميد | حسن المشهور
               </span>
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
 

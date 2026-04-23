@@ -149,36 +149,108 @@ export default function ProjectCardDisplay({
         window.open(fullUrl, '_blank');
     };
 
-    // وظيفة تنزيل الصورة فعلياً
-    const handleDownload = (imgUrl, e) => {
-        if (e) e.stopPropagation();
-        if (!imgUrl) return;
+    // وظيفة تنزيل الصورة فعلياً باستخدام Fetch لتحويلها لـ Blob وتجنب مشاكل الـ CORS
+    // const handleDownload = async (imgUrl, e) => {
+    //     if (e) e.stopPropagation();
+    //     if (!imgUrl) return;
 
-        // تنظيف المسار لاستخراج المسار الفعلي داخل storage
-        // مثال: /storage/images/abc.jpg -> images/abc.jpg
-        let path = imgUrl.replace(/^\/?storage\//, "");
-        if (path.startsWith('/')) {
-            path = path.substring(1);
-        }
+    //     setIsDownloading(true);
+    //     setSnackbarMessage("جاري تحضير التنزيل...");
+    //     setSnackbarSeverity("info");
+    //     setSnackbarOpen(true);
 
-        // استخدام الراوت المخصص للتنزيل لتجاوز مشاكل CORS
-        const fullUrl = `${BASE_URL}/api/download/${path}`;
+    //     try {
+    //         const fullUrl = `${BASE_URL}${imgUrl}`;
+    //         const response = await fetch(fullUrl);
+            
+    //         if (!response.ok) throw new Error('فشل في جلب الصورة');
+            
+    //         const blob = await response.blob();
+    //         const blobURL = URL.createObjectURL(blob);
+            
+    //         const a = document.createElement("a");
+    //         a.href = blobURL;
+    //         const fileName = data.title ? `${data.title.replace(/\s+/g, "_")}.jpg` : "image.jpg";
+    //         a.download = fileName;
+    //         document.body.appendChild(a);
+    //         a.click();
+            
+    //         // تنظيف
+    //         document.body.removeChild(a);
+    //         URL.revokeObjectURL(blobURL);
 
-        // بدلاً من استخدام fetch الذي يواجه مشكلة CORS، نقوم بالانتقال للرابط أو فتحه 
-        // لكي يتعامل المتصفح مع التنزيل مباشرة بدون تدخل الـ Javascript 
+    //         setSnackbarMessage("تم التنزيل بنجاح");
+    //         setSnackbarSeverity("success");
+    //         setSnackbarOpen(true);
+    //     } catch (error) {
+            
+    //         setSnackbarMessage("حدث خطأ أثناء التنزيل. قد يكون بسبب قيود CORS");
+    //         setSnackbarSeverity("error");
+    //         setSnackbarOpen(true);
+            
+    //         // محاولة بديلة: فتح الصورة في علامة تبويب جديدة كحل أخير
+    //         window.open(`${BASE_URL}${imgUrl}`, '_blank');
+    //     } finally {
+    //         setIsDownloading(false);
+    //     }
+    // };
+    const handleDownload = async (imgUrl, e) => {
+    if (e) e.stopPropagation();
+    if (!imgUrl) return;
+
+    let path = imgUrl.replace(/^\/?storage\//, "");
+    if (path.startsWith('/')) {
+        path = path.substring(1);
+    }
+
+    const fullUrl = `${BASE_URL}/api/download/${path}`;
+    const fileName = data.title ? data.title.replace(/\s+/g, "_") + ".jpg" : "image.jpg";
+
+    // إظهار حالة التنزيل
+    setIsDownloading(true);
+    setSnackbarMessage("جاري التنزيل...");
+    setSnackbarSeverity("info");
+    setSnackbarOpen(true);
+
+    try {
+        // 1. جلب الصورة كبيانات
+        const response = await fetch(fullUrl, {
+            // إذا واجهت مشكلة CORS أضف Mode
+            // mode: 'cors' 
+        });
+        
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        // 2. تحويل البيانات إلى Blob (ملف ثنائي)
+        const blob = await response.blob();
+        
+        // 3. إنشاء رابط محلي مؤقت للملف
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        // 4. عملية التنزيل
         const a = document.createElement("a");
-        a.href = fullUrl;
-        const fileName = data.title ? data.title.replace(/\s+/g, "_") + ".jpg" : "image.jpg";
+        a.href = blobUrl;
         a.download = fileName;
-        a.target = "_blank"; // احتياطاً في حال لم يعمل التنزيل المباشر
         document.body.appendChild(a);
         a.click();
+        
+        // 5. تنظيف الرابط بعد التنزيل
         document.body.removeChild(a);
+        window.URL.revokeObjectURL(blobUrl);
 
-        setSnackbarMessage("جاري التنزيل...");
-        setSnackbarSeverity("info");
-        setSnackbarOpen(true);
-    };
+        setSnackbarMessage("تم التنزيل بنجاح");
+        setSnackbarSeverity("success");
+    } catch (error) {
+        console.error("Error downloading image:", error);
+        setSnackbarMessage("حدث خطأ أثناء التنزيل، تم فتح الصورة في نافذة جديدة");
+        setSnackbarSeverity("error");
+        
+        // حل بديل في حال فشل الـ Fetch بسبب CORS
+        window.open(fullUrl, '_blank');
+    } finally {
+        setIsDownloading(false);
+    }
+};
     // وظيفة المشاركة للمشروع
     const handleShare = async (e) => {
         if (e) e.stopPropagation();

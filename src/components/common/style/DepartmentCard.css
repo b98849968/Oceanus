@@ -97,7 +97,7 @@ body.dark-mode .grid-icon {
      border-radius: 12px;
     /* background-color: var(--main-color); */
     /* background-color: #1e293b; */
-    border: 1px var(--main-color) solid ;
+    border: 1px #fff solid ;
 }
 
 .link-icon {

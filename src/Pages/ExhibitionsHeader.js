@@ -11,7 +11,7 @@ import bgImg from "../assets/images/ExhibitionsHeader.jpg";
 import { useContact } from "../context/ContactContext";
 import { fetchAPI, ENDPOINTS } from "../API";
 
-export default function ExhibitionsHeader({ contactApiEndpoint }) {
+export default function ExhibitionsHeader() {
     // تعريف State زر التواصل
     const [contactData, setContactData] = useState({
         phone: "+966000000000",
@@ -85,8 +85,6 @@ export default function ExhibitionsHeader({ contactApiEndpoint }) {
                             }}
                         >
                             تصفح أعمالنا
-                            {/* أيقونة السهم للأسفل */}
-                            {/* <i className="fa fa-arrow-down"></i> */}
                             <ArrowDownwardIcon />
                         </button>
                     </div>

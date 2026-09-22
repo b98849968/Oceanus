@@ -1,8 +1,7 @@
-import React from 'react';
 import '../styles/Error.css';
 import '../styles/Familys.css'; // For custom fonts
-// eslint-disable-next-line
-export default function ErrorPage({ error }) {
+
+export default function ErrorPage() {
     return (
         <div className="error-container">
             <div className="error-content">

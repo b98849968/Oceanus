@@ -5,7 +5,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ChatIcon from '@mui/icons-material/Chat';
 import { fetchAPI, ENDPOINTS } from '../../API';
 
-const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts, message }) => {
+const WhatsAppSection = ({ isOpen, onClose, initialContacts, message }) => {
     const [contacts, setContacts] = useState(initialContacts || []);
     const [loading, setLoading] = useState(false);
 
@@ -108,10 +108,6 @@ const WhatsAppSection = ({ isOpen, onClose, contactsUrl, initialContacts, messag
                         })
                     )}
                 </div>
-
-                {/* <div className="whatsapp-footer">
-                    ساعات العمل: من 8 صباحاً حتى 9 مساءً
-                </div> */}
             </div>
         </div>
     );

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/CommunicationLocation .css';
+import '../styles/CommunicationLocation.css';
 import '../styles/Familys.css';
 import { fetchAPI, ENDPOINTS } from '../API';
-
 
 // ========= ايقونات mui ===============//
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -18,12 +17,8 @@ const CommunicationLocation = () => {
     const { ref: contentRef, inView: contentInView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
     const [contactData, setContactData] = useState({
-        whatsapp: '',
-        phone: '',
         email: '',
         address: '',
-        workingHours1: '',
-        workingHours2: '',
         mapUrl: ''
     });
     const [loading, setLoading] = useState(true);

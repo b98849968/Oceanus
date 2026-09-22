@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/NotFound.css';
 import '../styles/Familys.css'; // For custom fonts
 import { Link } from 'react-router-dom';

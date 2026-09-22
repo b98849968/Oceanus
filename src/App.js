@@ -13,7 +13,7 @@ import AluminumSections from "./Pages/AluminumSections";
 import OurFeatures from "./Pages/OurFeatures";
 import HomeDecor from "./Pages/HomeDecor";
 import FastCommunication from "./Pages/FastCommunication";
-import CommunicationLocation from "./Pages/CommunicationLocation ";
+import CommunicationLocation from "./Pages/CommunicationLocation";
 import NotFound from "./Pages/NotFound";
 import ExhibitionsHeader from "./Pages/ExhibitionsHeader";
 import SectionsHeder from "./Pages/SectionsHeder";

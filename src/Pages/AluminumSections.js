@@ -68,7 +68,7 @@ export default function AluminumSections() {
         {/* =========== title Aluminum Sections =========== */}
 
         <div className="SectionsTitle">
-          {/* <p className="Services">خدماتنا</p> */}
+           
           <h3>   سجل النماذج والأعمال  </h3>
           <hr />
           <p className="SectionsP">  تصفح أحدث مشاريعنا   وتعرف على جودة تفاصيلنا  </p>

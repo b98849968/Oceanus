@@ -36,6 +36,91 @@ export default function ProjectCardDisplay({
     const thumbnailsRef = useRef(null);
     const [showArrows, setShowArrows] = useState(false);
 
+    // سحب وسحب الصور (Swipe & Drag)
+    const dragStartX = useRef(0);
+    const dragStartY = useRef(0);
+    const [dragOffset, setDragOffset] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const isSwiping = useRef(false);
+
+    const handleNextImage = () => {
+        if (!data.images || data.images.length <= 1) return;
+        const currentIndex = data.images.findIndex(img => img.url === mainImage?.url);
+        if (currentIndex !== -1) {
+            const nextIndex = (currentIndex + 1) % data.images.length;
+            setMainImage(data.images[nextIndex]);
+        }
+    };
+
+    const handlePrevImage = () => {
+        if (!data.images || data.images.length <= 1) return;
+        const currentIndex = data.images.findIndex(img => img.url === mainImage?.url);
+        if (currentIndex !== -1) {
+            const prevIndex = (currentIndex - 1 + data.images.length) % data.images.length;
+            setMainImage(data.images[prevIndex]);
+        }
+    };
+
+    const handlePointerDown = (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
+        dragStartX.current = e.clientX;
+        dragStartY.current = e.clientY;
+        setIsDragging(true);
+        isSwiping.current = false;
+    };
+
+    const handlePointerMove = (e) => {
+        if (!isDragging) return;
+        const diffX = e.clientX - dragStartX.current;
+        const diffY = e.clientY - dragStartY.current;
+
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (Math.abs(diffX) > 10) {
+                isSwiping.current = true;
+            }
+            setDragOffset(diffX);
+        }
+    };
+
+    const handlePointerUp = () => {
+        if (!isDragging) return;
+        setIsDragging(false);
+
+        const minSwipeDistance = 40;
+        if (dragOffset > minSwipeDistance) {
+            handlePrevImage();
+        } else if (dragOffset < -minSwipeDistance) {
+            handleNextImage();
+        }
+
+        setDragOffset(0);
+    };
+
+    const handlePointerLeave = () => {
+        if (isDragging) {
+            setIsDragging(false);
+            setDragOffset(0);
+        }
+    };
+
+    const handleImageClick = (e) => {
+        if (isSwiping.current) {
+            e.stopPropagation();
+            return;
+        }
+        handleDownloadZoom(mainImage?.url);
+    };
+
+    // التمرير التلقائي للصورة المصغرة المحددة
+    useEffect(() => {
+        if (thumbnailsRef.current && mainImage) {
+            const activeThumb = thumbnailsRef.current.querySelector('.pcd-thumb-container.active');
+            if (activeThumb) {
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+    }, [mainImage]);
+
     // فحص ما إذا كان هناك حاجة للأسهم (عنصر التمرير أكبر من الحاوية)
     const checkOverflow = () => {
         if (thumbnailsRef.current) {
@@ -347,17 +432,47 @@ export default function ProjectCardDisplay({
                     {/* القسم الأيسر: الصور */}
                     <div className="pcd-image-section">
                         {/* الصورة الرئيسية */}
-                        <div className={`pcd-main-image-container ${mainImage?.size === 'طول' ? 'img-portrait-container' : mainImage?.size === 'عرض' ? 'img-landscape-container' : mainImage?.size === 'مربع' ? 'img-square-container' : ''}`}>
+                        <div
+                            className={`pcd-main-image-container ${mainImage?.size === 'طول' ? 'img-portrait-container' : mainImage?.size === 'عرض' ? 'img-landscape-container' : mainImage?.size === 'مربع' ? 'img-square-container' : ''} ${isDragging ? 'grabbing' : ''}`}
+                            onPointerDown={handlePointerDown}
+                            onPointerMove={handlePointerMove}
+                            onPointerUp={handlePointerUp}
+                            onPointerLeave={handlePointerLeave}
+                            style={{ touchAction: 'pan-y' }}
+                        >
                             <img
                                 src={mainImage?.url ? `${BASE_URL}${mainImage.url}` : ''}
                                 loading="lazy"
                                 alt={data.title}
                                 className={`pcd-main-image ${mainImage?.size === 'طول' ? 'img-portrait' : mainImage?.size === 'عرض' ? 'img-landscape' : mainImage?.size === 'مربع' ? 'img-square' : ''}`}
-
-                                onClick={() => handleDownloadZoom(mainImage?.url)}
-                                title="انقر لتكبير الصورة"
+                                onClick={handleImageClick}
+                                draggable={false}
+                                style={{
+                                    transform: dragOffset ? `translateX(${dragOffset}px)` : 'none',
+                                    transition: isDragging ? 'none' : 'transform 0.3s ease-out'
+                                }}
+                                title="انقر لتكبير الصورة أو اسحب للتنقل بين الصور"
                             />
 
+                            {/* أسهم التنقل على النافذة الرئيسية عند وجود أكثر من صورة */}
+                            {data.images && data.images.length > 1 && (
+                                <>
+                                    <button
+                                        className="pcd-main-nav-btn pcd-main-nav-prev"
+                                        onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
+                                        title="الصورة السابقة"
+                                    >
+                                        <ArrowForwardIosIcon style={{ fontSize: '1.2rem', marginLeft: '3px' }} />
+                                    </button>
+                                    <button
+                                        className="pcd-main-nav-btn pcd-main-nav-next"
+                                        onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
+                                        title="الصورة التالية"
+                                    >
+                                        <ArrowBackIosIcon style={{ fontSize: '1.2rem', marginRight: '3px' }} />
+                                    </button>
+                                </>
+                            )}
 
                             {/* أزرار التنزيل والمشاركة */}
                             <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px', zIndex: 5 }}>

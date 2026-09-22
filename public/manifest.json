@@ -1,6 +1,21 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "ورشة الأوقيانوس للألمنيوم",
+  "short_name": "الأوقيانوس",
+  "description": "معرض ورشة الأوقيانوس لتصميم وتنفيذ أعمال الحديد والألمنيوم والديكورات الحديثة",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#121c2d",
+  "theme_color": "#121c2d",
+  "dir": "rtl",
+  "lang": "ar",
+  "categories": [
+    "business",
+    "shopping",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,16 +25,15 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "prefer_related_applications": false
 }

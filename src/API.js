@@ -1,7 +1,7 @@
 // src/API.js
 import React, { useState } from 'react';
 import { useEffect } from "react";
-// Base URL for the API
+// Base URL for the API https://admin.oceanus-ye.com/
 export const BASE_URL = `http://127.0.0.1:8000`;
 
 // Define your API endpoints based on API_DOCS.md

@@ -22,6 +22,7 @@ import { ContactProvider } from "./context/ContactContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import ErrorPage from "./Pages/Error";
+import PwaInstallPrompt from "./components/common/PwaInstallPrompt";
 // ============= import MUI  مكتبه  ==========// 
 import { Routes, Route } from "react-router-dom";
 
@@ -77,6 +78,7 @@ function App() {
                   }
                 />
               </Routes>
+              <PwaInstallPrompt />
               <Footer />
             </ErrorBoundary>
           </ContactProvider>

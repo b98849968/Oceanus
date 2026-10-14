@@ -1,43 +1,40 @@
-/*   fonts familys   */
-@font-face {
-    font-family: Thins;
-    src: url("/src/assets/fonts/Alexandria-Thin.ttf");
-    font-weight: 100;
-}
+ 
 
+ /*   fonts familys   */
+@font-face {
+   font-family: Thins;
+    src: url("/src/assets/fonts/Alexandria-Thin.ttf");
+    weight: 100;
+ }
 @font-face {
     font-family: ExtraLight;
     src: url("/src/assets/fonts/Alexandria-ExtraLight.ttf");
-    font-weight: 200;
+    weight: 200;
 }
-
-@font-face {
+ @font-face {
     font-family: Lights;
     src: url("/src/assets/fonts/Alexandria-Light.ttf");
-    font-weight: 300;
+    weight: 300;
 } 
-
-@font-face {
+  @font-face {
     font-family: Regular;
     src: url("/src/assets/fonts/Alexandria-Regular.ttf");
-    font-weight: 500;
+    weight:500;
 }
-
 @font-face {
     font-family: ExtraBold;
     src: url("/src/assets/fonts/Alexandria-ExtraBold.ttf");
-    font-weight: 700;
+    weight: 700;
 }
-
 @font-face {
     font-family: Bolds;
     src: url("/src/assets/fonts/Alexandria-Bold.ttf");
-    font-weight: 800;
+    weight:800;
 }
-
 @font-face {
     font-family: Blacks;
     src: url("/src/assets/fonts/Alexandria-Black.ttf");
-    font-weight: 900;
+    weight: 900;
 }
-/* ==========  fonts familys end ==========  */
+   
+ /* ==========  fonts familys end ==========  */

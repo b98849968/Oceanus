@@ -5,7 +5,7 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import { fetchAPI, ENDPOINTS } from '../../API';
 
-const ContactSection = ({ isOpen, onClose, initialContacts }) => {
+const ContactSection = ({ isOpen, onClose, contactsUrl, initialContacts }) => {
     const [contacts, setContacts] = useState(initialContacts || []);
     const [loading, setLoading] = useState(false);
 
@@ -98,6 +98,10 @@ const ContactSection = ({ isOpen, onClose, initialContacts }) => {
                         ))
                     )}
                 </div>
+
+                {/* <div className="contact-footer">
+                        ساعات العمل: من 8 صباحاً حتى 9 مساءً
+                    </div> */}
             </div>
         </div>
     );

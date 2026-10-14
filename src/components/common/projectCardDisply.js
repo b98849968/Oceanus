@@ -234,7 +234,51 @@ export default function ProjectCardDisplay({
         window.open(fullUrl, '_blank');
     };
 
-    // وظيفة تنزيل الصورة عبر الـ API
+    // وظيفة تنزيل الصورة فعلياً باستخدام Fetch لتحويلها لـ Blob وتجنب مشاكل الـ CORS
+    // const handleDownload = async (imgUrl, e) => {
+    //     if (e) e.stopPropagation();
+    //     if (!imgUrl) return;
+
+    //     setIsDownloading(true);
+    //     setSnackbarMessage("جاري تحضير التنزيل...");
+    //     setSnackbarSeverity("info");
+    //     setSnackbarOpen(true);
+
+    //     try {
+    //         const fullUrl = `${BASE_URL}${imgUrl}`;
+    //         const response = await fetch(fullUrl);
+            
+    //         if (!response.ok) throw new Error('فشل في جلب الصورة');
+            
+    //         const blob = await response.blob();
+    //         const blobURL = URL.createObjectURL(blob);
+            
+    //         const a = document.createElement("a");
+    //         a.href = blobURL;
+    //         const fileName = data.title ? `${data.title.replace(/\s+/g, "_")}.jpg` : "image.jpg";
+    //         a.download = fileName;
+    //         document.body.appendChild(a);
+    //         a.click();
+            
+    //         // تنظيف
+    //         document.body.removeChild(a);
+    //         URL.revokeObjectURL(blobURL);
+
+    //         setSnackbarMessage("تم التنزيل بنجاح");
+    //         setSnackbarSeverity("success");
+    //         setSnackbarOpen(true);
+    //     } catch (error) {
+            
+    //         setSnackbarMessage("حدث خطأ أثناء التنزيل. قد يكون بسبب قيود CORS");
+    //         setSnackbarSeverity("error");
+    //         setSnackbarOpen(true);
+            
+    //         // محاولة بديلة: فتح الصورة في علامة تبويب جديدة كحل أخير
+    //         window.open(`${BASE_URL}${imgUrl}`, '_blank');
+    //     } finally {
+    //         setIsDownloading(false);
+    //     }
+    // };
     const handleDownload = async (imgUrl, e) => {
     if (e) e.stopPropagation();
     if (!imgUrl) return;

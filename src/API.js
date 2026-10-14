@@ -1,8 +1,8 @@
 // src/API.js
 import React, { useState } from 'react';
 import { useEffect } from "react";
-// Base URL for the API https://admin.oceanus-ye.com/ 
-export const BASE_URL = `https://admin.oceanus-ye.com`.replace(/\/+$/, '');
+// Base URL for the API https://admin.oceanus-ye.com/
+export const BASE_URL = `https://admin.oceanus-ye.com/`;
 
 // Define your API endpoints based on API_DOCS.md
 export const ENDPOINTS = {
@@ -10,6 +10,7 @@ export const ENDPOINTS = {
     getAllGalleries: `${BASE_URL}/api/galleries`,             // GET: All galleries with nested categories/items
     getBasicGalleries: `${BASE_URL}/api/galleries/basic`,     // GET: Basic gallery info (ID, name, desc, image)
     getGalleryById: (id) => `${BASE_URL}/api/galleries/${id}`,// GET: Specific gallery details
+
 
     // 2. Categories
     getAllCategories: `${BASE_URL}/api/categories`,           // GET: All active categories
@@ -22,7 +23,7 @@ export const ENDPOINTS = {
     getSettings: `${BASE_URL}/api/settings`,                  // GET: General site settings (contact, location, logo)
     getLogoOnly: `${BASE_URL}/api/settings/logo`,             // GET: Only the logo URL
 };
-
+//  
 /**
  * A helper function to make API requests using fetch.
  * 
@@ -32,6 +33,7 @@ export const ENDPOINTS = {
  */
 export const fetchAPI = async (url, options = {}) => {
     try {
+
         const defaultHeaders = {
             'Content-Type': 'application/json',
             'Accept': 'application/json'

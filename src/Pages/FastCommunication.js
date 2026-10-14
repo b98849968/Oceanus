@@ -1,5 +1,6 @@
+import React from 'react';
 import '../styles/FastCommunication.css';
-import "../App.css";
+import "../App.css"
 // ====== import MUI .com ===========//
 import Button from '@mui/material/Button';
 

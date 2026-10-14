@@ -1,6 +1,7 @@
 // =============== import css ============= //
 import "../styles/Abute.css";
 import "../App.css";
+import "../assets/images/AbuteImg.png";
 
 // ========== icon MUI =============== //
 import EngineeringIcon from "@mui/icons-material/Engineering";

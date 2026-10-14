@@ -1,3 +1,6 @@
+# أولوية فتح ملف index.html وتجاوز أي ملف افتراضي من الاستضافة مثل default.php
+DirectoryIndex index.html index.php
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -7,3 +10,13 @@
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /index.html [L]
 </IfModule>
+
+# منع حفظ الكاش لملف index.html وملف sw.js حتى يتم تحميل آخر إصدار فوراً دون شاشة بيضاء
+<IfModule mod_headers.c>
+  <FilesMatch "^(index\.html|manifest\.json|sw\.js)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
+</IfModule>
+
